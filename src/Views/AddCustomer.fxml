@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddCustomer">
+   <children>
+      <GridPane layoutX="-1.0" layoutY="-14.0" prefHeight="820.0" prefWidth="1019.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="391.0" minWidth="0.0" prefWidth="36.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="628.0" minWidth="0.0" prefWidth="402.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="700.0" minWidth="0.0" prefWidth="576.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="113.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="151.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="227.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="208.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="218.0" minHeight="10.0" prefHeight="199.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="42.0" prefWidth="225.0" text="Add Customer" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Baskerville" size="36.0" />
+               </font>
+            </Label>
+            <GridPane prefHeight="91.0" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="AddCustomerLastName" onAction="#onAddCustomerLastName" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Label text="First Name" GridPane.rowIndex="2" />
+                  <Label text="Customer_ID" />
+                  <Label text="Last Name" GridPane.rowIndex="4" />
+                  <TextField fx:id="AddCustomerID" editable="false" onAction="#onAddCustomerID" opacity="0.59" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="AddCustomerFirstName" onAction="#onAddCustomerFirstName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Address" />
+                  <Label text="State/Province" GridPane.rowIndex="1" />
+                  <TextField fx:id="AddCustomerAddress" onAction="#onAddCustomerAddress" GridPane.columnIndex="1" />
+                  <ChoiceBox fx:id="AddState" onDragDetected="#onAddStateDragDetected" onMouseClicked="#onAddCustomerStateMouseClick" prefHeight="26.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Country" />
+                  <ChoiceBox fx:id="AddCountry" onDragDetected="#onAddCountryDragDetected" onMouseClicked="#onAddCustCountryMouseClick" prefHeight="26.0" prefWidth="207.0" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Postal Code" />
+                  <Label text="Phone Number" GridPane.rowIndex="1" />
+                  <TextField fx:id="AddCustomerPostalCode" onAction="#onAddCustomerPostalCode" GridPane.columnIndex="1" />
+                  <TextField fx:id="AddCustomerPhoneNumber" onAction="#onAddCustomerPhoneNumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="170.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="74.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="SaveAddCustomer" mnemonicParsing="false" onAction="#onSaveAddCustomer" prefHeight="26.0" prefWidth="78.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="AddCustomerExit" mnemonicParsing="false" onAction="#onAddCustomerExit" prefHeight="26.0" prefWidth="93.0" text="Exit" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="5">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
