@@ -7,11 +7,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/Reports.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/LoginScreen.fxml"));
         root.setStyle("-fx-font-family: Times New Roman;");
         primaryStage.setTitle("Login Screen");
         primaryStage.setScene(new Scene(root, 1650, 900));
@@ -21,9 +23,9 @@ public class Main extends Application {
 
     /**This is the main method. This is the first method that gets called when the application is run and it adds in sample data */
     public static void main(String[] args) {
-        launch(args);
-        JDBC.openConnection();
 
+        JDBC.openConnection();
+          launch(args);
         JDBC.closeConnection();
 
 
