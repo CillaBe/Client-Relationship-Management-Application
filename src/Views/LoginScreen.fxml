@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginScreen">
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginScreen">
    <children>
       <GridPane layoutX="-1.0" layoutY="25.0" prefHeight="400.0" prefWidth="500.0">
         <columnConstraints>
@@ -37,8 +36,22 @@
                <children>
                   <Label prefHeight="17.0" prefWidth="69.0" text="User ID" />
                   <Label text="Password" GridPane.rowIndex="1" />
-                  <TextField fx:id="UserIdBox" onAction="#onClickUserIdBox" GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="UserIdBox" GridPane.columnIndex="1" />
+                  <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="20.0" minHeight="7.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="13.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onClickEnterButton" text="Enter" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  <TextField fx:id="PasswordBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane prefHeight="124.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -55,7 +68,7 @@
               </rowConstraints>
                <children>
                   <Label text="Location Detected" GridPane.rowIndex="2" />
-                  <TextField fx:id="locationBox" onAction="#onClickLocationBox" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label fx:id="Location" text="Location" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
