@@ -18,13 +18,24 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class LoginScreen implements Initializable {
+    @FXML
+    private Label UserIDText;
+    @FXML
+    private Label PasswordText;
+    @FXML
+    private Button EnterText;
+    @FXML
+    private Label LocationDetectedText;
+    @FXML
+    private Button ExitButtonText;
     @FXML
     private Label Location;
     @FXML
@@ -36,8 +47,24 @@ public class LoginScreen implements Initializable {
     @FXML
     private TextField UserIdBox;
 
+    LocalDateTime CurrentTime;
+    Timestamp timeinDB;
+    Locale currentLocale;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ZoneId zoneId = ZoneId.systemDefault();
+        Location.setText(String.valueOf(zoneId));
+        currentLocale = Locale.getDefault();
+        String language = currentLocale.getDisplayLanguage();
+         if(language == "French") {
+             UserIDText.setText("Identifiant d'utilisateur");
+             PasswordText.setText("Mot de passe");
+             LocationDetectedText.setText("Emplacement détecté");
+             ExitButtonText.setText("Sortir");
+         }
 
     }
 
@@ -74,6 +101,7 @@ public class LoginScreen implements Initializable {
             MainStage.setTitle("Appointments");
             MainStage.show();
         }
+
     }
     public void onClickLocationBox(ActionEvent actionEvent) {
     }

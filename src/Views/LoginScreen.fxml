@@ -34,8 +34,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label prefHeight="17.0" prefWidth="69.0" text="User ID" />
-                  <Label text="Password" GridPane.rowIndex="1" />
+                  <Label fx:id="UserIDText" prefHeight="17.0" prefWidth="69.0" text="User ID" />
+                  <Label fx:id="PasswordText" text="Password" GridPane.rowIndex="1" />
                   <TextField fx:id="UserIdBox" GridPane.columnIndex="1" />
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <columnConstraints>
@@ -48,7 +48,7 @@
                       <RowConstraints maxHeight="13.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onClickEnterButton" text="Enter" GridPane.columnIndex="1" />
+                        <Button fx:id="EnterText" mnemonicParsing="false" onAction="#onClickEnterButton" text="Enter" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <TextField fx:id="PasswordBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -67,7 +67,7 @@
                 <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="102.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Location Detected" GridPane.rowIndex="2" />
+                  <Label fx:id="LocationDetectedText" text="Location Detected" GridPane.rowIndex="2" />
                   <Label fx:id="Location" text="Location" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
@@ -84,7 +84,7 @@
                 <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="ExitButton" mnemonicParsing="false" onAction="#onClickExitLogin" prefHeight="26.0" prefWidth="88.0" text="Exit" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="ExitButtonText" mnemonicParsing="false" onAction="#onClickExitLogin" prefHeight="26.0" prefWidth="88.0" text="Exit" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
