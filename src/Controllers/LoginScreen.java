@@ -60,6 +60,8 @@ public class LoginScreen implements Initializable {
     String filename = "login_activity.txt.", login; ;
     PrintWriter outputfile;
     FileWriter newfile;
+     /**This method initializes the class.
+      * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -76,7 +78,9 @@ public class LoginScreen implements Initializable {
 
          }
 
-
+/**This method creates a log for storing user login attempts
+ *
+ */
     }
      public  void createLog() throws  IOException{
         newfile = new FileWriter(filename,true);
@@ -137,7 +141,9 @@ public class LoginScreen implements Initializable {
             MainStage.setTitle("Appointments");
             MainStage.show();
         }
-
+        /**This method was not used in this application, auto generated through SceneBuilder.
+         @param actionEvent not used in this application, auto generated through SceneBuilder
+         */
     }
     public void onClickLocationBox(ActionEvent actionEvent) {
     }

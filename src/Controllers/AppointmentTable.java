@@ -2,13 +2,22 @@ package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOError;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AppointmentTable implements Initializable {
+    @FXML
+    public RadioButton AllAppointments;
     @FXML
     private TableColumn User_ID;
     @FXML
@@ -59,6 +68,7 @@ public class AppointmentTable implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        AllAppointments.setSelected(true);
 
     }
 
@@ -86,6 +96,17 @@ public class AppointmentTable implements Initializable {
     public void onReports(ActionEvent actionEvent) {
     }
 
-    public void onLogout(ActionEvent actionEvent) {
+    public void onLogout(ActionEvent actionEvent)  throws IOException {
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/LoginScreen.fxml"));
+        Scene MainScene = new Scene(parent,900,400);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Login Screen");
+        MainStage.show();
+        System.out.println("Logged out of Appointments tab");
+    }
+
+    public void onAllAppointmentsView(ActionEvent actionEvent) {
     }
 }
