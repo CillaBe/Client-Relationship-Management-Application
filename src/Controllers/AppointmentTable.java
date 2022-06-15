@@ -1,5 +1,8 @@
 package Controllers;
 
+import Helper.JDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +11,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointment;
 
 import java.io.IOError;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 public class AppointmentTable implements Initializable {
     @FXML
@@ -29,7 +39,7 @@ public class AppointmentTable implements Initializable {
     @FXML
     private TableColumn StartDate;
     @FXML
-    private TableView AppointmentTable;
+    private TableView <Appointment> AppointmentTable;
     @FXML
     private TableColumn AppointmentID;
     @FXML
@@ -65,12 +75,63 @@ public class AppointmentTable implements Initializable {
     private Button Reports;
     @FXML
     private Button LogOut;
+    ObservableList<Appointment> AllTableAppointments = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AllAppointments.setSelected(true);
+        AppointmentID.setCellValueFactory(new PropertyValueFactory<>("Appointment_ID"));
+        Title.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        Description.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        Location.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        Contact.setCellValueFactory(new PropertyValueFactory<>("Contact_ID"));
+        Type.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        StartDateAndTime.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        EndDateAndTime.setCellValueFactory(new PropertyValueFactory<>("End"));
+        CustomerID.setCellValueFactory(new PropertyValueFactory<>("Customer_ID"));
+        User_ID.setCellValueFactory(new PropertyValueFactory<>("User_ID"));
+
+        if (AllAppointments.isSelected()) {
+            try {
+                PopulateAllAppointments();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
     }
+    public void PopulateAllAppointments() throws SQLException {
+        try {
+            Connection connection = JDBC.openConnection();
+            ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM appointments");
+            while(rs.next()){
+                AllTableAppointments.add(new Appointment(rs.getString("Appointment_ID"), rs.getString("Customer_ID"),
+                        rs.getString("User_ID"), rs.getString("Title"), rs.getString("Description"),
+                        rs.getString("Location"), rs.getString("Contact"), rs.getString("Type"),
+                        rs.getString("Start"), rs.getString("End")));
+            }
+
+
+
+        }
+        catch (SQLException e){
+            System.out.print("Error loading appointments from database");
+        }
+        AppointmentTable.setItems(AllTableAppointments);
+        JDBC.closeConnection();
+    }
+
+
 
     public void onAppointmentTable(SortEvent<TableView> tableViewSortEvent) {
     }
@@ -107,6 +168,8 @@ public class AppointmentTable implements Initializable {
         System.out.println("Logged out of Appointments tab");
     }
 
-    public void onAllAppointmentsView(ActionEvent actionEvent) {
+    public void onAllAppointmentsView(ActionEvent actionEvent)  throws SQLException {
+
+        }
     }
-}
+
