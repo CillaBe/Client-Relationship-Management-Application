@@ -12,8 +12,8 @@ public class Appointment {
     String Description;
     String Location;
     String Type;
-    LocalDateTime Start;
-    LocalDateTime End;
+    String Start;
+    String End;
     Timestamp Create_Date;
     String Created_By;
     Timestamp Last_Update;
@@ -23,28 +23,29 @@ public class Appointment {
     int Contact_ID;
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
-    /**First constructor method to create instance of class using all fields in DB*/
-public Appointment( int Appointment_ID, String Title, String Description, String Location, String Type, LocalDateTime Start,
-                    LocalDateTime End, Timestamp Create_Date, String Created_By,
-                    Timestamp Last_Update, String Last_Updated_By, int Customer_ID, int User_ID, int Contact_ID) {
-    this.Appointment_ID = Appointment_ID;
-    this.Title = Title;
-    this.Description = Description;
-    this.Location = Location;
-    this.Type = Type;
-    this.Start = Start;
-    this.End = End;
-    this.Create_Date = Create_Date;
-    this.Created_By = Created_By;
-    this.Last_Update = Last_Update;
-    this.Last_Updated_By = Last_Updated_By;
-    this.Customer_ID = Customer_ID;
-    this.User_ID = User_ID;
-    this.Contact_ID = Contact_ID;
-}
-    /**Second constructor method to create instance of class using all fields in TableView*/
-    public Appointment( int Appointment_ID, String Title, String Description, String Location, String Type, LocalDateTime Start,
-                        LocalDateTime End,  int Customer_ID, int User_ID , int Contact_ID) {
+    /**
+     * First constructor method to create instance of class using all fields in DB
+     */
+    public Appointment(int Appointment_ID, String Title, String Description, String Location, String Type, String Start,
+                       String End, Timestamp Create_Date, String Created_By,
+                       Timestamp Last_Update, String Last_Updated_By, int Customer_ID, int User_ID, int Contact_ID) {
+        this.Appointment_ID = Appointment_ID;
+        this.Title = Title;
+        this.Description = Description;
+        this.Location = Location;
+        this.Type = Type;
+        this.Start = Start;
+        this.End = End;
+        this.Create_Date = Create_Date;
+        this.Created_By = Created_By;
+        this.Last_Update = Last_Update;
+        this.Last_Updated_By = Last_Updated_By;
+        this.Customer_ID = Customer_ID;
+        this.User_ID = User_ID;
+        this.Contact_ID = Contact_ID;
+    }
+    public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, String Start,
+                       String End) {
         this.Appointment_ID = Appointment_ID;
         this.Title = Title;
         this.Description = Description;
@@ -55,26 +56,81 @@ public Appointment( int Appointment_ID, String Title, String Description, String
         this.Customer_ID = Customer_ID;
         this.User_ID = User_ID;
         this.Contact_ID = Contact_ID;
-
     }
-    /**Third constructor method to create instance of class for TableView that accepts String data*/
-    public Appointment( String Appointment_ID,String Customer_ID,String User_ID, String Title, String Description,
-                       String Location,String Contact_ID, String Type, String Start, String End ) {
-        this.Appointment_ID = Integer.parseInt(Appointment_ID);
-        this.Title = Title;
-        this.Description = Description;
-        this.Location = Location;
-        this.Type = Type;
-        this.Start = LocalDateTime.parse(Start);
-        this.Contact_ID  = Integer.parseInt(Contact_ID);
-        this.End = LocalDateTime.parse(End);
-        this.Customer_ID = Integer.parseInt(Customer_ID);
-        this.User_ID = Integer.parseInt(User_ID);
 
+
+    /**
+     * Create Setters and Getters
+     */
+
+    public int getAppointment_ID() {
+        return Appointment_ID;
+    }
+
+    public int setAppointment_ID(int ID) {
+       return Appointment_ID = ID;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public String setTitle(String title) {
+        return Title = title;
+    }
+    public String getDescription(){
+        return Description;
+    }
+    public void setDescriptions(String Descript){
+        Description = Descript;
+    }
+    public String getLocation(){
+        return Location;
+    }
+    public void setLocation(String locate){
+        Location = locate;
+    }
+    public String getType(){
+        return Type;
+    }
+    public void setType(String TypeOfAppt){
+        Type = TypeOfAppt;
+    }
+    public String getStart(){
+        return Start;
+    }
+    public void setStart(String startTime){
+        Start = startTime;
+    }
+    public String getEnd(){
+        return End;
+    }
+    public  void  setEnd(String EndTime){
+        End = EndTime;
+    }
+    public int getUser_ID(){
+        return User_ID;
+    }
+    public void setUser_ID(int UID){
+        User_ID = UID;
+    }
+    public int getCustomer_ID(){
+        return Customer_ID;
+    }
+    public void  setCustomer_ID(int Cust_ID){
+        Customer_ID = Cust_ID;
+    }
+    public int getContact_ID(){
+        return Contact_ID;
+    }
+    public void setGetContact_ID(int ContactID){
+        Contact_ID = ContactID;
+    }
+    public static ObservableList<Appointment> getAllAppointments(){
+        return  allAppointments;
     }
 
 }
-
 
 
 

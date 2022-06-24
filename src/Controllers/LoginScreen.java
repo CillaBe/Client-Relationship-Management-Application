@@ -24,10 +24,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.TimeZone;
+import java.util.*;
 
 public class LoginScreen implements Initializable {
     @FXML
@@ -133,13 +130,15 @@ public class LoginScreen implements Initializable {
 
             newAlert.setContentText("Login Succesful!");
             newAlert.showAndWait();
-            Parent parent = FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
+            Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Views/AppointmentTable.fxml")));
+
             Scene MainScene = new Scene(parent,1900,1000);
             Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             MainStage.setScene(MainScene);
             parent.setStyle("-fx-font-family: Times New Roman;");
             MainStage.setTitle("Appointments");
             MainStage.show();
+            System.out.println("Appointments launched successfully!");
         }
         /**This method was not used in this application, auto generated through SceneBuilder.
          @param actionEvent not used in this application, auto generated through SceneBuilder

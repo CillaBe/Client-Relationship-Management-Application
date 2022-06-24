@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -75,11 +76,19 @@ public class AppointmentTable implements Initializable {
     private Button Reports;
     @FXML
     private Button LogOut;
-    ObservableList<Appointment> AllTableAppointments = FXCollections.observableArrayList();
+    @FXML
+    private Connection connection;
+    @FXML
+    private ObservableList<Appointment> AllTableAppointments = FXCollections.observableArrayList();
+    @FXML
+    private JDBC DbHandler;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         AllAppointments.setSelected(true);
+
         AppointmentID.setCellValueFactory(new PropertyValueFactory<>("Appointment_ID"));
         Title.setCellValueFactory(new PropertyValueFactory<>("Title"));
         Description.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -92,6 +101,7 @@ public class AppointmentTable implements Initializable {
         User_ID.setCellValueFactory(new PropertyValueFactory<>("User_ID"));
 
         if (AllAppointments.isSelected()) {
+            System.out.print("All appointments selected");
             try {
                 PopulateAllAppointments();
             } catch (SQLException throwables) {
@@ -100,36 +110,42 @@ public class AppointmentTable implements Initializable {
         }
 
 
-
-
-
-
-
-
-
-
-
     }
     public void PopulateAllAppointments() throws SQLException {
+        System.out.print("Trying to populate appointments");
         try {
-            Connection connection = JDBC.openConnection();
-            ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM appointments");
-            while(rs.next()){
-                AllTableAppointments.add(new Appointment(rs.getString("Appointment_ID"), rs.getString("Customer_ID"),
-                        rs.getString("User_ID"), rs.getString("Title"), rs.getString("Description"),
-                        rs.getString("Location"), rs.getString("Contact"), rs.getString("Type"),
-                        rs.getString("Start"), rs.getString("End")));
+            String statement = "SELECT  appointments.Appointment_ID,appointments.Customer_ID,appointments.User_ID," +
+                    "appointments.Title,appointments.Description,appointments.Location," +
+                    "appointments.Contact_ID,appointments.Type,appointments.Start," +
+                    "appointments.End FROM appointments";
+            connection = JDBC.openConnection();
+            ResultSet rs = connection.createStatement().executeQuery(statement);
+            System.out.print("Query Successful!");
+            AllTableAppointments.clear();
+            while (rs.next()) {
+                int Appointment_ID = rs.getInt("Appointment_ID");
+                int Customer_ID = rs.getInt("Customer_ID");
+                int User_ID = rs.getInt("User_ID");
+                String Title = rs.getString("Title");
+                String Description = rs.getString("Description");
+                String Location = rs.getString("Location");
+                int Contact_ID = rs.getInt("Contact_ID");
+                String Type = rs.getString("Type");
+                String StartString = rs.getString("Start");
+                String EndString = rs.getString("End");
+
+                AllTableAppointments.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,StartString,EndString));
+                AppointmentTable.setItems(Appointment.getAllAppointments());
+                System.out.print("Set all appts in OL");
             }
-
+        }
+            catch(SQLException e) {
+                    System.out.println("Error updating table");
+                }
 
 
         }
-        catch (SQLException e){
-            System.out.print("Error loading appointments from database");
-        }
-        AppointmentTable.setItems(AllTableAppointments);
-        JDBC.closeConnection();
-    }
+
 
 
 
