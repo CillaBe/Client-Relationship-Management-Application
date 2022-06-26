@@ -135,7 +135,7 @@ public class AppointmentTable implements Initializable {
                 String EndString = rs.getString("End");
 
                 AllTableAppointments.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,StartString,EndString));
-                AppointmentTable.setItems(Appointment.getAllAppointments());
+                AppointmentTable.setItems(AllTableAppointments);
                 System.out.print("Set all appts in OL");
             }
         }
