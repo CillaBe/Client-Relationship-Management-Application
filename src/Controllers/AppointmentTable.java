@@ -23,8 +23,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+
+import static java.time.format.DateTimeFormatter.*;
 
 public class AppointmentTable implements Initializable {
     @FXML
@@ -81,6 +86,14 @@ public class AppointmentTable implements Initializable {
     @FXML
     private ObservableList<Appointment> AllTableAppointments = FXCollections.observableArrayList();
     @FXML
+    private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    @FXML
+    private  ZoneId CurrentZoneID = ZoneId.systemDefault();
+    @FXML
+    private ZoneId UTCID = ZoneId.of("UTC");
+
+
+    @FXML
     private JDBC DbHandler;
 
 
@@ -101,7 +114,7 @@ public class AppointmentTable implements Initializable {
         User_ID.setCellValueFactory(new PropertyValueFactory<>("User_ID"));
 
         if (AllAppointments.isSelected()) {
-            System.out.print("All appointments selected");
+            System.out.print(" All appointments selected");
             try {
                 PopulateAllAppointments();
             } catch (SQLException throwables) {
@@ -112,7 +125,7 @@ public class AppointmentTable implements Initializable {
 
     }
     public void PopulateAllAppointments() throws SQLException {
-        System.out.print("Trying to populate appointments");
+        System.out.print(" Trying to populate appointments");
         try {
             String statement = "SELECT  appointments.Appointment_ID,appointments.Customer_ID,appointments.User_ID," +
                     "appointments.Title,appointments.Description,appointments.Location," +
@@ -120,7 +133,7 @@ public class AppointmentTable implements Initializable {
                     "appointments.End FROM appointments";
             connection = JDBC.openConnection();
             ResultSet rs = connection.createStatement().executeQuery(statement);
-            System.out.print("Query Successful!");
+            System.out.print(" Query Successful! ");
             AllTableAppointments.clear();
             while (rs.next()) {
                 int Appointment_ID = rs.getInt("Appointment_ID");
@@ -131,16 +144,31 @@ public class AppointmentTable implements Initializable {
                 String Location = rs.getString("Location");
                 int Contact_ID = rs.getInt("Contact_ID");
                 String Type = rs.getString("Type");
-                String StartString = rs.getString("Start");
-                String EndString = rs.getString("End");
+                String StartString = rs.getString("Start").substring(0,19);
+                String EndString = rs.getString("End").substring(0,19);
+                System.out.println(" Current Zone Id: " + CurrentZoneID+ " UTC Zone ID " + UTCID+ " ");
 
-                AllTableAppointments.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,StartString,EndString));
+
+                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*?
+                LocalDateTime StartLocal = LocalDateTime.parse(StartString,formatter);
+                LocalDateTime EndLocal = LocalDateTime.parse(EndString,formatter);
+
+                ZonedDateTime ZonedStart = StartLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
+                ZonedDateTime ZonedEnd = EndLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
+                //*Convert back to string to store in Appointment object and table*/
+
+
+                String FormattedTableStart = ZonedStart.format(formatter);
+                String FormattedTableEnd = ZonedEnd.format(formatter);
+
+
+                AllTableAppointments.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,FormattedTableStart,FormattedTableEnd));
                 AppointmentTable.setItems(AllTableAppointments);
-                System.out.print("Set all appts in OL");
+                System.out.print(" Set all appts in table");
             }
         }
             catch(SQLException e) {
-                    System.out.println("Error updating table");
+                    System.out.println(" Error updating table");
                 }
 
 
