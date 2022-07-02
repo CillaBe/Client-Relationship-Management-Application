@@ -3,6 +3,7 @@ package Controllers;
 import Helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -34,6 +36,7 @@ import static java.time.format.DateTimeFormatter.*;
 public class AppointmentTable implements Initializable {
     @FXML
     public RadioButton AllAppointments;
+    public ToggleGroup apptTgroup;
     @FXML
     private TableColumn User_ID;
     @FXML
@@ -122,7 +125,9 @@ public class AppointmentTable implements Initializable {
             }
         }
 
-
+ /** This method populates all appointments to the schedule tableview.
+  *
+  * */
     }
     public void PopulateAllAppointments() throws SQLException {
         System.out.print(" Trying to populate appointments");
@@ -165,6 +170,7 @@ public class AppointmentTable implements Initializable {
                 AllTableAppointments.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,FormattedTableStart,FormattedTableEnd));
                 AppointmentTable.setItems(AllTableAppointments);
                 System.out.print(" Set all appts in table");
+
             }
         }
             catch(SQLException e) {
@@ -179,8 +185,64 @@ public class AppointmentTable implements Initializable {
 
     public void onAppointmentTable(SortEvent<TableView> tableViewSortEvent) {
     }
+ /**This method populates the month view for the all Appointments Calender
+  * @param  actionEvent populated month vview*/
 
     public void onMonthView(ActionEvent actionEvent) {
+        System.out.print(" Trying to populate monthly appointments");
+        try {
+            String statement = "SELECT  appointments.Appointment_ID,appointments.Customer_ID,appointments.User_ID," +
+                    "appointments.Title,appointments.Description,appointments.Location," +
+                    "appointments.Contact_ID,appointments.Type,appointments.Start," +
+                    "appointments.End FROM appointments";
+            connection = JDBC.openConnection();
+            ResultSet rs = connection.createStatement().executeQuery(statement);
+            System.out.print(" Query Successful! ");
+            AllTableAppointments.clear();
+            while (rs.next()) {
+                int Appointment_ID = rs.getInt("Appointment_ID");
+                int Customer_ID = rs.getInt("Customer_ID");
+                int User_ID = rs.getInt("User_ID");
+                String Title = rs.getString("Title");
+                String Description = rs.getString("Description");
+                String Location = rs.getString("Location");
+                int Contact_ID = rs.getInt("Contact_ID");
+                String Type = rs.getString("Type");
+                String StartString = rs.getString("Start").substring(0, 19);
+                String EndString = rs.getString("End").substring(0, 19);
+                System.out.println(" Current Zone Id: " + CurrentZoneID + " UTC Zone ID " + UTCID + " ");
+
+
+                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*?
+                LocalDateTime StartLocal = LocalDateTime.parse(StartString, formatter);
+                LocalDateTime EndLocal = LocalDateTime.parse(EndString, formatter);
+
+                ZonedDateTime ZonedStart = StartLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
+                ZonedDateTime ZonedEnd = EndLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
+                //*Convert back to string to store in Appointment object and table*/
+
+
+                String FormattedTableStart = ZonedStart.format(formatter);
+                String FormattedTableEnd = ZonedEnd.format(formatter);
+
+
+                AllTableAppointments.add(new Appointment(Appointment_ID, Customer_ID, User_ID, Title, Description, Location, Contact_ID, Type, FormattedTableStart, FormattedTableEnd));
+            }
+
+            LocalDate today = LocalDate.now();
+            LocalDate MonthLater = today.plusMonths(1);
+
+            FilteredList<Appointment> FilteredByMonth = new FilteredList<>(AllTableAppointments);
+            FilteredByMonth.setPredicate(dateToCheck -> {
+                LocalDate dateBeingChecked = LocalDate.parse(dateToCheck.getStart(), formatter);
+                return dateBeingChecked.isAfter(today.minusDays(1)) && dateBeingChecked.isBefore(MonthLater);
+            });
+
+            AppointmentTable.setItems(FilteredByMonth);
+
+        } catch (SQLException e) {
+            System.out.println(" Error updating table month view");
+        }
     }
 
     public void onWeekView(ActionEvent actionEvent) {
@@ -213,6 +275,7 @@ public class AppointmentTable implements Initializable {
     }
 
     public void onAllAppointmentsView(ActionEvent actionEvent)  throws SQLException {
+        PopulateAllAppointments();;
 
         }
     }
