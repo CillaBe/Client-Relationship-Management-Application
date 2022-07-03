@@ -19,14 +19,8 @@ import model.Appointment;
 import java.io.IOError;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.sql.*;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -89,7 +83,11 @@ public class AppointmentTable implements Initializable {
     @FXML
     private ObservableList<Appointment> AllTableAppointments = FXCollections.observableArrayList();
     @FXML
+    private ObservableList AppointmentStartTimesOL = FXCollections.observableArrayList();
+    @FXML
     private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    @FXML
+    private DateTimeFormatter formatterFor15MinChecking = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
     @FXML
     private  ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
@@ -123,12 +121,94 @@ public class AppointmentTable implements Initializable {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+
+        }
+        try {
+            CheckForAppointments();
+        }
+        catch (SQLException throwables){
+            throwables.printStackTrace();
+        }
+        /** This method checks if there are any appts with in 15 mins of logging in and alerts if there are or not.
+         *
+         * */
+    }
+
+        public void CheckForAppointments() throws SQLException {
+            System.out.println(" Trying to check for appointments 15 minutes from now");
+            try {
+                String statement = "SELECT  appointments.Appointment_ID,appointments.Customer_ID,appointments.User_ID," +
+                        "appointments.Title,appointments.Description,appointments.Location," +
+                        "appointments.Contact_ID,appointments.Type,appointments.Start," +
+                        "appointments.End FROM appointments";
+                connection = JDBC.openConnection();
+                ResultSet rs = connection.createStatement().executeQuery(statement);
+                System.out.print(" Query for appt times successful!");
+                while(rs.next())  {
+                    int Appointment_ID = rs.getInt("Appointment_ID");
+                    int Customer_ID = rs.getInt("Customer_ID");
+                    int User_ID = rs.getInt("User_ID");
+                    String Title = rs.getString("Title");
+                    String Description = rs.getString("Description");
+                    String Location = rs.getString("Location");
+                    int Contact_ID = rs.getInt("Contact_ID");
+                    String Type = rs.getString("Type");
+
+                    /*Convert DB Start and end to Local Zoned Date and Time */
+                    Timestamp EndTimeFromDB= rs.getTimestamp("End");
+                    ZonedDateTime ZonedEnd = EndTimeFromDB.toLocalDateTime().atZone(UTCID);
+                    ZonedDateTime LocalEnd =ZonedEnd.withZoneSameInstant(CurrentZoneID);
+
+                    Timestamp StartTimefromDB = rs.getTimestamp("Start");
+                    ZonedDateTime ZonedStart = StartTimefromDB.toLocalDateTime().atZone(UTCID);
+                    ZonedDateTime LocalStart =ZonedStart.withZoneSameInstant(CurrentZoneID);
+
+                    System.out.println(" Try to add appts to list");
+                    AppointmentStartTimesOL.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,LocalStart.toString(),LocalEnd.toString()));
+                    System.out.println("Added all start times to list" + "Start and end Time are " + LocalStart + " " + LocalEnd);
+
+
+                }
+                LocalDateTime today = LocalDateTime.now();
+                LocalDateTime FifteenMinutes = today.plusMinutes(15);
+
+                FilteredList<Appointment> FilteredByTime = new FilteredList<>(AppointmentStartTimesOL);
+                FilteredByTime.setPredicate(TimeToCheck -> {
+                    LocalDateTime TimeBeingChecked = LocalDateTime.parse(TimeToCheck.getStart().substring(0,16), formatterFor15MinChecking);
+                    return TimeBeingChecked.isAfter(today.minusMinutes(1)) && TimeBeingChecked.isBefore(FifteenMinutes);
+                        });
+                    if (FilteredByTime.isEmpty()) {
+                        System.out.println(" No appts within 15 mins");
+                        Alert NoApptAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                        NoApptAlert.setContentText("You have no appointments in the next 15 minutes");
+                        NoApptAlert.showAndWait();
+                    }
+                        else {
+                            int ApptID = FilteredByTime.get(0).getAppointment_ID();
+                            String Description = FilteredByTime.get(0).getDescription();
+                            String StartTime = FilteredByTime.get(0).getStart().substring(0,16);
+
+                            Alert ApptAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                            ApptAlert.setHeaderText("You have the following appointments in the next 15 minutes.");
+                            ApptAlert.setContentText("");
+                            System.out.println(" appts in next 15 mins " + "Appointment ID: " + ApptID + " Description: "
+                                    + Description + " Start Time " + FilteredByTime);
+                            ApptAlert.showAndWait();
+                        }
+
+
+            }
+            catch (SQLException e){
+                System.out.println(" Error selecting appts times");
+            }
+
         }
 
  /** This method populates all appointments to the schedule tableview.
   *
   * */
-    }
+
+
     public void PopulateAllAppointments() throws SQLException {
         System.out.print(" Trying to populate appointments");
         try {
@@ -138,7 +218,7 @@ public class AppointmentTable implements Initializable {
                     "appointments.End FROM appointments";
             connection = JDBC.openConnection();
             ResultSet rs = connection.createStatement().executeQuery(statement);
-            System.out.print(" Query Successful! ");
+            System.out.print(" Query for all appts Successful! ");
             AllTableAppointments.clear();
             while (rs.next()) {
                 int Appointment_ID = rs.getInt("Appointment_ID");
@@ -154,7 +234,7 @@ public class AppointmentTable implements Initializable {
                 System.out.println(" Current Zone Id: " + CurrentZoneID+ " UTC Zone ID " + UTCID+ " ");
 
 
-                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*?
+                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*/
                 LocalDateTime StartLocal = LocalDateTime.parse(StartString,formatter);
                 LocalDateTime EndLocal = LocalDateTime.parse(EndString,formatter);
 
