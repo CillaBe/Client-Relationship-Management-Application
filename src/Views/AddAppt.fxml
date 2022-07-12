@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -93,11 +92,11 @@
                         <Label text="Type" GridPane.rowIndex="2" />
                         <Label text="Start Time" GridPane.rowIndex="3" />
                         <TextField fx:id="AddApptType" onAction="#onAddApptType" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ChoiceBox fx:id="AddApptContact" onDragDetected="#onAddApptContact" onMouseClicked="#onAddApptContactClicked" prefHeight="26.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Location" />
                         <Label text="Contact" GridPane.rowIndex="1" />
                         <TextField fx:id="AddApptLocation" onAction="#onAddApptLocation" GridPane.columnIndex="1" />
-                        <ComboBox fx:id="StartTime" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="StartTime" prefWidth="150.0" promptText="Select Start Time" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="ContactList" prefWidth="150.0" promptText="Select Contact" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -131,7 +130,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ComboBox fx:id="EndTime" prefHeight="25.0" prefWidth="147.0" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="EndTime" prefHeight="25.0" prefWidth="147.0" promptText="Select End Time" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>

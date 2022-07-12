@@ -1,5 +1,6 @@
 package Controllers;
 
+import Helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,10 +15,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import jdk.jfr.Frequency;
+import model.Contact;
 import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -29,6 +34,8 @@ import static java.time.LocalTime.now;
 import static javafx.collections.FXCollections.observableList;
 
 public class AddAppt implements Initializable {
+    @FXML
+    private ComboBox ContactList;
     @FXML
     private ComboBox StartTime;
     @FXML
@@ -45,18 +52,9 @@ public class AddAppt implements Initializable {
     private TextField AddApptCustID;
     @FXML
     private TextField AddApptType;
-    @FXML
-    private ChoiceBox AddApptContact;
+
     @FXML
     private TextField AddApptLocation;
-    @FXML
-    private Spinner AddApptStartTimeHour;
-    @FXML
-    private Spinner AddApptStartTimeMin;
-    @FXML
-    private Spinner AddApptEndTimeHour;
-    @FXML
-    private Spinner AddApptEndTimeMin;
     @FXML
     private DatePicker AddApptStartDate;
     @FXML
@@ -73,6 +71,8 @@ public class AddAppt implements Initializable {
     @FXML
     private ObservableList<String> OLEndTimes = FXCollections.observableArrayList();
     @FXML
+    private ObservableList<Contact> OLContactsFromDB = FXCollections.observableArrayList();
+    @FXML
     private DateTimeFormatter Timeformatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM);
     @FXML
     private DateTimeFormatter DateFormatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -80,14 +80,20 @@ public class AddAppt implements Initializable {
     private ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
     private ZoneId UTCID = ZoneId.of("UTC");
+    @FXML
+    private Connection connection;
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         InsertStartTimes();
         InsertEndTimes();
+        ContactList.setItems(Contact.getContactNames());
 
     }
+    /**This method populates the StartTimes Combo Box
+     */
     public void InsertStartTimes() {
         LocalTime LocalTimeHolder = LocalTime.MIN.plusHours(8);
         int i;
@@ -98,6 +104,8 @@ public class AddAppt implements Initializable {
         StartTime.setItems(OLStartTimes);
 
     }
+    /**This method populates the EndTimes Combo Box
+     */
     public void  InsertEndTimes(){
         LocalTime LocalTimeHolder = LocalTime.MIN.plusHours(8);
         int i;
@@ -108,6 +116,7 @@ public class AddAppt implements Initializable {
         EndTime.setItems(OLStartTimes);
 
     }
+
 
 
     public void onAddApptDescription(ActionEvent actionEvent) {
