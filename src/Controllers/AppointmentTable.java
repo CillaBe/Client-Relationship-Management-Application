@@ -389,8 +389,18 @@ public class AppointmentTable implements Initializable {
 
     public void onModifyAppointment(ActionEvent actionEvent) {
     }
-
-    public void onAddAppointment(ActionEvent actionEvent) {
+    /**This method launches the Add Appointment Screen
+     @param actionEvent navigates to Add Appointment screen
+     */
+    public void onAddAppointment(ActionEvent actionEvent) throws IOException {
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/AddAppt.fxml"));
+        Scene MainScene = new Scene(parent,900,800);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Add Appointment");
+        MainStage.show();
+        System.out.println("Moved to Add appointments");
     }
 
     public void onDeleteAppointment(ActionEvent actionEvent) {
