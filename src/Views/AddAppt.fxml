@@ -70,11 +70,11 @@
                               <Font name="System Italic" size="13.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="AddApptUserID" onAction="#onAddApptUserID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Customer_ID" GridPane.rowIndex="1" />
                         <Label text="Title" GridPane.rowIndex="3" />
                         <TextField fx:id="AddApptTitle" onAction="#onAddApptTitle" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="AddApptCustID" onAction="#onAddApptCustID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="CustomerID" prefWidth="150.0" promptText="Select Customer ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="UserIDs" prefWidth="150.0" promptText="Select User ID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">

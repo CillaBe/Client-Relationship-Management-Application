@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import jdk.jfr.Frequency;
 import model.Contact;
 import model.Customer;
+import model.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +35,10 @@ import static java.time.LocalTime.now;
 import static javafx.collections.FXCollections.observableList;
 
 public class AddAppt implements Initializable {
+    @FXML
+    private ComboBox UserIDs;
+    @FXML
+    private ComboBox CustomerID;
     @FXML
     private ComboBox ContactList;
     @FXML
@@ -90,6 +95,10 @@ public class AddAppt implements Initializable {
         InsertStartTimes();
         InsertEndTimes();
         ContactList.setItems(Contact.getContactNames());
+        CustomerID.setItems(Customer.getCustomerIDs());
+        UserIDs.setItems(User.getUserIDs());
+
+
 
     }
     /**This method populates the StartTimes Combo Box
