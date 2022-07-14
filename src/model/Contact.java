@@ -35,6 +35,10 @@ public class Contact {
     public String returnContactName(){
        return ContactName;
     }
+    @Override
+    public String toString(){
+       return("#" + Integer.toString(ContactID) + " " + ContactName);
+    }
     public static ObservableList<String> getContactNames(){
         Connection connection = JDBC.openConnection();
        try {
@@ -44,8 +48,9 @@ public class Contact {
 
            while (rs.next()) {
                String contactName = rs.getString("Contact_Name");
+               int contactID = rs.getInt("Contact_ID");
 
-               AllContacts.add((contactName));
+               AllContacts.add(String.valueOf(new Contact(contactID,contactName)));
 
            }
        }

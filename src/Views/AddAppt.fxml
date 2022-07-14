@@ -65,7 +65,7 @@
                         <Label text="User_ID" GridPane.rowIndex="2" />
                         <Label text="Appointment_ID" />
                         <Label text="Description" GridPane.rowIndex="4" />
-                        <TextField fx:id="AddApptID" onAction="#onAddApptID" opacity="0.65" GridPane.columnIndex="1">
+                        <TextField fx:id="AddApptID" editable="false" onAction="#onAddApptID" opacity="0.65" promptText="Auto Generated" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font>

@@ -24,6 +24,10 @@ public class User {
         this.UserName = UserName;
 
     }
+    @Override
+    public String toString() {
+        return ("#" + Integer.toString(UserID) + " " + UserName);
+    }
     public static ObservableList<String> getUserIDs(){
         Connection connection = JDBC.openConnection();
         try {
@@ -34,7 +38,8 @@ public class User {
             while (rs.next()) {
 
                 int UserID = rs.getInt("User_ID");
-                AllUserIDs.add(String.valueOf(UserID));
+                String UserName = rs.getString("User_Name");
+                AllUserIDs.add(String.valueOf(new User(UserID,UserName)));
 
 
 
