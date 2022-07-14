@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -125,6 +126,107 @@ public class AddAppt implements Initializable {
         EndTime.setItems(OLStartTimes);
 
     }
+    public  Boolean validateFields() {
+
+        String Description = addApptDescription.getText();
+
+        if (Description.isEmpty()) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Error, please add a description. PS I LOVE YOU JOE");
+            error.showAndWait();
+        }
+        SingleSelectionModel Customerid = CustomerID.getSelectionModel();
+        if (Customerid.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please select a Customer ID");
+                error.showAndWait();
+            }
+
+        }
+        SingleSelectionModel Userid = UserIDs.getSelectionModel();
+        if (Userid.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please select a User ID");
+                error.showAndWait();
+            }
+
+        }
+        String location = AddApptLocation.getText();
+        if (location.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter a location");
+                error.showAndWait();
+            }
+
+        }
+        SingleSelectionModel contact = ContactList.getSelectionModel();
+        if (contact.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please select a Contact ID");
+                error.showAndWait();
+            }
+
+
+        }
+        String type = AddApptType.getText();
+        if (type.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment type");
+                error.showAndWait();
+            }
+        }
+
+        SingleSelectionModel Starttime= StartTime.getSelectionModel();
+        if (Starttime.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment start time");
+                error.showAndWait();
+            }
+        }
+        SingleSelectionModel Endtime= EndTime.getSelectionModel();
+        if (Endtime.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment end time");
+                error.showAndWait();
+            }
+        }
+        LocalDate EnddDate= AddApptEndDate.getValue();
+        System.out.println(" Appointment End date is "+ EnddDate+" ");
+        if (EnddDate == null) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment end date");
+                error.showAndWait();
+            }
+        }
+        LocalDate Startdate = AddApptStartDate.getValue();
+        if (Startdate == null) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment start date");
+                error.showAndWait();
+            }
+        }
+
+
+        if (Startdate == null || EnddDate == null || Endtime.isEmpty() || Starttime.isEmpty() || type.isEmpty() || contact.isEmpty() || location.isEmpty() || Userid.isEmpty() || Customerid.isEmpty()
+        || Description.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
+
+        }
+
+
+    }
 
 
 
@@ -183,6 +285,8 @@ public class AddAppt implements Initializable {
     }
 
     public void onSaveAddAppt(ActionEvent actionEvent) {
+        validateFields();
+        System.out.println("Return type of validate fields equals  "+ validateFields() + " ");
     }
 
 
