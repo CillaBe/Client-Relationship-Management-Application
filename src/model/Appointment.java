@@ -14,6 +14,8 @@ public class Appointment {
     String Type;
     String Start;
     String End;
+    LocalDateTime StartLocal;
+    LocalDateTime  EndLocal;
     Timestamp Create_Date;
     String Created_By;
     Timestamp Last_Update;
@@ -53,6 +55,19 @@ public class Appointment {
         this.Type = Type;
         this.Start = Start;
         this.End = End;
+        this.Customer_ID = Customer_ID;
+        this.User_ID = User_ID;
+        this.Contact_ID = Contact_ID;
+    }
+    public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, LocalDateTime Start,
+                       LocalDateTime End) {
+        this.Appointment_ID = Appointment_ID;
+        this.Title = Title;
+        this.Description = Description;
+        this.Location = Location;
+        this.Type = Type;
+        this.StartLocal = Start;
+        this.EndLocal = End;
         this.Customer_ID = Customer_ID;
         this.User_ID = User_ID;
         this.Contact_ID = Contact_ID;
@@ -99,12 +114,15 @@ public class Appointment {
     public String getStart(){
         return Start;
     }
+    public LocalDateTime getStartLocal(){ return StartLocal;};
+
     public void setStart(String startTime){
         Start = startTime;
     }
     public String getEnd(){
         return End;
     }
+    public LocalDateTime getEndLocal(){return EndLocal;}
     public  void  setEnd(String EndTime){
         End = EndTime;
     }

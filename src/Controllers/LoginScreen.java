@@ -132,7 +132,7 @@ public class LoginScreen implements Initializable {
             newAlert.showAndWait();
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Views/AppointmentTable.fxml")));
 
-            Scene MainScene = new Scene(parent,3800,1200);
+            Scene MainScene = new Scene(parent,3800,1900);
             Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             MainStage.setScene(MainScene);
             parent.setStyle("-fx-font-family: Times New Roman;");

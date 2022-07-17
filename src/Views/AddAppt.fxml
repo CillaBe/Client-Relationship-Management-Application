@@ -145,10 +145,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="Start Date" />
-                        <Label text="End Date" GridPane.rowIndex="1" />
+                        <Label text="Appointment Date" />
                         <DatePicker fx:id="AddApptStartDate" onAction="#onAddApptStartDate" onMouseClicked="#onAddApptStartDateClicked" GridPane.columnIndex="1" />
-                        <DatePicker fx:id="AddApptEndDate" onAction="#onAddApptEndDate" onMouseClicked="#onAddApptEndDateClicked" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">

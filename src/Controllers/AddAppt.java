@@ -15,19 +15,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import jdk.jfr.Frequency;
+import model.Appointment;
 import model.Contact;
 import model.Customer;
 import model.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.sql.*;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ResourceBundle;
@@ -43,9 +39,9 @@ public class AddAppt implements Initializable {
     @FXML
     private ComboBox ContactList;
     @FXML
-    private ComboBox StartTime;
+    private ComboBox<String> StartTime;
     @FXML
-    private ComboBox EndTime;
+    private ComboBox<String> EndTime;
     @FXML
     private TextField addApptDescription;
     @FXML
@@ -81,14 +77,13 @@ public class AddAppt implements Initializable {
     @FXML
     private DateTimeFormatter Timeformatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM);
     @FXML
-    private DateTimeFormatter DateFormatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter DateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     @FXML
     private ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
     private ZoneId UTCID = ZoneId.of("UTC");
     @FXML
     private Connection connection;
-
 
 
     @Override
@@ -100,33 +95,37 @@ public class AddAppt implements Initializable {
         UserIDs.setItems(User.getUserIDs());
 
 
-
     }
-    /**This method populates the StartTimes Combo Box
+
+    /**
+     * This method populates the StartTimes Combo Box
      */
     public void InsertStartTimes() {
         LocalTime LocalTimeHolder = LocalTime.MIN.plusHours(8);
         int i;
-        for( i = 0; i<= 14; i++){
+        for (i = 0; i <= 14; i++) {
             OLStartTimes.add(LocalTimeHolder.format(Timeformatter));
             LocalTimeHolder = LocalTimeHolder.plusHours(1);
         }
         StartTime.setItems(OLStartTimes);
 
     }
-    /**This method populates the EndTimes Combo Box
+
+    /**
+     * This method populates the EndTimes Combo Box
      */
-    public void  InsertEndTimes(){
+    public void InsertEndTimes() {
         LocalTime LocalTimeHolder = LocalTime.MIN.plusHours(8);
         int i;
-        for( i = 0; i<= 14; i++){
+        for (i = 0; i <= 14; i++) {
             OLEndTimes.add(LocalTimeHolder.format(Timeformatter));
             LocalTimeHolder = LocalTimeHolder.plusHours(1);
         }
         EndTime.setItems(OLStartTimes);
 
     }
-    public  Boolean validateFields() {
+
+    public Boolean validateFields() {
 
         String Description = addApptDescription.getText();
 
@@ -181,7 +180,7 @@ public class AddAppt implements Initializable {
             }
         }
 
-        SingleSelectionModel Starttime= StartTime.getSelectionModel();
+        SingleSelectionModel Starttime = StartTime.getSelectionModel();
         if (Starttime.isEmpty()) {
             {
                 Alert error = new Alert(Alert.AlertType.ERROR);
@@ -189,7 +188,7 @@ public class AddAppt implements Initializable {
                 error.showAndWait();
             }
         }
-        SingleSelectionModel Endtime= EndTime.getSelectionModel();
+        SingleSelectionModel Endtime = EndTime.getSelectionModel();
         if (Endtime.isEmpty()) {
             {
                 Alert error = new Alert(Alert.AlertType.ERROR);
@@ -197,15 +196,7 @@ public class AddAppt implements Initializable {
                 error.showAndWait();
             }
         }
-        LocalDate EnddDate= AddApptEndDate.getValue();
-        System.out.println(" Appointment End date is "+ EnddDate+" ");
-        if (EnddDate == null) {
-            {
-                Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setContentText("Error, please enter an appointment end date");
-                error.showAndWait();
-            }
-        }
+
         LocalDate Startdate = AddApptStartDate.getValue();
         if (Startdate == null) {
             {
@@ -216,14 +207,81 @@ public class AddAppt implements Initializable {
         }
 
 
-        if (Startdate == null || EnddDate == null || Endtime.isEmpty() || Starttime.isEmpty() || type.isEmpty() || contact.isEmpty() || location.isEmpty() || Userid.isEmpty() || Customerid.isEmpty()
-        || Description.isEmpty()){
+        if (Startdate == null || Endtime.isEmpty() || Starttime.isEmpty() || type.isEmpty() || contact.isEmpty() || location.isEmpty() || Userid.isEmpty() || Customerid.isEmpty()
+                || Description.isEmpty()) {
             return false;
-        }
-        else {
+        } else {
             return true;
 
         }
+
+
+    }
+
+    private boolean isOverLapping(LocalDateTime startNewAppt, LocalDateTime endNewAppt, int customerID) {
+        boolean overlaps = false;
+        ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
+        System.out.println(" checking for overlapping appointments ");
+        try {
+            String statement = "SELECT * FROM appointments WHERE Customer_ID = ?";
+            connection = JDBC.openConnection();
+            PreparedStatement ps = connection.prepareStatement(statement);
+            ps.setInt(1, customerID);
+            ResultSet rs = ps.executeQuery();
+            System.out.println(" Successfully queried list to check for overlapping times ");
+
+            System.out.println(rs);
+
+            while (rs.next()) {
+                int Appointment_ID = rs.getInt("Appointment_ID");
+                int Customer_ID = rs.getInt("Customer_ID");
+                int User_ID = rs.getInt("User_ID");
+                String Title = rs.getString("Title");
+                String Description = rs.getString("Description");
+                String Location = rs.getString("Location");
+                int Contact_ID = rs.getInt("Contact_ID");
+                String Type = rs.getString("Type");
+
+                /**Convert DB Start and end to Local Date and Time */
+                Timestamp EndTimeFromDB = rs.getTimestamp("End");
+                LocalDateTime localEnd = EndTimeFromDB.toLocalDateTime();
+
+                Timestamp StartTimefromDB = rs.getTimestamp("Start");
+                LocalDateTime localStart = StartTimefromDB.toLocalDateTime();
+
+                System.out.println(" Trying to add all Appts to list to check for overlap ");
+                Appointment AppointmentToCheckAgainst = new Appointment(Appointment_ID, Customer_ID, User_ID, Title, Description, Location, Contact_ID, Type, localStart, localEnd);
+
+                AllAppointments.add(AppointmentToCheckAgainst);
+            }
+
+            for (Appointment i : AllAppointments) {
+                LocalDateTime DBstart = i.getStartLocal();
+                LocalDateTime DBend = i.getEndLocal();
+                if (startNewAppt.isAfter(DBstart) && startNewAppt.isBefore(DBend)) {
+                    overlaps = true;
+                }
+                if (endNewAppt.isAfter(DBstart) && endNewAppt.isBefore(DBend)) {
+                    overlaps = true;
+                }
+                if (startNewAppt.equals(DBstart) || endNewAppt.equals(DBend)) {
+                    overlaps = true;
+                }
+                if (startNewAppt.isAfter(DBstart) && endNewAppt.isBefore(DBend)) {
+                    overlaps = true;
+                }
+
+            }
+
+    }
+
+
+        catch (SQLException e){
+            System.out.println(" Failed to check for overlapping appointments ");
+        }
+        System.out.println(" Overlapping boolean is " + overlaps + " ");
+        return overlaps;
+
 
 
     }
@@ -285,8 +343,36 @@ public class AddAppt implements Initializable {
     }
 
     public void onSaveAddAppt(ActionEvent actionEvent) {
+        /** Check all feilds are filled out */
         validateFields();
         System.out.println("Return type of validate fields equals  "+ validateFields() + " ");
+
+        /**Get all appt fields *
+        String Description = addApptDescription.getText();
+        int Customerid = (int) CustomerID.getValue();
+        int Userid = (int) UserIDs.getValue();
+        String location = AddApptLocation.getText();
+        String contact = ContactList.getSelectionModel();
+        String type = AddApptType.getText();
+         */
+
+
+        /** Check for appointment conflicts
+         */
+
+        String Start = StartTime.getValue();
+        String End = EndTime.getValue();
+        LocalDate localdate = AddApptStartDate.getValue();
+        LocalDateTime startLocal = LocalDateTime.of(localdate,LocalTime.parse(Start,Timeformatter));
+        LocalDateTime endLocal = LocalDateTime.of(localdate,LocalTime.parse(End,Timeformatter));
+        if(isOverLapping(startLocal,endLocal,1)){
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Error, appointment overlaps with another appointment for this customer");
+            error.showAndWait();
+
+        }
+
+
     }
 
 
