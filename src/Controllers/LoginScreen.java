@@ -27,6 +27,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class LoginScreen implements Initializable {
+
     @FXML
     private Label UserIDText;
     @FXML
@@ -47,18 +48,23 @@ public class LoginScreen implements Initializable {
     private Button ExitButton;
     @FXML
     private TextField UserIdBox;
-
+    @FXML
 
 
     LocalDateTime CurrentTime;
     Timestamp timeinDB;
     Locale currentLocale;
     String language;
-    String filename = "login_activity.txt.", login; ;
+    String filename = "login_activity.txt.", login;
+    ;
     PrintWriter outputfile;
     FileWriter newfile;
-     /**This method initializes the class.
-      * */
+
+
+
+    /**
+     * This method initializes the class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -67,64 +73,70 @@ public class LoginScreen implements Initializable {
         Location.setText(String.valueOf(zoneId));
         currentLocale = Locale.getDefault();
         language = currentLocale.getDisplayLanguage();
-         if(language == "French") {
-             UserIDText.setText("Identifiant d'utilisateur");
-             PasswordText.setText("Mot de passe");
-             LocationDetectedText.setText("Emplacement détecté");
-             ExitButtonText.setText("Sortir");
+        if (language == "French") {
+            UserIDText.setText("Identifiant d'utilisateur");
+            PasswordText.setText("Mot de passe");
+            LocationDetectedText.setText("Emplacement détecté");
+            ExitButtonText.setText("Sortir");
 
-         }
+        }
 
 /**This method creates a log for storing user login attempts
  *
  */
     }
-     public  void createLog() throws  IOException{
-        newfile = new FileWriter(filename,true);
+
+    public void createLog() throws IOException {
+        newfile = new FileWriter(filename, true);
         outputfile = new PrintWriter(newfile);
 
 
     }
 
-    /**This method exits the program
+    /**
+     * This method exits the program
+     *
      * @param actionEvent exits the program.
      */
     public void onClickExitLogin(ActionEvent actionEvent) {
         System.exit(0);
     }
-    /**This checks if the username and password are correct
+
+    /**
+     * This checks if the username and password are correct
+     *
      * @param actionEvent if username and password aren't correct displays error, if correct, logs in to the program.
      */
 
 
     public void onClickEnterButton(ActionEvent actionEvent) throws SQLException, IOException {
         createLog();
-        String  UserName = UserIdBox.getText();
+        String UserName = UserIdBox.getText();
         String Password = PasswordBox.getText();
         LocalDateTime now = LocalDateTime.now();
 
         UserDatabase DBConnect = new UserDatabase();
-        boolean validate = DBConnect.checkUser(UserName,Password);
-        if (!validate)
-        { Alert newAlert = new Alert(Alert.AlertType.ERROR);
-            if( language == "French"){
+        boolean validate = DBConnect.checkUser(UserName, Password);
+        if (!validate) {
+            Alert newAlert = new Alert(Alert.AlertType.ERROR);
+            if (language == "French") {
                 newAlert.setContentText("Erreur, le nom d'utilisateur et le mot de passe ne sont pas corrects, veuillez réessayer");
             }
             newAlert.setContentText("Error, Username and password are not correct, please try again");
             newAlert.showAndWait();
-            login = (UserName +" " + now + " " +  "Unsuccessful Login Attempt");
+            login = (UserName + " " + now + " " + "Unsuccessful Login Attempt");
             outputfile.println(login);
             outputfile.close();
             System.out.print("File Written");
 
 
         } else {
-            login = (UserName +" " + now + " " +  "Successful Login Attempt");
+            login = (UserName + " " + now + " " + "Successful Login Attempt");
             outputfile.println(login);
             outputfile.close();
             System.out.print("File Written");
             Alert newAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            if( language == "French") {
+            if (language == "French") {
                 newAlert.setContentText("Connexion réussie!");
             }
 
@@ -132,7 +144,7 @@ public class LoginScreen implements Initializable {
             newAlert.showAndWait();
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Views/AppointmentTable.fxml")));
 
-            Scene MainScene = new Scene(parent,3800,1900);
+            Scene MainScene = new Scene(parent, 3800, 1900);
             Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             MainStage.setScene(MainScene);
             parent.setStyle("-fx-font-family: Times New Roman;");
@@ -144,6 +156,9 @@ public class LoginScreen implements Initializable {
          @param actionEvent not used in this application, auto generated through SceneBuilder
          */
     }
+
     public void onClickLocationBox(ActionEvent actionEvent) {
     }
+
+
 }

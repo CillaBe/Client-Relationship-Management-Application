@@ -1,6 +1,7 @@
 package Controllers;
 
 import Helper.JDBC;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,8 +60,7 @@ public class AddAppt implements Initializable {
     private TextField AddApptLocation;
     @FXML
     private DatePicker AddApptStartDate;
-    @FXML
-    private DatePicker AddApptEndDate;
+
     @FXML
     private Button SaveAddAppt;
     @FXML
@@ -75,9 +75,11 @@ public class AddAppt implements Initializable {
     @FXML
     private ObservableList<Contact> OLContactsFromDB = FXCollections.observableArrayList();
     @FXML
-    private DateTimeFormatter Timeformatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM);
+    private DateTimeFormatter Timeformatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
+    private DateTimeFormatter HourMinSecFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     @FXML
     private DateTimeFormatter DateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter YearMonthHrScFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @FXML
     private ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
@@ -345,29 +347,100 @@ public class AddAppt implements Initializable {
     public void onSaveAddAppt(ActionEvent actionEvent) {
         /** Check all feilds are filled out */
         validateFields();
-        System.out.println("Return type of validate fields equals  "+ validateFields() + " ");
+        System.out.println("Return type of validate fields  in Add appt screen equals  "+ validateFields() + " ");
+        System.out.println(" Trying to insert new appointment ");
 
-        /**Get all appt fields *
+        int min = 5;
+        int max = 100;
+        int newInt = (int) Math.floor(Math.random() * (max - min + 1) + min);
+
+        System.out.println(" New appt ID is " + newInt + " ");
         String Description = addApptDescription.getText();
-        int Customerid = (int) CustomerID.getValue();
-        int Userid = (int) UserIDs.getValue();
+
+        Customer NewCustomer = (Customer) CustomerID.getSelectionModel().getSelectedItem();
+        int CustomerID = NewCustomer.getCustomerID();
+
+        System.out.println(" CustomerId box is " + CustomerID + " ");
+
+        User Userid = (User) UserIDs.getValue();
         String location = AddApptLocation.getText();
-        String contact = ContactList.getSelectionModel();
+        SingleSelectionModel contact = ContactList.getSelectionModel();
         String type = AddApptType.getText();
-         */
+        String title = AddApptTitle.getText();
+
+        System.out.println(" User ID:" );
 
 
-        /** Check for appointment conflicts
-         */
 
+      /** Getting times in string for overlap validation*/
+        LocalDate localdate = AddApptStartDate.getValue();
         String Start = StartTime.getValue();
         String End = EndTime.getValue();
-        LocalDate localdate = AddApptStartDate.getValue();
+
         LocalDateTime startLocal = LocalDateTime.of(localdate,LocalTime.parse(Start,Timeformatter));
         LocalDateTime endLocal = LocalDateTime.of(localdate,LocalTime.parse(End,Timeformatter));
+
+ /** Converting times from Local Date time  to putin DB*/
+
+
+
+        LocalTime StartForinsertLoc = LocalTime.parse(StartTime.getSelectionModel().getSelectedItem(),HourMinSecFormatter);
+        LocalTime EndForintsertLoc = LocalTime.parse(EndTime.getSelectionModel().getSelectedItem(),HourMinSecFormatter);
+
+        /** Put date and start and end times together*/
+        LocalDateTime StartDateAndTime = LocalDateTime.of(localdate,StartForinsertLoc);
+        LocalDateTime EndDateAndTime = LocalDateTime.of(localdate,EndForintsertLoc);
+        System.out.println( " Local date and time start and end for appt trying to update " + StartDateAndTime + "  " + EndDateAndTime + " ");
+        /** Convert start and end date and time to UTC*/
+
+        ZonedDateTime startDB = StartDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
+        ZonedDateTime endDB = EndDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
+        System.out.println( " UTC Start and end date and times " + startDB + " " + endDB);
+
+        /** Convert start and end time to time stamp for DB*/
+
+        Timestamp TimeStampStart = Timestamp.valueOf(startDB.toLocalDateTime());
+        Timestamp TimeStampEnd = Timestamp.valueOf(endDB.toLocalDateTime());
+        System.out.println(" Times stamp start and ends for new appt add " + TimeStampStart + " " + TimeStampEnd);
+
+
+        try {
+            String statement = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Updated_By, Customer_ID, User_ID)" +
+                    "VALUES(?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,CURRENT_TIMESTAMP,?)";
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setInt(1,newInt);
+            System.out.println(" New appt INT " + newInt);
+            ps.setString(2,title);
+            ps.setString(3,Description);
+            ps.setString(4,location);
+            ps.setString(5,type);
+            ps.setTimestamp(6, TimeStampStart);
+            ps.setTimestamp(7, TimeStampEnd);
+            ps.setString(8,"phennig");
+            ps.setInt(9,NewCustomer.getCustomerID());
+            System.out.println(" New appt cust id ");
+            ps.setInt(10,Userid.getUserID());
+            System.out.println(" New appt user id " + Userid.getUserID());
+            System.out.println(" Statement I'm sending to SQL to insert appt " + ps + " ");
+            ps.executeUpdate();
+        }
+
+
+            catch( SQLException exception){
+            System.out.println(" error adding appointment ");
+
+            }
+
         if(isOverLapping(startLocal,endLocal,1)){
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setContentText("Error, appointment overlaps with another appointment for this customer");
+            error.showAndWait();
+
+        }
+        else{
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Congrats, this appointment does not overlap with another for  this customer");
             error.showAndWait();
 
         }

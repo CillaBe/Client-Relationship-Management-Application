@@ -52,5 +52,9 @@ public class Customer {
         }
         return AllCustomerIDs;
     }
+
+    public int getCustomerID() {
+        return CustomerID;
+    }
 }
 

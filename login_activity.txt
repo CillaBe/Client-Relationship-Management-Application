@@ -122,3 +122,12 @@ test 2022-07-17T16:30:39.176992700 Successful Login Attempt
 test 2022-07-17T16:41:05.381331400 Successful Login Attempt
 test 2022-07-17T16:54:46.401512400 Successful Login Attempt
 test 2022-07-17T16:57:43.265149500 Successful Login Attempt
+test 2022-08-06T13:10:39.038701200 Successful Login Attempt
+test 2022-08-06T13:30:31.312165900 Successful Login Attempt
+test 2022-08-06T15:22:45.918342700 Successful Login Attempt
+test 2022-08-06T16:38:35.889077 Successful Login Attempt
+test 2022-08-06T16:42:22.749677200 Successful Login Attempt
+test 2022-08-06T16:45:30.874309700 Successful Login Attempt
+test 2022-08-06T17:07:04.780317800 Successful Login Attempt
+test 2022-08-06T17:09:03.238533300 Unsuccessful Login Attempt
+test 2022-08-06T17:09:06.020973200 Successful Login Attempt

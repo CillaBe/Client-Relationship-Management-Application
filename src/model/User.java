@@ -52,5 +52,9 @@ public class User {
         }
         return AllUserIDs;
     }
+
+    public int getUserID() {
+        return UserID;
+    }
 }
 
