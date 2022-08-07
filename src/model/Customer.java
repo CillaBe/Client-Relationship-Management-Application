@@ -11,47 +11,53 @@ import java.sql.SQLException;
 
 public class Customer {
     private int CustomerID;
-   private  String CustomerName;
-   private static ObservableList<String> AllCustomerIDs= FXCollections.observableArrayList();
+    private String CustomerName;
 
-    Customer(){
+
+    public Customer() {
 
     }
 
 
-        Customer( int CustomerID, String CustomerName){
+    public Customer(int CustomerID, String CustomerName) {
         this.CustomerID = CustomerID;
         this.CustomerName = CustomerName;
 
     }
+
     @Override
     public String toString() {
-        return ("#" + Integer.toString(CustomerID) + " " + CustomerName);
+        /**return ("#" + Integer.toString(CustomerID) + " " + CustomerName);*/
+        return "[" + CustomerID + "] " + CustomerName;
     }
-    public static ObservableList<String> getCustomerIDs(){
+
+    public static ObservableList<Customer> getCustomerIDAndNames() {
         Connection connection = JDBC.openConnection();
+        ObservableList<Customer> allCustomerNamesIds = FXCollections.observableArrayList();
         try {
-            String statement = ("SELECT * FROM customers");
+            String statement = ("SELECT customers.Customer_ID, customers.Customer_Name FROM customers");
             PreparedStatement ps = connection.prepareStatement(statement);
             ResultSet rs = ps.executeQuery(statement);
 
             while (rs.next()) {
-
+                Customer cust = new Customer();
                 int customerID = rs.getInt("Customer_ID");
                 String CustomerName = rs.getString("Customer_Name");
-                AllCustomerIDs.add(String.valueOf(new Customer(customerID,CustomerName)));
-
+                allCustomerNamesIds.add(new Customer(customerID, CustomerName));
 
 
             }
-        }
-        catch (SQLException e){
+            return allCustomerNamesIds;
+        } catch (SQLException e) {
             System.out.println("Error returning all customers");
 
 
         }
-        return AllCustomerIDs;
+        return null;
+
     }
+
+
 
     public int getCustomerID() {
         return CustomerID;

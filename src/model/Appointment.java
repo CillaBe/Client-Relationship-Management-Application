@@ -28,6 +28,7 @@ public class Appointment {
     /**
      * First constructor method to create instance of class using all fields in DB
      */
+
     public Appointment(int Appointment_ID, String Title, String Description, String Location, String Type, String Start,
                        String End, Timestamp Create_Date, String Created_By,
                        Timestamp Last_Update, String Last_Updated_By, int Customer_ID, int User_ID, int Contact_ID) {

@@ -10,16 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
-    private int UserID;
-    private  String UserName;
-    private static ObservableList<String> AllUserIDs= FXCollections.observableArrayList();
-
-    User(){
-
-    }
+    int UserID;
+    String UserName;
+   public static ObservableList <User> AllUsers = FXCollections.observableArrayList();
 
 
-    User( int UserID, String UserName){
+
+
+
+    public User(int UserID, String UserName){
         this.UserID = UserID;
         this.UserName = UserName;
 
@@ -28,7 +27,7 @@ public class User {
     public String toString() {
         return ("#" + Integer.toString(UserID) + " " + UserName);
     }
-    public static ObservableList<String> getUserIDs(){
+   /* public static ObservableList<String> getUserIDs(){
         Connection connection = JDBC.openConnection();
         try {
             String statement = ("SELECT * FROM users");
@@ -46,15 +45,27 @@ public class User {
             }
         }
         catch (SQLException e){
-            System.out.println("Error returning all customers");
+            System.out.println("Error returning all users");
 
 
         }
         return AllUserIDs;
-    }
+    }*/
 
     public int getUserID() {
         return UserID;
     }
+    public String getUserName(){
+        return UserName;
+    }
+    public  void setUserName(String Name){
+        UserName = Name;
+    }
+    public  void  setUserID(int ID){
+        UserID = ID;
+    }
+
+
+
 }
 

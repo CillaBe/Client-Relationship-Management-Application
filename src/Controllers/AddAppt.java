@@ -1,7 +1,6 @@
 package Controllers;
 
 import Helper.JDBC;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,10 +11,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import jdk.jfr.Frequency;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
@@ -33,6 +31,14 @@ import static java.time.LocalTime.now;
 import static javafx.collections.FXCollections.observableList;
 
 public class AddAppt implements Initializable {
+    public TableView<Customer> CustomerTable;
+    public TableColumn AddAppUserNameCol;
+    public TableColumn AddApptUserIDCol;
+    public TableColumn AddCustIDCol;
+    public TableColumn AddCustNameCol;
+    public TableView<User> UserTable;
+    public TextField CustomerIDTextBox;
+    public TextField UserIDTextBox;
     @FXML
     private ComboBox UserIDs;
     @FXML
@@ -86,18 +92,78 @@ public class AddAppt implements Initializable {
     private ZoneId UTCID = ZoneId.of("UTC");
     @FXML
     private Connection connection;
+    @FXML
+    private ObservableList <User> AllUsers = FXCollections.observableArrayList();
+    @FXML
+    private ObservableList <Customer> AllCustomers = FXCollections.observableArrayList();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /** Insert Start and End Times, set tables for Users and Customers*/
         InsertStartTimes();
         InsertEndTimes();
         ContactList.setItems(Contact.getContactNames());
-        CustomerID.setItems(Customer.getCustomerIDs());
-        UserIDs.setItems(User.getUserIDs());
+
+
+
 
 
     }
+    /** Populates all users to user table from DB*/
+    public void PopulateAllUsers() {
+        ObservableList <User>  TestUserOL = FXCollections.observableArrayList();
+        System.out.println(" Trying to populate all Users ");
+
+        try {
+            String statement = "SELECT  users.User_ID,users.User_Name FROM users";
+            connection = JDBC.openConnection();
+            ResultSet rs = connection.createStatement().executeQuery(statement);
+            System.out.print(" Query for all users Successful! ");
+            TestUserOL.clear();
+
+
+            while (rs.next()) {
+
+                String UserName = rs.getString("User_Name");
+                int UserID = rs.getInt("User_ID");
+
+                TestUserOL.add (new User( UserID,UserName));
+            }
+            UserTable.setItems(TestUserOL);
+            System.out.println(" Successfully added all users to table " + TestUserOL + " ");
+
+        } catch (SQLException e) {
+            System.out.println(" Error adding users to table ");
+        }
+    }
+
+    public void PopulateAllCustomers() {
+        System.out.println(" Trying to populate all Customers ");
+
+        try {
+            String statement = "SELECT  customers.Customer_ID, customers.Customer_Name FROM customers";
+            connection = JDBC.openConnection();
+            ResultSet rs = connection.createStatement().executeQuery(statement);
+            System.out.print(" Query for all customers Successful! ");
+            AllCustomers.clear();
+
+            while (rs.next()) {
+
+                String CustomerName = rs.getString("Customer_Name");
+                int CustomerID = rs.getInt("Customer_ID");
+
+                AllCustomers.add (new Customer(CustomerID,CustomerName));
+            }
+            CustomerTable.setItems(AllCustomers);
+            System.out.println(" Successfully added all customers to table " + AllCustomers + " ");
+
+        } catch (SQLException e) {
+            System.out.println(" Error adding customers to table ");
+        }
+    }
+
+
 
     /**
      * This method populates the StartTimes Combo Box
@@ -136,20 +202,20 @@ public class AddAppt implements Initializable {
             error.setContentText("Error, please add a description. PS I LOVE YOU JOE");
             error.showAndWait();
         }
-        SingleSelectionModel Customerid = CustomerID.getSelectionModel();
+        String Customerid = CustomerIDTextBox.getText();
         if (Customerid.isEmpty()) {
             {
                 Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setContentText("Error, please select a Customer ID");
+                error.setContentText("Error, please enter a Customer ID");
                 error.showAndWait();
             }
 
         }
-        SingleSelectionModel Userid = UserIDs.getSelectionModel();
+        String Userid = UserIDTextBox.getText();
         if (Userid.isEmpty()) {
             {
                 Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setContentText("Error, please select a User ID");
+                error.setContentText("Error, please enter a User ID");
                 error.showAndWait();
             }
 
@@ -357,10 +423,12 @@ public class AddAppt implements Initializable {
         System.out.println(" New appt ID is " + newInt + " ");
         String Description = addApptDescription.getText();
 
-        Customer NewCustomer = (Customer) CustomerID.getSelectionModel().getSelectedItem();
-        int CustomerID = NewCustomer.getCustomerID();
 
-        System.out.println(" CustomerId box is " + CustomerID + " ");
+
+
+
+
+
 
         User Userid = (User) UserIDs.getValue();
         String location = AddApptLocation.getText();
@@ -418,7 +486,7 @@ public class AddAppt implements Initializable {
             ps.setTimestamp(6, TimeStampStart);
             ps.setTimestamp(7, TimeStampEnd);
             ps.setString(8,"phennig");
-            ps.setInt(9,NewCustomer.getCustomerID());
+            ps.setInt(9, 9);
             System.out.println(" New appt cust id ");
             ps.setInt(10,Userid.getUserID());
             System.out.println(" New appt user id " + Userid.getUserID());
