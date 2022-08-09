@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Appointment;
@@ -419,51 +418,77 @@ public class AddAppt implements Initializable {
         int min = 5;
         int max = 100;
         int newInt = (int) Math.floor(Math.random() * (max - min + 1) + min);
+        /** Grab data from all fields and print it to check it's grabbing correctly*/
 
         System.out.println(" New appt ID is " + newInt + " ");
+
+        int CustomerID = Integer.parseInt(CustomerIDTextBox.getText());
+
+        System.out.println(" Customer ID : " + CustomerID + " ");
+
+        int UserID = Integer.parseInt(UserIDTextBox.getText());
+
+        System.out.println(" User ID : " + UserID + " ");
+
+
+
+
         String Description = addApptDescription.getText();
+        System.out.println(" appt description is " + Description + " ");
 
 
-
-
-
-
-
-
-        User Userid = (User) UserIDs.getValue();
         String location = AddApptLocation.getText();
-        SingleSelectionModel contact = ContactList.getSelectionModel();
+        System.out.println(" appt location is " + location + " ");
+
         String type = AddApptType.getText();
+        System.out.println(" appt type is " + type + " ");
+
         String title = AddApptTitle.getText();
+        System.out.println(" appt title is " + title + " ");
 
-        System.out.println(" User ID:" );
+        String ContactName = ContactList.getSelectionModel().getSelectedItem().toString();
+
+        System.out.println(" Contact Name: " + ContactName + " ");
 
 
 
-      /** Getting times in string for overlap validation*/
+
+
+
+      /** Getting times in string for overlap validation*
         LocalDate localdate = AddApptStartDate.getValue();
+        System.out.println(" Localdate date from app " + localdate + " ");
         String Start = StartTime.getValue();
+        System.out.println(" String start from app " + Start + " ");
         String End = EndTime.getValue();
+        System.out.println(" String end date from app " + End + " ");
 
         LocalDateTime startLocal = LocalDateTime.of(localdate,LocalTime.parse(Start,Timeformatter));
         LocalDateTime endLocal = LocalDateTime.of(localdate,LocalTime.parse(End,Timeformatter));
+       */
 
  /** Converting times from Local Date time  to putin DB*/
 
 
-
-        LocalTime StartForinsertLoc = LocalTime.parse(StartTime.getSelectionModel().getSelectedItem(),HourMinSecFormatter);
-        LocalTime EndForintsertLoc = LocalTime.parse(EndTime.getSelectionModel().getSelectedItem(),HourMinSecFormatter);
+        LocalDate localdate = AddApptStartDate.getValue();
+        System.out.println(" Localdate date from app " + localdate + " ");
+        LocalTime StartForinsertLoc = LocalTime.parse(StartTime.getSelectionModel().getSelectedItem(),Timeformatter);
+        System.out.println(" LocalTime start from app " + StartForinsertLoc + " ");
+        LocalTime EndForintsertLoc = LocalTime.parse(EndTime.getSelectionModel().getSelectedItem(),Timeformatter);
+        System.out.println(" LocalTime end from app " + EndForintsertLoc + " ");
 
         /** Put date and start and end times together*/
         LocalDateTime StartDateAndTime = LocalDateTime.of(localdate,StartForinsertLoc);
+
+
         LocalDateTime EndDateAndTime = LocalDateTime.of(localdate,EndForintsertLoc);
-        System.out.println( " Local date and time start and end for appt trying to update " + StartDateAndTime + "  " + EndDateAndTime + " ");
+        System.out.println( " Localdatetime start and end for appt trying to update " + StartDateAndTime + "  " + EndDateAndTime + " ");
         /** Convert start and end date and time to UTC*/
 
         ZonedDateTime startDB = StartDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
+        System.out.println(" Zoned Date Time start " + startDB + " ");
         ZonedDateTime endDB = EndDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println( " UTC Start and end date and times " + startDB + " " + endDB);
+        System.out.println( " Zoned date time end " + endDB + " ");
 
         /** Convert start and end time to time stamp for DB*/
 
@@ -487,9 +512,9 @@ public class AddAppt implements Initializable {
             ps.setTimestamp(7, TimeStampEnd);
             ps.setString(8,"phennig");
             ps.setInt(9, 9);
-            System.out.println(" New appt cust id ");
-            ps.setInt(10,Userid.getUserID());
-            System.out.println(" New appt user id " + Userid.getUserID());
+
+            ps.setInt(10, UserID);
+
             System.out.println(" Statement I'm sending to SQL to insert appt " + ps + " ");
             ps.executeUpdate();
         }
@@ -500,7 +525,7 @@ public class AddAppt implements Initializable {
 
             }
 
-        if(isOverLapping(startLocal,endLocal,1)){
+        /**if(isOverLapping(startLocal,endLocal,1)){
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setContentText("Error, appointment overlaps with another appointment for this customer");
             error.showAndWait();
@@ -511,7 +536,7 @@ public class AddAppt implements Initializable {
             error.setContentText("Congrats, this appointment does not overlap with another for  this customer");
             error.showAndWait();
 
-        }
+        }*/
 
 
     }
@@ -534,5 +559,32 @@ public class AddAppt implements Initializable {
     }
 
     public void onAddApptEndTimeMin(MouseEvent mouseEvent) {
+    }
+    public void ConvertLocalTimeAndDatetoTimeStamp( LocalTime localTimeinsert, LocalDate localDateinsert){
+
+        System.out.println(" Localdate date from function " + localDateinsert + " ");
+
+        System.out.println(" LocalTime from function " + localTimeinsert + " ");
+
+
+        /** Put date and start and end times together*/
+        LocalDateTime DateAndTime = LocalDateTime.of(localDateinsert,localTimeinsert);
+
+
+
+        /** Convert start and end date and time to UTC*/
+
+        ZonedDateTime ZonedDateAndTime = DateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
+        System.out.println(" Zoned Date Time start " + ZonedDateAndTime + " ");
+
+
+        /** Convert start and end time to time stamp for DB*/
+
+        Timestamp TimeStamp = Timestamp.valueOf(ZonedDateAndTime.toLocalDateTime());
+
+        System.out.println(" Times stamp start and ends for new appt add " + TimeStamp+ " " );
+
+
+
     }
 }

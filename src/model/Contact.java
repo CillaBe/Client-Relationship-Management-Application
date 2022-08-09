@@ -23,8 +23,8 @@ public class Contact {
         this.ContactEmail = ContactEmail;
 
     }
-    public Contact(int ContactID, String ContactName){
-        this.ContactID = ContactID;
+    public Contact(String ContactName){
+
         this.ContactName =ContactName;
 
 
@@ -35,22 +35,22 @@ public class Contact {
     public String returnContactName(){
        return ContactName;
     }
-    @Override
+
     public String toString(){
-       return("#" + Integer.toString(ContactID) + " " + ContactName);
+       return(  ContactName);
     }
     public static ObservableList<String> getContactNames(){
         Connection connection = JDBC.openConnection();
        try {
-           String statement = ("SELECT * FROM contacts");
+           String statement = ("SELECT contacts.Contact_Name FROM contacts");
            PreparedStatement ps = connection.prepareStatement(statement);
            ResultSet rs = ps.executeQuery(statement);
 
            while (rs.next()) {
                String contactName = rs.getString("Contact_Name");
-               int contactID = rs.getInt("Contact_ID");
 
-               AllContacts.add(String.valueOf(new Contact(contactID,contactName)));
+
+               AllContacts.add(String.valueOf(new Contact(contactName)));
 
            }
        }
