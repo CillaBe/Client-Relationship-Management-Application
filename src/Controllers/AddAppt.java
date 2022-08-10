@@ -38,6 +38,8 @@ public class AddAppt implements Initializable {
     public TableView<User> UserTable;
     public TextField CustomerIDTextBox;
     public TextField UserIDTextBox;
+    public ComboBox UserNameComboBox;
+    public ComboBox CustomerComboBox;
     @FXML
     private ComboBox UserIDs;
     @FXML
@@ -450,6 +452,10 @@ public class AddAppt implements Initializable {
 
         System.out.println(" Contact Name: " + ContactName + " ");
 
+        int ContactID = JDBC.ConvertContactNameToContactID(ContactName);
+
+        System.out.println(" ContactID from insert new apt is " + ContactID);
+
 
 
 
@@ -510,7 +516,7 @@ public class AddAppt implements Initializable {
             ps.setString(5,type);
             ps.setTimestamp(6, TimeStampStart);
             ps.setTimestamp(7, TimeStampEnd);
-            ps.setString(8,"phennig");
+            ps.setString(8, UserID);
             ps.setInt(9, 9);
 
             ps.setInt(10, UserID);
@@ -587,4 +593,7 @@ public class AddAppt implements Initializable {
 
 
     }
+    /** Converts ContactName to it's corresponding contactID from the database*/
+
+
 }

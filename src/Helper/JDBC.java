@@ -31,7 +31,39 @@ public class JDBC {
         } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
+        /** Converts ContactName to it's corresponding contactID from the database*/
     }
+    public static int ConvertContactNameToContactID ( String contactName) {
+
+        int ContactID = 0;
+        try {
+            String statement = ("SELECT Contact_ID FROM contacts WHERE Contact_Name = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setString(1, contactName);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                ContactID = rs.getInt("Contact_ID");
+                System.out.println(" Contact_ID from ContactName is " + ContactID);
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning ContactID from ContactName");
+
+
+        }
+        return ContactID;
+    }
+    public static String returnUser(){
+        return UserN
+    }
+
 
 
 
