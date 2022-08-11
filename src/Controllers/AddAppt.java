@@ -206,20 +206,20 @@ public class AddAppt implements Initializable {
             error.setContentText("Error, please add a description. PS I LOVE YOU JOE");
             error.showAndWait();
         }
-        String Customerid = CustomerIDTextBox.getText();
+        SingleSelectionModel Customerid = CustomerComboBox.getSelectionModel();
         if (Customerid.isEmpty()) {
             {
                 Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setContentText("Error, please enter a Customer ID");
+                error.setContentText("Error, please select a Customer Name");
                 error.showAndWait();
             }
 
         }
-        String Userid = UserIDTextBox.getText();
+        SingleSelectionModel Userid = UserNameComboTest.getSelectionModel();
         if (Userid.isEmpty()) {
             {
                 Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setContentText("Error, please enter a User ID");
+                error.setContentText("Error, please select a User Name");
                 error.showAndWait();
             }
 
@@ -417,6 +417,8 @@ public class AddAppt implements Initializable {
     public void onSaveAddAppt(ActionEvent actionEvent) {
         /** Check all feilds are filled out */
         validateFields();
+        UpdateCustomerIDTextBox();
+        UpdateUserIDTextBox();
         System.out.println("Return type of validate fields  in Add appt screen equals  "+ validateFields() + " ");
         System.out.println(" Trying to insert new appointment ");
 
@@ -434,6 +436,10 @@ public class AddAppt implements Initializable {
         int UserID = Integer.parseInt(UserIDTextBox.getText());
 
         System.out.println(" User ID : " + UserID + " ");
+        String UserName = (String) UserNameComboTest.getSelectionModel().getSelectedItem();
+
+
+
 
 
 
@@ -507,22 +513,22 @@ public class AddAppt implements Initializable {
 
 
         try {
-            String statement = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Updated_By, Customer_ID, User_ID)" +
-                    "VALUES(?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,CURRENT_TIMESTAMP,?)";
+            String statement = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Updated_By, Customer_ID, User_ID, Contact_ID)" +
+                    "VALUES(?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,CURRENT_TIMESTAMP,?,?,?)";
 
             PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
             ps.setInt(1,newInt);
-            System.out.println(" New appt INT " + newInt);
             ps.setString(2,title);
             ps.setString(3,Description);
             ps.setString(4,location);
             ps.setString(5,type);
             ps.setTimestamp(6, TimeStampStart);
             ps.setTimestamp(7, TimeStampEnd);
-            ps.setInt(8, UserID);
-            ps.setInt(9, 9);
+            ps.setString(8, UserName);
+            ps.setInt(9, CustomerID);
 
             ps.setInt(10, UserID);
+            ps.setInt(11,ContactID);
 
             System.out.println(" Statement I'm sending to SQL to insert appt " + ps + " ");
             ps.executeUpdate();
@@ -546,6 +552,21 @@ public class AddAppt implements Initializable {
             error.showAndWait();
 
         }*/
+        if (validateFields() == true) {
+            try {
+                Parent parent = FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
+                Scene MainScene = new Scene(parent, 3800, 1200);
+                Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                MainStage.setScene(MainScene);
+                parent.setStyle("-fx-font-family: Times New Roman;");
+                MainStage.setTitle("All Appointments");
+                MainStage.show();
+                System.out.println("Logged out of add Appointments tab");
+            }
+            catch (IOException e){
+                System.out.println("Error moving from save app to full appts screen");
+            }
+        }
 
 
     }
@@ -601,8 +622,19 @@ public class AddAppt implements Initializable {
     }
 
     public void MouseClickedForSelectCustName(MouseEvent mouseEvent) {
+
+    }
+
+    public void UpdateCustomerIDTextBox() {
         String CustomerName = (String) CustomerComboBox.getSelectionModel().getSelectedItem();
         CustomerIDTextBox.setText(String.valueOf(JDBC.convertCustomerNameToCustID(CustomerName)));
+    }
+    public void UpdateUserIDTextBox() {
+        String UserName = (String) UserNameComboTest.getSelectionModel().getSelectedItem();
+        UserIDTextBox.setText(String.valueOf(JDBC.convertUserNameToUserID(UserName)));
+    }
+
+    public void MouseReleasedCustName(MouseEvent mouseEvent) {
     }
     /** Converts ContactName to it's corresponding contactID from the database*/
 
