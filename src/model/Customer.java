@@ -12,6 +12,7 @@ import java.sql.SQLException;
 public class Customer {
     private int CustomerID;
     private String CustomerName;
+    private static  ObservableList<String> AllCustomers = FXCollections.observableArrayList();
 
 
     public Customer() {
@@ -19,42 +20,40 @@ public class Customer {
     }
 
 
-    public Customer(int CustomerID, String CustomerName) {
-        this.CustomerID = CustomerID;
+    public Customer( String CustomerName) {
+
         this.CustomerName = CustomerName;
 
     }
 
     @Override
     public String toString() {
-        /**return ("#" + Integer.toString(CustomerID) + " " + CustomerName);*/
-        return "[" + CustomerID + "] " + CustomerName;
+        /**return (CustomerName)*/
+        return (CustomerName);
     }
 
-    public static ObservableList<Customer> getCustomerIDAndNames() {
+
+    public static ObservableList<String> getCustomerNames(){
         Connection connection = JDBC.openConnection();
-        ObservableList<Customer> allCustomerNamesIds = FXCollections.observableArrayList();
         try {
-            String statement = ("SELECT customers.Customer_ID, customers.Customer_Name FROM customers");
+            String statement = ("SELECT customers.Customer_Name FROM customers");
             PreparedStatement ps = connection.prepareStatement(statement);
             ResultSet rs = ps.executeQuery(statement);
 
             while (rs.next()) {
-                Customer cust = new Customer();
-                int customerID = rs.getInt("Customer_ID");
-                String CustomerName = rs.getString("Customer_Name");
-                allCustomerNamesIds.add(new Customer(customerID, CustomerName));
+                String customerName = rs.getString("Customer_Name");
 
+
+                AllCustomers.add(String.valueOf(new Customer(customerName)));
 
             }
-            return allCustomerNamesIds;
-        } catch (SQLException e) {
-            System.out.println("Error returning all customers");
+        }
+        catch (SQLException e){
+            System.out.println("Error returning all customer names");
 
 
         }
-        return null;
-
+        return AllCustomers;
     }
 
 

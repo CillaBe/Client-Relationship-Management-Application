@@ -10,62 +10,48 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
-    int UserID;
-    String UserName;
-   public static ObservableList <User> AllUsers = FXCollections.observableArrayList();
+    public String UserName;
+    public int UserID;
 
+    private static  ObservableList<String> AllUserNames = FXCollections.observableArrayList();
 
+    public User(){
 
-
-
-    public User(int UserID, String UserName){
-        this.UserID = UserID;
+    }
+    public User (String UserName){
         this.UserName = UserName;
-
     }
-    @Override
-    public String toString() {
-        return ("#" + Integer.toString(UserID) + " " + UserName);
+    public String toString(){
+        return(UserName);
     }
-   /* public static ObservableList<String> getUserIDs(){
+    public static ObservableList<String> getUserNames(){
         Connection connection = JDBC.openConnection();
         try {
-            String statement = ("SELECT * FROM users");
+            String statement = ("SELECT users.User_Name FROM users");
             PreparedStatement ps = connection.prepareStatement(statement);
             ResultSet rs = ps.executeQuery(statement);
 
             while (rs.next()) {
-
-                int UserID = rs.getInt("User_ID");
-                String UserName = rs.getString("User_Name");
-                AllUserIDs.add(String.valueOf(new User(UserID,UserName)));
+                String userName = rs.getString("User_Name");
 
 
+                AllUserNames.add(String.valueOf(new User(userName)));
 
             }
         }
         catch (SQLException e){
-            System.out.println("Error returning all users");
+            System.out.println("Error returning all user");
 
 
         }
-        return AllUserIDs;
-    }*/
-
-    public int getUserID() {
-        return UserID;
+        return AllUserNames;
     }
-    public String getUserName(){
-        return UserName;
-    }
-    public  void setUserName(String Name){
-        UserName = Name;
-    }
-    public  void  setUserID(int ID){
-        UserID = ID;
-    }
-
-
-
 }
+
+
+
+
+
+
+
 

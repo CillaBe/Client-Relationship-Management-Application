@@ -38,8 +38,9 @@ public class AddAppt implements Initializable {
     public TableView<User> UserTable;
     public TextField CustomerIDTextBox;
     public TextField UserIDTextBox;
-    public ComboBox UserNameComboBox;
+
     public ComboBox CustomerComboBox;
+    public ComboBox UserNameComboTest;
     @FXML
     private ComboBox UserIDs;
     @FXML
@@ -105,6 +106,8 @@ public class AddAppt implements Initializable {
         InsertStartTimes();
         InsertEndTimes();
         ContactList.setItems(Contact.getContactNames());
+        CustomerComboBox.setItems(Customer.getCustomerNames());
+        UserNameComboTest.setItems(User.getUserNames());
 
 
 
@@ -112,7 +115,7 @@ public class AddAppt implements Initializable {
 
     }
     /** Populates all users to user table from DB*/
-    public void PopulateAllUsers() {
+   /** public void PopulateAllUsers() {
         ObservableList <User>  TestUserOL = FXCollections.observableArrayList();
         System.out.println(" Trying to populate all Users ");
 
@@ -139,7 +142,7 @@ public class AddAppt implements Initializable {
         }
     }
 
-    public void PopulateAllCustomers() {
+    /**public void PopulateAllCustomers() {
         System.out.println(" Trying to populate all Customers ");
 
         try {
@@ -162,7 +165,7 @@ public class AddAppt implements Initializable {
         } catch (SQLException e) {
             System.out.println(" Error adding customers to table ");
         }
-    }
+    }*/
 
 
 
@@ -516,7 +519,7 @@ public class AddAppt implements Initializable {
             ps.setString(5,type);
             ps.setTimestamp(6, TimeStampStart);
             ps.setTimestamp(7, TimeStampEnd);
-            ps.setString(8, UserID);
+            ps.setInt(8, UserID);
             ps.setInt(9, 9);
 
             ps.setInt(10, UserID);
@@ -592,6 +595,14 @@ public class AddAppt implements Initializable {
 
 
 
+    }
+
+    public void CustomerNameDropDownAction(ActionEvent actionEvent) {
+    }
+
+    public void MouseClickedForSelectCustName(MouseEvent mouseEvent) {
+        String CustomerName = (String) CustomerComboBox.getSelectionModel().getSelectedItem();
+        CustomerIDTextBox.setText(String.valueOf(JDBC.convertCustomerNameToCustID(CustomerName)));
     }
     /** Converts ContactName to it's corresponding contactID from the database*/
 

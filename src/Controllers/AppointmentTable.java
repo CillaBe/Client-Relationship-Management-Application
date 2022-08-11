@@ -394,7 +394,7 @@ public class AppointmentTable implements Initializable {
      */
     public void onAddAppointment(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AddAppt.fxml"));
-        Scene MainScene = new Scene(parent,900,800);
+        Scene MainScene = new Scene(parent,900,1000);
         Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         MainStage.setScene(MainScene);
         parent.setStyle("-fx-font-family: Times New Roman;");

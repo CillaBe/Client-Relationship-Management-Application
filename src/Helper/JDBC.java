@@ -60,9 +60,62 @@ public class JDBC {
         }
         return ContactID;
     }
-    public static String returnUser(){
-        return UserN
+    public static int convertCustomerNameToCustID( String customerName){
+        int CustomerID = 0;
+        try {
+            String statement = ("SELECT Customer_ID FROM customers WHERE Customer_Name = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setString(1, customerName);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                CustomerID = rs.getInt("Customer_ID");
+                System.out.println(" CustomerID from CustomerName is " + CustomerID);
+
+
+            }
+
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning CustomerID from CustomerName");
+
+
+        }
+        return CustomerID;
     }
+
+    public static int convertUserNameToUserID( String userName){
+        int UserID = 0;
+        try {
+            String statement = ("SELECT User_ID FROM users WHERE User_Name = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setString(1, userName);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                UserID= rs.getInt("User_ID");
+                System.out.println(" UserID from UserName is " + UserID + " ");
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning UserID from UserName");
+
+
+        }
+        return UserID;
+    }
+
+
 
 
 
