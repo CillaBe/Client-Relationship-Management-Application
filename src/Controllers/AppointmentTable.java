@@ -424,5 +424,6 @@ public class AppointmentTable implements Initializable {
         PopulateAllAppointments();;
 
         }
+
     }
 

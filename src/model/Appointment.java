@@ -14,6 +14,8 @@ public class Appointment {
     String Type;
     String Start;
     String End;
+    Timestamp StartTimeStamp;
+    Timestamp EndTimeStamp;
     LocalDateTime StartLocal;
     LocalDateTime  EndLocal;
     Timestamp Create_Date;
@@ -73,8 +75,19 @@ public class Appointment {
         this.User_ID = User_ID;
         this.Contact_ID = Contact_ID;
     }
+    public Appointment(int ContactID, Timestamp StartTimeStamp, Timestamp EndTimeStamp){
+        this.Customer_ID = ContactID;
+        this.StartTimeStamp = StartTimeStamp;
+        this.EndTimeStamp = EndTimeStamp;
 
+    }
+    public Timestamp getStartTimeStamp(){
+        return StartTimeStamp;
+    }
 
+    public Timestamp getEndTimeStamp(){
+        return EndTimeStamp;
+    }
     /**
      * Create Setters and Getters
      */

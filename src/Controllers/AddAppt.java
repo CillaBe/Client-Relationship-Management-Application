@@ -290,12 +290,12 @@ public class AddAppt implements Initializable {
 
     }
 
-    private boolean isOverLapping(LocalDateTime startNewAppt, LocalDateTime endNewAppt, int customerID) {
+    private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID) {
         boolean overlaps = false;
         ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
         System.out.println(" checking for overlapping appointments ");
         try {
-            String statement = "SELECT * FROM appointments WHERE Customer_ID = ?";
+            String statement = "SELECT Start, End, Customer_ID FROM appointments WHERE Customer_ID = ?";
             connection = JDBC.openConnection();
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setInt(1, customerID);
@@ -305,41 +305,29 @@ public class AddAppt implements Initializable {
             System.out.println(rs);
 
             while (rs.next()) {
-                int Appointment_ID = rs.getInt("Appointment_ID");
-                int Customer_ID = rs.getInt("Customer_ID");
-                int User_ID = rs.getInt("User_ID");
-                String Title = rs.getString("Title");
-                String Description = rs.getString("Description");
-                String Location = rs.getString("Location");
-                int Contact_ID = rs.getInt("Contact_ID");
-                String Type = rs.getString("Type");
-
-                /**Convert DB Start and end to Local Date and Time */
-                Timestamp EndTimeFromDB = rs.getTimestamp("End");
-                LocalDateTime localEnd = EndTimeFromDB.toLocalDateTime();
-
-                Timestamp StartTimefromDB = rs.getTimestamp("Start");
-                LocalDateTime localStart = StartTimefromDB.toLocalDateTime();
+                Timestamp StartTimeStamp = rs.getTimestamp("Start");
+                Timestamp EndTimeStamp = rs.getTimestamp("End");
+                int CustomerId = rs.getInt("Customer_ID");
 
                 System.out.println(" Trying to add all Appts to list to check for overlap ");
-                Appointment AppointmentToCheckAgainst = new Appointment(Appointment_ID, Customer_ID, User_ID, Title, Description, Location, Contact_ID, Type, localStart, localEnd);
+                Appointment AppointmentToCheckAgainst = new Appointment( CustomerId, StartTimeStamp,EndTimeStamp);
 
                 AllAppointments.add(AppointmentToCheckAgainst);
             }
 
             for (Appointment i : AllAppointments) {
-                LocalDateTime DBstart = i.getStartLocal();
-                LocalDateTime DBend = i.getEndLocal();
-                if (startNewAppt.isAfter(DBstart) && startNewAppt.isBefore(DBend)) {
+                Timestamp DBstart = i.getStartTimeStamp();
+                Timestamp DBend = i.getEndTimeStamp();
+                if (TimeStartFromApp.before(DBstart) && TimeEndFromApp.before(DBend)) {
                     overlaps = true;
                 }
-                if (endNewAppt.isAfter(DBstart) && endNewAppt.isBefore(DBend)) {
+                if (TimeEndFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
                     overlaps = true;
                 }
-                if (startNewAppt.equals(DBstart) || endNewAppt.equals(DBend)) {
+                if (TimeStartFromApp.equals(DBstart) || TimeEndFromApp.equals(DBend)) {
                     overlaps = true;
                 }
-                if (startNewAppt.isAfter(DBstart) && endNewAppt.isBefore(DBend)) {
+                if (TimeStartFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
                     overlaps = true;
                 }
 
@@ -415,6 +403,7 @@ public class AddAppt implements Initializable {
     }
 
     public void onSaveAddAppt(ActionEvent actionEvent) {
+
         /** Check all feilds are filled out */
         validateFields();
         UpdateCustomerIDTextBox();
@@ -470,19 +459,9 @@ public class AddAppt implements Initializable {
 
 
 
-      /** Getting times in string for overlap validation*
-        LocalDate localdate = AddApptStartDate.getValue();
-        System.out.println(" Localdate date from app " + localdate + " ");
-        String Start = StartTime.getValue();
-        System.out.println(" String start from app " + Start + " ");
-        String End = EndTime.getValue();
-        System.out.println(" String end date from app " + End + " ");
 
-        LocalDateTime startLocal = LocalDateTime.of(localdate,LocalTime.parse(Start,Timeformatter));
-        LocalDateTime endLocal = LocalDateTime.of(localdate,LocalTime.parse(End,Timeformatter));
-       */
 
- /** Converting times from Local Date time  to putin DB*/
+ /** Converting times from Local Date To TimeStamp time  to putin DB*/
 
 
         LocalDate localdate = AddApptStartDate.getValue();
@@ -512,46 +491,50 @@ public class AddAppt implements Initializable {
         System.out.println(" Times stamp start and ends for new appt add " + TimeStampStart + " " + TimeStampEnd);
 
 
-        try {
-            String statement = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Updated_By, Customer_ID, User_ID, Contact_ID)" +
-                    "VALUES(?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,CURRENT_TIMESTAMP,?,?,?)";
-
-            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
-            ps.setInt(1,newInt);
-            ps.setString(2,title);
-            ps.setString(3,Description);
-            ps.setString(4,location);
-            ps.setString(5,type);
-            ps.setTimestamp(6, TimeStampStart);
-            ps.setTimestamp(7, TimeStampEnd);
-            ps.setString(8, UserName);
-            ps.setInt(9, CustomerID);
-
-            ps.setInt(10, UserID);
-            ps.setInt(11,ContactID);
-
-            System.out.println(" Statement I'm sending to SQL to insert appt " + ps + " ");
-            ps.executeUpdate();
-        }
 
 
-            catch( SQLException exception){
-            System.out.println(" error adding appointment ");
-
-            }
-
-        /**if(isOverLapping(startLocal,endLocal,1)){
+        if(isOverLapping(TimeStampStart,TimeStampEnd, CustomerID)){
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setContentText("Error, appointment overlaps with another appointment for this customer");
             error.showAndWait();
 
+
+
         }
         else{
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setContentText("Congrats, this appointment does not overlap with another for  this customer");
-            error.showAndWait();
 
-        }*/
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Congrats, this appointment does not overlap with another for  this customer, adding to database");
+            error.showAndWait();
+            try {
+                String statement = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Updated_By, Customer_ID, User_ID, Contact_ID,Last_Update)" +
+                        "VALUES(?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,CURRENT_TIMESTAMP,?,?,?,CURRENT_TIMESTAMP)";
+
+                PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+                ps.setInt(1,newInt);
+                ps.setString(2,title);
+                ps.setString(3,Description);
+                ps.setString(4,location);
+                ps.setString(5,type);
+                ps.setTimestamp(6, TimeStampStart);
+                ps.setTimestamp(7, TimeStampEnd);
+                ps.setString(8, UserName);
+                ps.setInt(9, CustomerID);
+
+                ps.setInt(10, UserID);
+                ps.setInt(11,ContactID);
+
+                System.out.println(" Statement I'm sending to SQL to insert appt " + ps + " ");
+                ps.executeUpdate();
+            }
+
+
+            catch( SQLException exception){
+                System.out.println(" error adding appointment ");
+
+            }
+
+        }
         if (validateFields() == true) {
             try {
                 Parent parent = FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
