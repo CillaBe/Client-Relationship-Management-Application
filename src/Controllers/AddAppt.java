@@ -404,6 +404,8 @@ public class AddAppt implements Initializable {
 
     public void onSaveAddAppt(ActionEvent actionEvent) {
 
+
+
         /** Check all feilds are filled out */
         validateFields();
         UpdateCustomerIDTextBox();
@@ -495,7 +497,7 @@ public class AddAppt implements Initializable {
 
         if(isOverLapping(TimeStampStart,TimeStampEnd, CustomerID)){
             Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setContentText("Error, appointment overlaps with another appointment for this customer");
+            error.setContentText("Error, appointment overlaps with another appointment for this customer, appointment will not save");
             error.showAndWait();
 
 
@@ -535,7 +537,7 @@ public class AddAppt implements Initializable {
             }
 
         }
-        if (validateFields() == true) {
+        if (validateFields() == true ){
             try {
                 Parent parent = FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
                 Scene MainScene = new Scene(parent, 3800, 1200);
