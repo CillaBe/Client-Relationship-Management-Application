@@ -2,15 +2,28 @@ package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import jdk.jfr.Frequency;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModifyAppt implements Initializable {
+    public ComboBox ModifyApptCustComboBox;
+    public ComboBox ModifyApptContactBox;
+    public ComboBox ModifyapptUserComboBox;
+    public ComboBox ModifyApptStartTime;
+
+    public ComboBox ModifyApptEndTime;
+    public DatePicker ModifyApptDate;
     @FXML
     private TextField ModifyApptDescription;
     @FXML
@@ -28,17 +41,7 @@ public class ModifyAppt implements Initializable {
     @FXML
     private TextField ModifyApptLocation;
     @FXML
-    private Spinner ModifyApptStartTimeHour;
-    @FXML
-    private Spinner ModifyApptStartTimeMin;
-    @FXML
-    private Spinner ModifyApptEndTimeMin;
-    @FXML
-    private Spinner ModifyApptEndTimeHour;
-    @FXML
     private DatePicker ModifyApptStartDate;
-    @FXML
-    private DatePicker ModifyApptEndDate;
     @FXML
     private Button SaveModifyAppt;
     @FXML
@@ -70,51 +73,33 @@ public class ModifyAppt implements Initializable {
     public void onModifyApptContact(MouseEvent mouseEvent) {
     }
 
-    public void onModifyApptContactClicked(MouseEvent mouseEvent) {
-    }
 
     public void onModifyApptLocation(ActionEvent actionEvent) {
     }
 
-    public void onModifyApptStartTimeHour(MouseEvent mouseEvent) {
-    }
 
-    public void oModifyStartTimeHourClicked(MouseEvent mouseEvent) {
-    }
 
-    public void onModifyApptStartTimeMin(MouseEvent mouseEvent) {
-    }
-
-    public void onModifyStartTimeMinClicked(MouseEvent mouseEvent) {
-    }
-
-    public void oModifyApptEndTimeHour(MouseEvent mouseEvent) {
-    }
-
-    public void onModifyApptEndTimeMinClicked(MouseEvent mouseEvent) {
-    }
-
-    public void onModifyApptEndTimeMin(MouseEvent mouseEvent) {
-    }
-
-    public void oModifyApptEndTimeMinClicked(MouseEvent mouseEvent) {
-    }
 
     public void onModifyApptStartDate(ActionEvent actionEvent) {
     }
 
-    public void oModifyApptStartDateClicked(MouseEvent mouseEvent) {
-    }
 
-    public void onModifyApptEndDate(ActionEvent actionEvent) {
-    }
 
-    public void onModifyApptEndDateClicked(MouseEvent mouseEvent) {
-    }
+
+
+
 
     public void onSaveModifyppt(ActionEvent actionEvent) {
     }
 
-    public void onModifyAppointmentExit(ActionEvent actionEvent) {
+    public void onModifyAppointmentExit(ActionEvent actionEvent) throws IOException {
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
+        Scene MainScene = new Scene(parent,3800,1200);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("All Appointments");
+        MainStage.show();
+        System.out.println("Logged out of Modfy Appointments tab");
     }
 }

@@ -384,10 +384,18 @@ public class AppointmentTable implements Initializable {
     }
 
 
-    public void onCustomerDatabase(ActionEvent actionEvent) {
+    public void onCustomerDatabase(ActionEvent actionEvent) throws IOException{
     }
-
-    public void onModifyAppointment(ActionEvent actionEvent) {
+   /** This method launches the Modify Appointment Screen and carries over the data from the selected Appointment)*/
+    public void onModifyAppointment(ActionEvent actionEvent) throws IOException{
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/ModifyAppt.fxml"));
+        Scene MainScene = new Scene(parent,900,1000);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Modify Appointment");
+        MainStage.show();
+        System.out.println("Logged out of all Appointments tab");
     }
     /**This method launches the Add Appointment Screen
      @param actionEvent navigates to Add Appointment screen
