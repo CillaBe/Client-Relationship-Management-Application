@@ -100,6 +100,7 @@ public class AddAppt implements Initializable {
     private ObservableList <Customer> AllCustomers = FXCollections.observableArrayList();
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /** Insert Start and End Times, set tables for Users and Customers*/
@@ -113,7 +114,9 @@ public class AddAppt implements Initializable {
 
 
 
+
     }
+
     /** Populates all users to user table from DB*/
    /** public void PopulateAllUsers() {
         ObservableList <User>  TestUserOL = FXCollections.observableArrayList();

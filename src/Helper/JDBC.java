@@ -114,6 +114,34 @@ public class JDBC {
         }
         return UserID;
     }
+    public static String convertUserIDToUserName( int UserID){
+        String Username = null;
+        try {
+            String statement = ("SELECT User_Name FROM users WHERE User_ID = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setInt(1, UserID);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                Username= rs.getString("User_Name");
+                System.out.println(" UserName from UserID is " + Username + " ");
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning Username from UserID");
+
+
+        }
+        return Username;
+    }
+
+
 
 
 

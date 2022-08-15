@@ -94,6 +94,7 @@ public class AppointmentTable implements Initializable {
     private ZoneId UTCID = ZoneId.of("UTC");
 
 
+
     @FXML
     private JDBC DbHandler;
 
@@ -386,17 +387,23 @@ public class AppointmentTable implements Initializable {
 
     public void onCustomerDatabase(ActionEvent actionEvent) throws IOException{
     }
-   /** This method launches the Modify Appointment Screen and carries over the data from the selected Appointment)*/
+   /** This method launches the Modify Appointment */
     public void onModifyAppointment(ActionEvent actionEvent) throws IOException{
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/ModifyAppt.fxml"));
-        Scene MainScene = new Scene(parent,900,1000);
+        Scene MainScene = new Scene(parent,13000,1200);
         Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         MainStage.setScene(MainScene);
         parent.setStyle("-fx-font-family: Times New Roman;");
-        MainStage.setTitle("Modify Appointment");
+        MainStage.setTitle("Add Appointment");
         MainStage.show();
-        System.out.println("Logged out of all Appointments tab");
+        System.out.println("Moved to Modify appointments");
     }
+
+
+
+
+
+
     /**This method launches the Add Appointment Screen
      @param actionEvent navigates to Add Appointment screen
      */
