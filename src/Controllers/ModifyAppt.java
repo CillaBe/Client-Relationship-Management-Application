@@ -126,13 +126,7 @@ public class ModifyAppt implements Initializable {
 
     }
 
-    public void getApptToModify (int ApptID, Appointment selectedAppointment){
-        int AppointmentID =  ApptID;
-        String UserName = JDBC.convertUserIDToUserName(selectedAppointment.getUser_ID());
-        ModifyapptUserComboBox.setValue(UserName);
-        System.out.println(" Trying to populate UserName combo box in modify appt with " + UserName + " ");
 
-    }
     /** Inserts End Times into the combobox*/
     public void InsertEndTimes() {
         LocalTime LocalTimeHolder = LocalTime.MIN.plusHours(8);
@@ -262,4 +256,15 @@ public class ModifyAppt implements Initializable {
     }
 
 
+    public void OnClickToEdit(ActionEvent actionEvent) {
+        Appointment SelectedAppointment;
+        SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
+        CustomerIDTextBox.setText(String.valueOf(SelectedAppointment.getCustomer_ID()));
+        UserIDTextBox.setText(String.valueOf(SelectedAppointment.getUser_ID()));
+        ModifyApptDescription.setText(SelectedAppointment.getDescription());
+        ModifyApptTitle.setText(SelectedAppointment.getTitle());
+        ModifyApptLocation.setText(SelectedAppointment.getLocation());
+        ModifyApptType.setText(SelectedAppointment.getType());
+        ModifyApptID.setText(String.valueOf(SelectedAppointment.getAppointment_ID()));
+    }
 }

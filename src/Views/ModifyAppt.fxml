@@ -79,7 +79,7 @@
                   </TextField>
                   <Label text="Title" GridPane.rowIndex="9" />
                   <TextField fx:id="ModifyApptTitle" onAction="#onModifyApptTitle" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Label text="Customer" GridPane.rowIndex="3" />
+                  <Label text="Customer ID" GridPane.rowIndex="3" />
                   <Label text="User ID" GridPane.rowIndex="7" />
                   <TextField fx:id="UserIDTextBox" onAction="#onModifyApptTitle" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <TextField fx:id="CustomerIDTextBox" onAction="#onModifyApptTitle" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -212,6 +212,21 @@
                         <Font name="Cambria Italic" size="12.0" />
                      </font>
                   </Label>
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="3" GridPane.rowIndex="2">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="403.0" minWidth="0.0" prefWidth="0.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="975.0" minWidth="10.0" prefWidth="296.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1075.0" minWidth="10.0" prefWidth="928.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#OnClickToEdit" prefHeight="25.0" prefWidth="263.0" text="Click Here to Modify Selected Appointment" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>
