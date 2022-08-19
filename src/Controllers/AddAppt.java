@@ -321,7 +321,7 @@ public class AddAppt implements Initializable {
             for (Appointment i : AllAppointments) {
                 Timestamp DBstart = i.getStartTimeStamp();
                 Timestamp DBend = i.getEndTimeStamp();
-                if (TimeStartFromApp.before(DBstart) && TimeEndFromApp.before(DBend)) {
+                if (TimeStartFromApp.before(DBstart) && TimeEndFromApp.before(DBend) && TimeEndFromApp.after(DBstart)) {
                     overlaps = true;
                 }
                 if (TimeEndFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
@@ -331,6 +331,12 @@ public class AddAppt implements Initializable {
                     overlaps = true;
                 }
                 if (TimeStartFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
+                    overlaps = true;
+                }
+                if(TimeStartFromApp.after(DBstart) && TimeStartFromApp.before(DBend)){
+                    overlaps = true;
+                }
+                if(TimeEndFromApp.after(DBstart) && TimeEndFromApp.before(DBstart)){
                     overlaps = true;
                 }
 
@@ -410,7 +416,8 @@ public class AddAppt implements Initializable {
 
 
         /** Check all feilds are filled out */
-        validateFields();
+        //validateFields();
+        Boolean Overlapping;
         UpdateCustomerIDTextBox();
         UpdateUserIDTextBox();
         System.out.println("Return type of validate fields  in Add appt screen equals  "+ validateFields() + " ");
@@ -502,12 +509,14 @@ public class AddAppt implements Initializable {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setContentText("Error, appointment overlaps with another appointment for this customer, appointment will not save");
             error.showAndWait();
+            Overlapping = true;
+
 
 
 
         }
         else{
-
+            Overlapping = false;
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setContentText("Congrats, this appointment does not overlap with another for  this customer, adding to database");
             error.showAndWait();
@@ -540,8 +549,11 @@ public class AddAppt implements Initializable {
             }
 
         }
-        if (validateFields() == true ){
+        if (validateFields() == true  && Overlapping == false){
             try {
+                Alert Confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                Confirm.setContentText("Appointment Updated!");
+                Confirm.showAndWait();
                 Parent parent = FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
                 Scene MainScene = new Scene(parent, 3800, 1200);
                 Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -553,8 +565,17 @@ public class AddAppt implements Initializable {
             }
             catch (IOException e){
                 System.out.println("Error moving from save app to full appts screen");
+
             }
+
         }
+        else {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Error, please fix missing fields before proceeding");
+            error.showAndWait();
+
+        }
+
 
 
     }

@@ -22,13 +22,8 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.sql.*;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ResourceBundle;
@@ -189,6 +184,28 @@ public class ModifyAppt implements Initializable {
 
 
     public void onSaveModifyppt(ActionEvent actionEvent) {
+        if (validateFields() == true ){
+            try {
+                Alert Confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                Confirm.setContentText("Appointment Updated!");
+                Confirm.showAndWait();
+                Parent parent = FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
+                Scene MainScene = new Scene(parent, 3800, 1200);
+                Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                MainStage.setScene(MainScene);
+                parent.setStyle("-fx-font-family: Times New Roman;");
+                MainStage.setTitle("All Appointments");
+                MainStage.show();
+                System.out.println("Logged out of Modify Appointments tab");
+            }
+            catch (IOException e){
+                System.out.println("Error moving from save  modified appt to full appts screen");
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please fix missing fields before proceeding");
+                error.showAndWait();
+
+            }
+        }
     }
 
     public void onModifyAppointmentExit(ActionEvent actionEvent) throws IOException {
@@ -266,5 +283,154 @@ public class ModifyAppt implements Initializable {
         ModifyApptLocation.setText(SelectedAppointment.getLocation());
         ModifyApptType.setText(SelectedAppointment.getType());
         ModifyApptID.setText(String.valueOf(SelectedAppointment.getAppointment_ID()));
+
+    }
+    public Boolean validateFields() {
+
+        String Description = ModifyApptDescription.getText();
+
+        if (Description.isEmpty()) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Error, please add a description. PS I LOVE YOU JOE");
+            error.showAndWait();
+        }
+        String Customerid = CustomerIDTextBox.getText();
+        if (Customerid.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please select a Customer Name");
+                error.showAndWait();
+            }
+
+        }
+        String Userid = UserIDTextBox.getText();
+        if (Userid.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please select a User Name");
+                error.showAndWait();
+            }
+
+        }
+        String location = ModifyApptLocation.getText();
+        if (location.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter a location");
+                error.showAndWait();
+            }
+
+        }
+        SingleSelectionModel contact = ModifyApptContactBox.getSelectionModel();
+        if (contact.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please select a Contact ID");
+                error.showAndWait();
+            }
+
+
+        }
+        String type = ModifyApptType.getText();
+        if (type.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment type");
+                error.showAndWait();
+            }
+        }
+
+        SingleSelectionModel Starttime = ModifyApptStartTime.getSelectionModel();
+        if (Starttime.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment start time");
+                error.showAndWait();
+            }
+        }
+        SingleSelectionModel Endtime = ModifyApptEndTime.getSelectionModel();
+        if (Endtime.isEmpty()) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment end time");
+                error.showAndWait();
+            }
+        }
+
+        LocalDate Startdate = ModifyApptStartDate.getValue();
+        if (Startdate == null) {
+            {
+                Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setContentText("Error, please enter an appointment start date");
+                error.showAndWait();
+            }
+        }
+
+
+        if (Startdate == null || Endtime.isEmpty() || Starttime.isEmpty() || type.isEmpty() || contact.isEmpty() || location.isEmpty() || Userid.isEmpty() || Customerid.isEmpty()
+                || Description.isEmpty()) {
+            return false;
+        } else {
+            return true;
+
+        }
+
+
+    }
+
+    private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID) {
+        boolean overlaps = false;
+        ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
+        System.out.println(" checking for overlapping appointments ");
+        try {
+            String statement = "SELECT Start, End, Customer_ID FROM appointments WHERE Customer_ID = ?";
+            connection = JDBC.openConnection();
+            PreparedStatement ps = connection.prepareStatement(statement);
+            ps.setInt(1, customerID);
+            ResultSet rs = ps.executeQuery();
+            System.out.println(" Successfully queried list to check for overlapping times ");
+
+            System.out.println(rs);
+
+            while (rs.next()) {
+                Timestamp StartTimeStamp = rs.getTimestamp("Start");
+                Timestamp EndTimeStamp = rs.getTimestamp("End");
+                int CustomerId = rs.getInt("Customer_ID");
+
+                System.out.println(" Trying to add all Appts to list to check for overlap ");
+                Appointment AppointmentToCheckAgainst = new Appointment( CustomerId, StartTimeStamp,EndTimeStamp);
+
+                AllAppointments.add(AppointmentToCheckAgainst);
+            }
+
+            for (Appointment i : AllAppointments) {
+                Timestamp DBstart = i.getStartTimeStamp();
+                Timestamp DBend = i.getEndTimeStamp();
+                if (TimeStartFromApp.before(DBstart) && TimeEndFromApp.before(DBend)) {
+                    overlaps = true;
+                }
+                if (TimeEndFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
+                    overlaps = true;
+                }
+                if (TimeStartFromApp.equals(DBstart) || TimeEndFromApp.equals(DBend)) {
+                    overlaps = true;
+                }
+                if (TimeStartFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
+                    overlaps = true;
+                }
+
+            }
+
+        }
+
+
+        catch (SQLException e){
+            System.out.println(" Failed to check for overlapping appointments ");
+        }
+        System.out.println(" Overlapping boolean is " + overlaps + " ");
+        return overlaps;
+
+
+
     }
 }
