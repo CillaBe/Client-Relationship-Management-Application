@@ -32,9 +32,9 @@ public class ModifyAppt implements Initializable {
     public ComboBox ModifyApptCustComboBox;
     public ComboBox ModifyApptContactBox;
     public ComboBox ModifyapptUserComboBox;
-    public ComboBox ModifyApptStartTime;
+    public ComboBox <String>ModifyApptStartTime;
 
-    public ComboBox ModifyApptEndTime;
+    public ComboBox <String>ModifyApptEndTime;
     public DatePicker ModifyApptDate;
     public TextField UserIDTextBox;
     public TextField CustomerIDTextBox;
@@ -186,6 +186,102 @@ public class ModifyAppt implements Initializable {
     public void onSaveModifyppt(ActionEvent actionEvent) {
         if (validateFields() == true ){
             try {
+
+                /** Grab data from all fields and print it to check it's grabbing correctly*/
+
+
+
+                int CustomerID = Integer.parseInt(CustomerIDTextBox.getText());
+
+                System.out.println(" Customer ID : " + CustomerID + " ");
+
+                int UserID = Integer.parseInt(UserIDTextBox.getText());
+
+                System.out.println(" User ID : " + UserID + " ");
+                String UserName = JDBC.convertUserIDToUserName(UserID);
+
+                int ApptID = Integer.parseInt(ModifyApptID.getText());
+
+                String Description = ModifyApptDescription.getText();
+                System.out.println(" appt description is " + Description + " ");
+
+
+                String location = ModifyApptLocation.getText();
+                System.out.println(" appt location is " + location + " ");
+
+                String type = ModifyApptType.getText();
+                System.out.println(" appt type is " + type + " ");
+
+                String title = ModifyApptTitle.getText();
+                System.out.println(" appt title is " + title + " ");
+
+                String ContactName = ModifyApptContactBox.getSelectionModel().getSelectedItem().toString();
+
+                System.out.println(" Contact Name: " + ContactName + " ");
+
+                int ContactID = JDBC.ConvertContactNameToContactID(ContactName);
+
+                System.out.println(" ContactID from insert new apt is " + ContactID);
+                /** Converting times from Local Date To TimeStamp time  to putin DB*/
+
+
+                LocalDate localdate = ModifyApptDate.getValue();
+                System.out.println(" Localdate date from app " + localdate + " ");
+
+                LocalTime StartForinsertLoc = LocalTime.parse(ModifyApptStartTime.getSelectionModel().getSelectedItem(),Timeformatter);
+                System.out.println(" LocalTime start from app " + StartForinsertLoc + " ");
+                LocalTime EndForintsertLoc = LocalTime.parse(ModifyApptEndTime.getSelectionModel().getSelectedItem(),Timeformatter);
+                System.out.println(" LocalTime end from app " + EndForintsertLoc + " ");
+
+                /** Put date and start and end times together*/
+                LocalDateTime StartDateAndTime = LocalDateTime.of(localdate,StartForinsertLoc);
+
+
+                LocalDateTime EndDateAndTime = LocalDateTime.of(localdate,EndForintsertLoc);
+                System.out.println( " Localdatetime start and end for appt trying to update " + StartDateAndTime + "  " + EndDateAndTime + " ");
+                /** Convert start and end date and time to UTC*/
+
+                ZonedDateTime startDB = StartDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
+                System.out.println(" Zoned Date Time start " + startDB + " ");
+                ZonedDateTime endDB = EndDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
+                System.out.println( " Zoned date time end " + endDB + " ");
+
+                /** Convert start and end time to time stamp for DB*/
+
+                Timestamp TimeStampStart = Timestamp.valueOf(startDB.toLocalDateTime());
+                Timestamp TimeStampEnd = Timestamp.valueOf(endDB.toLocalDateTime());
+                System.out.println(" Times stamp start and ends for new appt add " + TimeStampStart + " " + TimeStampEnd);
+
+
+                /** Update appointment that matches the appointment ID*/
+                try{
+                String statement = "UPDATE appointments  SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ? , End = ?, Create_Date = CURRENT_TIMESTAMP, Created_By = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ?, Last_Update = CURRENT_TIMESTAMP WHERE Appointment_ID = ?";
+
+                   PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+
+                    ps.setString(1,title);
+                    ps.setString(2,Description);
+                    ps.setString(3,location);
+                    ps.setString(4,type);
+                    ps.setTimestamp(5, TimeStampStart);
+                    ps.setTimestamp(6, TimeStampEnd);
+                    ps.setString(7, UserName);
+                    ps.setString(8, UserName);
+                    ps.setInt(9,CustomerID);
+
+                    ps.setInt(10, UserID);
+                    ps.setInt(11,ContactID);;
+                    ps.setInt(12,ApptID);
+
+                   System.out.println(" Statement I'm sending to SQL to update appt " + ps + " ");
+                   ps.executeUpdate();
+               }
+               catch( SQLException exception){
+                   System.out.println(" error updating appointment ");
+
+               }
+
+
                 Alert Confirm = new Alert(Alert.AlertType.CONFIRMATION);
                 Confirm.setContentText("Appointment Updated!");
                 Confirm.showAndWait();
@@ -357,7 +453,7 @@ public class ModifyAppt implements Initializable {
             }
         }
 
-        LocalDate Startdate = ModifyApptStartDate.getValue();
+        LocalDate Startdate = ModifyApptDate.getValue();
         if (Startdate == null) {
             {
                 Alert error = new Alert(Alert.AlertType.ERROR);
@@ -377,16 +473,16 @@ public class ModifyAppt implements Initializable {
 
 
     }
-
-    private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID) {
+    private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID, int appointmentID) {
         boolean overlaps = false;
         ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
         System.out.println(" checking for overlapping appointments ");
         try {
-            String statement = "SELECT Start, End, Customer_ID FROM appointments WHERE Customer_ID = ?";
+            String statement = "SELECT Start, End, Customer_ID FROM appointments WHERE Customer_ID = ? AND Appointment_ID != ? ";
             connection = JDBC.openConnection();
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setInt(1, customerID);
+            ps.setInt(2,appointmentID);
             ResultSet rs = ps.executeQuery();
             System.out.println(" Successfully queried list to check for overlapping times ");
 
@@ -406,7 +502,7 @@ public class ModifyAppt implements Initializable {
             for (Appointment i : AllAppointments) {
                 Timestamp DBstart = i.getStartTimeStamp();
                 Timestamp DBend = i.getEndTimeStamp();
-                if (TimeStartFromApp.before(DBstart) && TimeEndFromApp.before(DBend)) {
+                if (TimeStartFromApp.before(DBstart) && TimeEndFromApp.before(DBend) && TimeEndFromApp.after(DBstart)) {
                     overlaps = true;
                 }
                 if (TimeEndFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
@@ -418,11 +514,16 @@ public class ModifyAppt implements Initializable {
                 if (TimeStartFromApp.after(DBstart) && TimeEndFromApp.before(DBend)) {
                     overlaps = true;
                 }
+                if(TimeStartFromApp.after(DBstart) && TimeStartFromApp.before(DBend)){
+                    overlaps = true;
+                }
+                if(TimeEndFromApp.after(DBstart) && TimeEndFromApp.before(DBstart)){
+                    overlaps = true;
+                }
 
             }
 
         }
-
 
         catch (SQLException e){
             System.out.println(" Failed to check for overlapping appointments ");
@@ -433,4 +534,8 @@ public class ModifyAppt implements Initializable {
 
 
     }
+
+
+
 }
+

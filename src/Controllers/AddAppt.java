@@ -118,6 +118,7 @@ public class AddAppt implements Initializable {
 
     }
 
+
     /** Populates all users to user table from DB*/
    /** public void PopulateAllUsers() {
         ObservableList <User>  TestUserOL = FXCollections.observableArrayList();
@@ -523,7 +524,7 @@ public class AddAppt implements Initializable {
             error.showAndWait();
             try {
                 String statement = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Updated_By, Customer_ID, User_ID, Contact_ID,Last_Update)" +
-                        "VALUES(?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,CURRENT_TIMESTAMP,?,?,?,CURRENT_TIMESTAMP)";
+                        "VALUES(?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,CURRENT_TIMESTAMP)";
 
                 PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
                 ps.setInt(1,newInt);
@@ -534,10 +535,11 @@ public class AddAppt implements Initializable {
                 ps.setTimestamp(6, TimeStampStart);
                 ps.setTimestamp(7, TimeStampEnd);
                 ps.setString(8, UserName);
-                ps.setInt(9, CustomerID);
+                ps.setString(9, UserName);
+                ps.setInt(10,CustomerID);
 
-                ps.setInt(10, UserID);
-                ps.setInt(11,ContactID);
+                ps.setInt(11, UserID);
+                ps.setInt(12,ContactID);
 
                 System.out.println(" Statement I'm sending to SQL to insert appt " + ps + " ");
                 ps.executeUpdate();
