@@ -18,6 +18,7 @@ import model.Contact;
 import model.Customer;
 import model.User;
 
+import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -645,7 +646,7 @@ public class AddAppt implements Initializable {
 
     public void MouseReleasedCustName(MouseEvent mouseEvent) {
     }
-    /** Converts ContactName to it's corresponding contactID from the database*/
+
 
 
 }
