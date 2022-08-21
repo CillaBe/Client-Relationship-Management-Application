@@ -297,11 +297,14 @@ public class ModifyAppt implements Initializable {
                 MainStage.show();
                 System.out.println("Logged out of Modify Appointments tab");
             } catch (IOException e) {
-                Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setContentText("Error, please fix missing fields  and correct overlapping appointments before proceeding");
-                error.showAndWait();
+
 
             }
+        }
+        else {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Error, please correct overlapping appointments before proceeding");
+            error.showAndWait();
         }
 
         }
@@ -481,6 +484,7 @@ public class ModifyAppt implements Initializable {
         boolean overlaps = false;
         ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
         System.out.println(" checking for overlapping appointments ");
+        System.out.println( " Modify Appointment Start and End Timestamps from the application  are " + TimeStartFromApp +" " + TimeEndFromApp + " ");
         try {
             String statement = "SELECT Start, End, Customer_ID FROM appointments WHERE Customer_ID = ? AND Appointment_ID != ? ";
             connection = JDBC.openConnection();
@@ -494,7 +498,9 @@ public class ModifyAppt implements Initializable {
 
             while (rs.next()) {
                 Timestamp StartTimeStamp = rs.getTimestamp("Start");
+
                 Timestamp EndTimeStamp = rs.getTimestamp("End");
+                System.out.println( " Modify Appointment Start and End Timestamps from the DB are " + StartTimeStamp +" " + EndTimeStamp + " ");
                 int CustomerId = rs.getInt("Customer_ID");
 
                 System.out.println(" Trying to add all Appts to list to check for overlap ");
