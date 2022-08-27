@@ -3,14 +3,24 @@ package Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.SortEvent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CustomerTable implements Initializable {
+    public TableColumn CustomerName;
+    public TextField ModifyCustPhoneNumber;
+    public TextField ModifyCustID;
+    public TextField ModifyCustAddress;
+    public ComboBox ModifyStateProvCombBox;
+    public TextField ModifyCustPostalCode;
+    public ComboBox ModifyCountryCombobox;
+    public Button ExitCustomer;
+    public Button UpdateCustToDB;
+    public Button DeleteCustomer;
+    public Button UpdateSelectedCustomer;
+    public Button AddNewCustomer;
     @FXML
     private TableView CustomerTable;
     @FXML
@@ -50,5 +60,14 @@ public class CustomerTable implements Initializable {
     }
 
     public void onCustomerTable(SortEvent<TableView> tableViewSortEvent) {
+    }
+
+    public void onModifyApptDescription(ActionEvent actionEvent) {
+    }
+
+    public void CustomerID(ActionEvent actionEvent) {
+    }
+
+    public void onModifyApptTitle(ActionEvent actionEvent) {
     }
 }
