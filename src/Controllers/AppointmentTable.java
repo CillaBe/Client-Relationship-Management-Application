@@ -386,7 +386,16 @@ public class AppointmentTable implements Initializable {
 
 
     public void onCustomerDatabase(ActionEvent actionEvent) throws IOException{
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/CustomerTable.fxml"));
+        Scene MainScene = new Scene(parent,1200,1000);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Customer Database");
+        MainStage.show();
+        System.out.println("Logged out of Appointments tab");
     }
+
    /** This method launches the Modify Appointment */
     public void onModifyAppointment(ActionEvent actionEvent) throws IOException{
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/ModifyAppt.fxml"));

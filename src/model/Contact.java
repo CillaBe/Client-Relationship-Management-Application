@@ -41,6 +41,7 @@ public class Contact {
     }
     public static ObservableList<String> getContactNames(){
         Connection connection = JDBC.openConnection();
+        AllContacts.clear();
        try {
            String statement = ("SELECT contacts.Contact_Name FROM contacts");
            PreparedStatement ps = connection.prepareStatement(statement);

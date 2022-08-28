@@ -33,6 +33,7 @@ public class JDBC {
         }
         /** Converts ContactName to it's corresponding contactID from the database*/
     }
+    /** Converts ContactName to it's corresponding contactID from the database*/
     public static int ConvertContactNameToContactID ( String contactName) {
 
         int ContactID = 0;
@@ -60,6 +61,7 @@ public class JDBC {
         }
         return ContactID;
     }
+    /** Converts CustomerName to it's corresponding CustomerID from the database*/
     public static int convertCustomerNameToCustID( String customerName){
         int CustomerID = 0;
         try {
@@ -87,7 +89,7 @@ public class JDBC {
         }
         return CustomerID;
     }
-
+    /** Converts UserName to it's corresponding UserID from the database*/
     public static int convertUserNameToUserID( String userName){
         int UserID = 0;
         try {
@@ -114,6 +116,7 @@ public class JDBC {
         }
         return UserID;
     }
+    /** Converts UserID to it's corresponding Username from the database*/
     public static String convertUserIDToUserName( int UserID){
         String Username = null;
         try {
@@ -139,6 +142,33 @@ public class JDBC {
 
         }
         return Username;
+    }
+    /** Converts Country Name to it's corresponding Country ID from the database*/
+    public static int converCountryNameToCountryID( String CountryName){
+        int CountryID = 0;
+        try {
+            String statement = ("SELECT Country_ID FROM countries WHERE Country = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setString(1, CountryName);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                CountryID= rs.getInt("Country_ID");
+                System.out.println(" Country ID from Country Name is " + CountryID + " ");
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning Country Id from Country");
+
+
+        }
+        return CountryID;
     }
 
 

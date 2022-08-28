@@ -1,5 +1,6 @@
 package Controllers;
 
+import Helper.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,8 +45,10 @@ public class CustomerTable implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ModifyCountryCombobox.setItems(model.Country.getCountryNames());
 
     }
+
 
     public void onAddCustomer(ActionEvent actionEvent) {
     }
@@ -75,5 +78,11 @@ public class CustomerTable implements Initializable {
     }
 
     public void OnModifySelectedCustomer(ActionEvent actionEvent) {
+    }
+
+    public void OnCountryAction(ActionEvent actionEvent) {
+        String SelectedCountry = (String) ModifyCountryCombobox.getSelectionModel().getSelectedItem();
+        int CountryID = JDBC.converCountryNameToCountryID(SelectedCountry);
+        ModifyStateProvCombBox.setItems(model.FirstLevel.PopulateDivisonFromID(CountryID));
     }
 }

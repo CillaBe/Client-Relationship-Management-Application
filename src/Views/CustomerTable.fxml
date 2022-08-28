@@ -85,7 +85,7 @@
                   <Label text="Address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="State/Province" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <TextField fx:id="ModifyCustAddress" onAction="#onModifyApptTitle" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <ComboBox fx:id="ModifyCountryCombobox" prefWidth="150.0" promptText="Country" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="ModifyCountryCombobox" onAction="#OnCountryAction" prefWidth="150.0" promptText="Country" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <Label text="Country" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <ComboBox fx:id="ModifyStateProvCombBox" prefWidth="150.0" promptText="State/Province" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                </children>
