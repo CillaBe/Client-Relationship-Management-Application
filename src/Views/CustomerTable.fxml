@@ -116,8 +116,8 @@
             <Button fx:id="DeleteCustomer" mnemonicParsing="false" onAction="#onDeleteCustomer" prefHeight="26.0" prefWidth="136.0" text="Delete Customer" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Button fx:id="AddNewCustomer" mnemonicParsing="false" onAction="#onAddCustomer" prefHeight="26.0" prefWidth="132.0" text="Add  New Customer" GridPane.columnIndex="4" GridPane.rowIndex="5" />
             <Label prefHeight="17.0" prefWidth="409.0" text="Select button below to save updated customer info to the database" GridPane.columnIndex="1" />
-            <Button fx:id="UpdateCustToDB" mnemonicParsing="false" prefHeight="25.0" prefWidth="165.0" text="Update Customer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="UpdateSelectedCustomer" mnemonicParsing="false" prefHeight="25.0" prefWidth="194.0" text="Modify  Selected Customer" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button fx:id="UpdateCustToDB" mnemonicParsing="false" onAction="#onUpdateCustToDB" prefHeight="25.0" prefWidth="165.0" text="Update Customer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="UpdateSelectedCustomer" mnemonicParsing="false" onAction="#OnModifySelectedCustomer" prefHeight="25.0" prefWidth="194.0" text="Modify  Selected Customer" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label prefHeight="17.0" prefWidth="410.0" text="Select a Customer from list above and click below to modify or delete" GridPane.columnIndex="3" />
          </children>
       </GridPane>

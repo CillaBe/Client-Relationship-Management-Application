@@ -70,4 +70,10 @@ public class CustomerTable implements Initializable {
 
     public void onModifyApptTitle(ActionEvent actionEvent) {
     }
+
+    public void onUpdateCustToDB(ActionEvent actionEvent) {
+    }
+
+    public void OnModifySelectedCustomer(ActionEvent actionEvent) {
+    }
 }
