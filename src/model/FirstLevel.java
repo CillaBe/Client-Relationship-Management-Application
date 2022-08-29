@@ -31,6 +31,10 @@ public class FirstLevel {
     public String toString(){
         return(  Division);
     }
+
+    /** This method returns a list of Divisions that correspond to the country ID
+     *
+     * */
     public static ObservableList<String> PopulateDivisonFromID( int CountryID){
         String Division = null;
         AllDivisions.clear();

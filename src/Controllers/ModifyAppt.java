@@ -180,7 +180,10 @@ public class ModifyAppt implements Initializable {
 
 
 
-
+    /** This method checks if all fields are filled out and there are no overlapping appointments, if these conditions are met the table
+     * saves to the database.
+     *
+     * */
 
 
     public void onSaveModifyppt(ActionEvent actionEvent) {
@@ -309,7 +312,9 @@ public class ModifyAppt implements Initializable {
 
         }
 
-
+    /** This method exits the Modify Appointment Screen.
+     *
+     * */
 
     public void onModifyAppointmentExit(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
@@ -375,7 +380,9 @@ public class ModifyAppt implements Initializable {
 
     }
 
-
+    /** This method moves the data from the Appointment Table view to the appropriate spots to edit
+     *
+     * */
     public void OnClickToEdit(ActionEvent actionEvent) {
         Appointment SelectedAppointment;
         SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
@@ -478,7 +485,9 @@ public class ModifyAppt implements Initializable {
 
         }
 
-
+/** This method checks for overlapping appointments.
+ *
+ * */
     }
     private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID, int appointmentID) {
         boolean overlaps = false;

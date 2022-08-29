@@ -22,6 +22,7 @@ public class CustomerTable implements Initializable {
     public Button DeleteCustomer;
     public Button UpdateSelectedCustomer;
     public Button AddNewCustomer;
+    public TableColumn DivisionID;
     @FXML
     private TableView CustomerTable;
     @FXML

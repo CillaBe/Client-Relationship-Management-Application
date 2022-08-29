@@ -39,6 +39,9 @@ public class Contact {
     public String toString(){
        return(  ContactName);
     }
+    /** This method returns all contact names from the database
+     *
+     * */
     public static ObservableList<String> getContactNames(){
         Connection connection = JDBC.openConnection();
         AllContacts.clear();
