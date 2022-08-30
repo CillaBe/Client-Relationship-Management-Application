@@ -12,10 +12,24 @@ import java.sql.SQLException;
 public class Customer {
     private int CustomerID;
     private String CustomerName;
+    String Address;
+    String PostalCode;
+    String Phone;
+    int DivisionID;
     private static  ObservableList<String> AllCustomers = FXCollections.observableArrayList();
 
 
-    public Customer() {
+    public Customer(int CustomerID, String CustomerName, String Address, String PostalCode, String Phone, int DivisionID) {
+        this.CustomerID = CustomerID;
+        this.CustomerName = CustomerName;
+        this.Address = Address;
+        this.PostalCode = PostalCode;
+        this.Phone= Phone;
+        this.DivisionID = DivisionID;
+
+
+    }
+    public Customer(){
 
     }
 
@@ -57,9 +71,19 @@ public class Customer {
     }
 
 
-
+/** Create Getters*/
     public int getCustomerID() {
         return CustomerID;
     }
+
+    public int getDivisionID() { return  DivisionID;}
+
+    public String getCustomerName() {return CustomerName;}
+
+    public  String getAddress() {return Address;}
+
+    public  String getPostalCode () {return PostalCode;}
+
+    public  String getPhone (){return Phone;}
 }
 

@@ -13,9 +13,10 @@ public class FirstLevel {
     private static String Division;
     private static ObservableList<String> AllDivisions = FXCollections.observableArrayList();
 
+
     public FirstLevel(){
 
-    };
+    }
     public FirstLevel(int CountryID,String Division){
         this.CountryID = CountryID;
         this.Division= Division;
