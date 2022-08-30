@@ -16,16 +16,18 @@ public class Customer {
     String PostalCode;
     String Phone;
     int DivisionID;
+    String Division;
     private static  ObservableList<String> AllCustomers = FXCollections.observableArrayList();
 
 
-    public Customer(int CustomerID, String CustomerName, String Address, String PostalCode, String Phone, int DivisionID) {
+    public Customer(int CustomerID, String CustomerName, String Address,String Division, String PostalCode, String Phone, int DivisionID) {
         this.CustomerID = CustomerID;
         this.CustomerName = CustomerName;
         this.Address = Address;
         this.PostalCode = PostalCode;
         this.Phone= Phone;
         this.DivisionID = DivisionID;
+        this.Division = Division;
 
 
     }
@@ -85,5 +87,34 @@ public class Customer {
     public  String getPostalCode () {return PostalCode;}
 
     public  String getPhone (){return Phone;}
-}
+
+    public static String getDivision(int DivisionID){
+        String Division = null;
+        try {
+            String statement = ("SELECT Division FROM first_level_divisions WHERE Division_ID = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setInt(1, DivisionID);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                Division= rs.getString("Division");
+                System.out.println(" Division from Division ID is " + Division + " ");
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning Username from UserID");
+
+
+        }
+        return Division;
+    }
+
+    }
+
 

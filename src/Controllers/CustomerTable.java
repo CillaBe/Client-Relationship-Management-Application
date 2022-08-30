@@ -63,7 +63,7 @@ public class CustomerTable implements Initializable {
         CustomerID.setCellValueFactory(new PropertyValueFactory<>("CustomerID"));
         CustomerName.setCellValueFactory(new PropertyValueFactory<>("CustomerName"));
         StreetAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-        //State.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        State.setCellValueFactory(new PropertyValueFactory<>("Division"));
         //Country.setCellValueFactory(new PropertyValueFactory<>("Start"));
         PostalCode.setCellValueFactory(new PropertyValueFactory<>("PostalCode"));
         PhoneNumber.setCellValueFactory(new PropertyValueFactory<>("Phone"));
@@ -91,10 +91,11 @@ public class CustomerTable implements Initializable {
                 String Postal_Code = rs.getString("Postal_Code");
                 String Phone= rs.getString("Phone");
                 int Division_ID = rs.getInt("Division_ID");
+                String Division = Customer.getDivision(Division_ID);
 
 
 
-                allCustomers.add(new Customer(Customer_ID,Customer_Name,Address,Postal_Code,Phone,Division_ID));
+                allCustomers.add(new Customer(Customer_ID,Customer_Name,Address, Division, Postal_Code,Phone,Division_ID));
                 CustomerTable.setItems(allCustomers);
                 System.out.print(" Set all customers in table");
 
