@@ -17,10 +17,11 @@ public class Customer {
     String Phone;
     int DivisionID;
     String Division;
+    String Country;
     private static  ObservableList<String> AllCustomers = FXCollections.observableArrayList();
 
 
-    public Customer(int CustomerID, String CustomerName, String Address,String Division, String PostalCode, String Phone, int DivisionID) {
+    public Customer(int CustomerID, String CustomerName, String Address,String Division, String Country, String PostalCode, String Phone, int DivisionID) {
         this.CustomerID = CustomerID;
         this.CustomerName = CustomerName;
         this.Address = Address;
@@ -28,6 +29,7 @@ public class Customer {
         this.Phone= Phone;
         this.DivisionID = DivisionID;
         this.Division = Division;
+        this.Country = Country;
 
 
     }
@@ -90,6 +92,10 @@ public class Customer {
 
     public String getDivision(){return Division;}
 
+    public String getCountry(){return Country;}
+
+    /** Converts Division ID to Division Name*/
+
     public static String ConvertDivision(int DivisionID){
         String Division = null;
         try {
@@ -115,6 +121,37 @@ public class Customer {
 
         }
         return Division;
+    }
+
+
+    /** Converts Division ID to Country*/
+    public static String convertToCountry ( int DivisionID ){
+        String Country = null;
+        try {
+            String statement = ("SELECT countries.Country FROM countries JOIN  first_level_divisions ON countries.Country_ID = first_level_divisions.Country_ID  WHERE first_level_divisions.Division_ID = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setInt(1, DivisionID);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                Country = rs.getString("Country");
+                System.out.println(" Country from Division ID is " + Country+ " ");
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning Country form Division ID");
+
+
+        }
+        return Country;
+
+
     }
 
     }
