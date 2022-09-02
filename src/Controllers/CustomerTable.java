@@ -91,7 +91,7 @@ public class CustomerTable implements Initializable {
                 String Postal_Code = rs.getString("Postal_Code");
                 String Phone= rs.getString("Phone");
                 int Division_ID = rs.getInt("Division_ID");
-                String Division = Customer.getDivision(Division_ID);
+                String Division = Customer.ConvertDivision(Division_ID);
 
 
 

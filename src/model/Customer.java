@@ -88,7 +88,9 @@ public class Customer {
 
     public  String getPhone (){return Phone;}
 
-    public static String getDivision(int DivisionID){
+    public String getDivision(){return Division;}
+
+    public static String ConvertDivision(int DivisionID){
         String Division = null;
         try {
             String statement = ("SELECT Division FROM first_level_divisions WHERE Division_ID = ?");
