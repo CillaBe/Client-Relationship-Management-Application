@@ -116,7 +116,7 @@ public class Customer {
 
 
         } catch (SQLException e) {
-            System.out.println("Error returning Username from UserID");
+            System.out.println("Error returning Division from Division ID");
 
 
         }
@@ -145,13 +145,41 @@ public class Customer {
 
 
         } catch (SQLException e) {
-            System.out.println("Error returning Country form Division ID");
+            System.out.println("Error returning Country from Division ID");
 
 
         }
         return Country;
 
 
+    }
+    /** Converts Division to Division ID*/
+
+    public static int ConvertDivisionToID (String Division){
+         int DivisionID = 0;
+        try {
+            String statement = ("SELECT Division_ID FROM first_level_divisions WHERE Division = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setString(1, Division);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                DivisionID= rs.getInt("Division_ID");
+                System.out.println(" Division ID from Division is " + DivisionID + " ");
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning Division ID from Division");
+
+
+        }
+        return DivisionID;
     }
 
     }
