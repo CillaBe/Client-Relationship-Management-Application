@@ -138,6 +138,15 @@ public class CustomerTable implements Initializable {
     }
 
     public void OnModifySelectedCustomer(ActionEvent actionEvent) {
+        Customer SelectedCustomer;
+        SelectedCustomer= (Customer) CustomerTable.getSelectionModel().getSelectedItem();
+        ModifyCustID.setText(String.valueOf(SelectedCustomer.getCustomerID()));
+        ModifyCustAddress.setText(String.valueOf(SelectedCustomer.getAddress()));
+        ModifyCountryCombobox.setValue(SelectedCustomer.getCountry());
+        ModifyStateProvCombBox.setValue(SelectedCustomer.getDivision());
+        ModifyCustPhoneNumber.setText(SelectedCustomer.getPhone());
+        ModifyCustPostalCode.setText(SelectedCustomer.getPostalCode());
+
     }
 
     public void OnCountryAction(ActionEvent actionEvent) {
