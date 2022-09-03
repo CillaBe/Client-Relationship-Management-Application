@@ -484,11 +484,12 @@ public class ModifyAppt implements Initializable {
             return true;
 
         }
+    }
 
 /** This method checks for overlapping appointments.
  *
  * */
-    }
+
     private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID, int appointmentID) {
         boolean overlaps = false;
         ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
