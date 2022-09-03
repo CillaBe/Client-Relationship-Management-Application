@@ -5,12 +5,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.*;
@@ -115,8 +121,16 @@ public class CustomerTable implements Initializable {
 
     public void onDeleteCustomer(ActionEvent actionEvent) {
     }
-
-    public void onExitCustomer(ActionEvent actionEvent) {
+ /** Exits the Customer table and goes back to the Appointment Table*/
+    public void onExitCustomer(ActionEvent actionEvent) throws IOException {
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
+        Scene MainScene = new Scene(parent,3800,1200);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Appointment Table");
+        MainStage.show();
+        System.out.println("Logged out of Customer Table tab");
     }
 
     public void onCustomerTable(SortEvent<TableView> tableViewSortEvent) {
