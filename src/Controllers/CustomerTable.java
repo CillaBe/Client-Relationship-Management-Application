@@ -118,8 +118,59 @@ public class CustomerTable implements Initializable {
 
     public void onModiftyCustomer(ActionEvent actionEvent) {
     }
+ /** Deletes Customer if there are no corresponding appointments for that customer in the database*/
+    public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
+        Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
+        warning.setContentText("Are you sure you want to delete this customer from the data base?");
+        warning.showAndWait();
 
-    public void onDeleteCustomer(ActionEvent actionEvent) {
+        Customer SelectedCustomer;
+        ResultSet rs = null;
+        int CustID;
+        SelectedCustomer = (Customer) CustomerTable.getSelectionModel().getSelectedItem();
+        CustID = SelectedCustomer.getCustomerID();
+        try{
+            String statement = " SELECT  * FROM appointments WHERE Customer_ID = ?";
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setInt(1,CustID);
+
+            System.out.println(" Statement I'm sending to SQL to check for cust appts before deleting " + ps + " ");
+             rs = ps.executeQuery();
+
+        }
+        catch( SQLException exception){
+            System.out.println(" error checking for corresponding appointments ");
+
+        }
+        if (rs.next() == true){
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setContentText("Error, this customer has appointments scheduled. Please delete corresponding appointments and try again");
+            error.showAndWait();
+
+        }
+        else{
+            try{
+                String statement = " DELETE * FROM customers WHERE Customer_ID = ?";
+
+                PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+                ps.setInt(1,CustID);
+
+                System.out.println(" Statement I'm sending to SQL to delete customer " + ps + " ");
+                ps.executeQuery();
+
+            }
+            catch( SQLException exception){
+                System.out.println(" error deleting customer");
+
+            }
+
+        }
+        try {
+            PopulateCustomers();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
  /** Exits the Customer table and goes back to the Appointment Table*/
     public void onExitCustomer(ActionEvent actionEvent) throws IOException {
