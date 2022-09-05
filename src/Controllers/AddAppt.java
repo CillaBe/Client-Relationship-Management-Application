@@ -237,7 +237,7 @@ public class AddAppt implements Initializable {
 
 
     }
-
+  /** Checks for overlapping appointments based on customerID*/
     private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID) {
         boolean overlaps = false;
         ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
@@ -301,67 +301,68 @@ public class AddAppt implements Initializable {
     }
 
 
-
+ /** Generated in Scene Builder and not used*/
     public void onAddApptDescription(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptID(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptUserID(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptCustID(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptContact(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptType(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptLocation(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptContactClicked(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptStartTimeHour(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptStartTimeHourClicked(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptStartTimeMin(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddStartTimeMinClicked(MouseEvent mouseEvent) {
     }
+    /** Generated in Scene Builder and not used*/
 
     public void onAddApptEndTimeHour(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptEndTimeMinClicked(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptStartDate(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptStartDateClicked(MouseEvent mouseEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptEndDate(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onAddApptEndDateClicked(MouseEvent mouseEvent) {
     }
-
+ /** Validates fields then saves appointment to databae if all fields are filled out and there are no overlapping appointments*/
     public void onSaveAddAppt(ActionEvent actionEvent) {
 
 
 
         /** Check all feilds are filled out */
-        //validateFields();
+
         Boolean Overlapping;
         UpdateCustomerIDTextBox();
         UpdateUserIDTextBox();

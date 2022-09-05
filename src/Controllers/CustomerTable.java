@@ -79,7 +79,7 @@ public class CustomerTable implements Initializable {
         }
 
     }
-
+/** Populates Customer Table*/
     public void PopulateCustomers() throws SQLException {
         System.out.print(" Trying to populate  customers ");
         try {
@@ -112,7 +112,7 @@ public class CustomerTable implements Initializable {
 
     }
 
-  /** Send you to Add Customer Screen*/
+  /** Sends user to Add Customer Screen*/
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AddCustomer.fxml"));
         Scene MainScene = new Scene(parent,1200,1200);
@@ -123,7 +123,7 @@ public class CustomerTable implements Initializable {
         MainStage.show();
         System.out.println("Logged out of Customer Table tab");
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onModiftyCustomer(ActionEvent actionEvent) {
     }
  /** Deletes Customer if there are no corresponding appointments for that customer in the database*/
@@ -191,16 +191,16 @@ public class CustomerTable implements Initializable {
         MainStage.show();
         System.out.println("Logged out of Customer Table tab");
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onCustomerTable(SortEvent<TableView> tableViewSortEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onModifyApptDescription(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void CustomerID(ActionEvent actionEvent) {
     }
-
+    /** Generated in Scene Builder and not used*/
     public void onModifyApptTitle(ActionEvent actionEvent) {
     }
 

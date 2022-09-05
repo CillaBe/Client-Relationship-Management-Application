@@ -79,7 +79,7 @@
                   <Label text="Address" />
                   <Label text="Country" GridPane.rowIndex="1" />
                   <TextField fx:id="AddCustomerAddress" onAction="#onAddCustomerAddress" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="CountryComboBox" onAction="#OnCountryComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="CountryComboBox" onAction="#OnCountryComboBox" prefWidth="150.0" promptText="Country" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -93,7 +93,7 @@
               </rowConstraints>
                <children>
                   <Label text="State/Province" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="StateProvComboBox" onAction="#OnStateProvComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="StateProvComboBox" onAction="#OnStateProvComboBox" prefWidth="150.0" promptText="State/Province" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label prefHeight="38.0" prefWidth="202.0" text="Please select Country to populate State/Province" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="System Italic" size="10.0" />

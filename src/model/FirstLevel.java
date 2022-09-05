@@ -67,4 +67,37 @@ public class FirstLevel {
         return AllDivisions;
 
     }
+    /** This method returns the DivisionID that correspond to the Division input
+     */
+    public static int ConvertDivisionToDivisionID ( String Division) {
+        int DivisionID = 0;
+
+
+        try {
+            String statement = ("SELECT Division_ID FROM first_level_divisions WHERE Division = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setString(1, Division);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                DivisionID = rs.getInt("Division_ID");
+
+                System.out.println(" Division ID from Division Function is " + DivisionID + " ");
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning Division_ID from Division");
+
+
+        }
+        return DivisionID;
+    }
+
+
 }
