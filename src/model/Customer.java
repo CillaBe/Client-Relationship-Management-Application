@@ -53,6 +53,7 @@ public class Customer {
 
     public static ObservableList<String> getCustomerNames(){
         Connection connection = JDBC.openConnection();
+        AllCustomers.clear();
         try {
             String statement = ("SELECT customers.Customer_Name FROM customers");
             PreparedStatement ps = connection.prepareStatement(statement);

@@ -26,6 +26,7 @@ public class User {
     }
     public static ObservableList<String> getUserNames(){
         Connection connection = JDBC.openConnection();
+        AllUserNames.clear();
         try {
             String statement = ("SELECT users.User_Name FROM users");
             PreparedStatement ps = connection.prepareStatement(statement);

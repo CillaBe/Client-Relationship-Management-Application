@@ -112,8 +112,16 @@ public class CustomerTable implements Initializable {
 
     }
 
-
-    public void onAddCustomer(ActionEvent actionEvent) {
+  /** Send you to Add Customer Screen*/
+    public void onAddCustomer(ActionEvent actionEvent) throws IOException {
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/AddCustomer.fxml"));
+        Scene MainScene = new Scene(parent,1200,1200);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Add Customer");
+        MainStage.show();
+        System.out.println("Logged out of Customer Table tab");
     }
 
     public void onModiftyCustomer(ActionEvent actionEvent) {
@@ -151,13 +159,13 @@ public class CustomerTable implements Initializable {
         }
         else{
             try{
-                String statement = " DELETE * FROM customers WHERE Customer_ID = ?";
+                String statement = " DELETE FROM customers WHERE Customer_ID = ?";
 
                 PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
                 ps.setInt(1,CustID);
 
                 System.out.println(" Statement I'm sending to SQL to delete customer " + ps + " ");
-                ps.executeQuery();
+                ps.executeUpdate();
 
             }
             catch( SQLException exception){

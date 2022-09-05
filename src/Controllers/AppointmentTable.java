@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.Customer;
 
 import java.io.IOError;
 import java.io.IOException;
@@ -426,9 +427,40 @@ public class AppointmentTable implements Initializable {
         MainStage.show();
         System.out.println("Moved to Add appointments");
     }
-
+/** This method deletes selected appointment*/
     public void onDeleteAppointment(ActionEvent actionEvent) {
+        Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
+        warning.setContentText("Are you sure you want to delete this appointment from the data base?");
+        warning.showAndWait();
+
+        Appointment SelectedAppointment;
+
+        int ApptID;
+        SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
+        ApptID = SelectedAppointment.getAppointment_ID();
+
+        try{
+            String statement = " DELETE FROM appointments WHERE Appointment_ID = ?";
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setInt(1,ApptID);
+
+            System.out.println(" Statement I'm sending to SQL to delete appointment " + ps + " ");
+            ps.executeUpdate();
+
+        }
+        catch( SQLException exception){
+            System.out.println(" error deleting appointment");
+
+        }
+        try {
+            PopulateAllAppointments();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
+
 
     public void onReports(ActionEvent actionEvent) {
     }
