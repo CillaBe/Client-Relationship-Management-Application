@@ -117,63 +117,6 @@ public class AddAppt implements Initializable {
 
 
     }
-
-
-    /** Populates all users to user table from DB*/
-   /** public void PopulateAllUsers() {
-        ObservableList <User>  TestUserOL = FXCollections.observableArrayList();
-        System.out.println(" Trying to populate all Users ");
-
-        try {
-            String statement = "SELECT  users.User_ID,users.User_Name FROM users";
-            connection = JDBC.openConnection();
-            ResultSet rs = connection.createStatement().executeQuery(statement);
-            System.out.print(" Query for all users Successful! ");
-            TestUserOL.clear();
-
-
-            while (rs.next()) {
-
-                String UserName = rs.getString("User_Name");
-                int UserID = rs.getInt("User_ID");
-
-                TestUserOL.add (new User( UserID,UserName));
-            }
-            UserTable.setItems(TestUserOL);
-            System.out.println(" Successfully added all users to table " + TestUserOL + " ");
-
-        } catch (SQLException e) {
-            System.out.println(" Error adding users to table ");
-        }
-    }
-
-    /**public void PopulateAllCustomers() {
-        System.out.println(" Trying to populate all Customers ");
-
-        try {
-            String statement = "SELECT  customers.Customer_ID, customers.Customer_Name FROM customers";
-            connection = JDBC.openConnection();
-            ResultSet rs = connection.createStatement().executeQuery(statement);
-            System.out.print(" Query for all customers Successful! ");
-            AllCustomers.clear();
-
-            while (rs.next()) {
-
-                String CustomerName = rs.getString("Customer_Name");
-                int CustomerID = rs.getInt("Customer_ID");
-
-                AllCustomers.add (new Customer(CustomerID,CustomerName));
-            }
-            CustomerTable.setItems(AllCustomers);
-            System.out.println(" Successfully added all customers to table " + AllCustomers + " ");
-
-        } catch (SQLException e) {
-            System.out.println(" Error adding customers to table ");
-        }
-    }*/
-
-
-
     /**
      * This method populates the StartTimes Combo Box
      */

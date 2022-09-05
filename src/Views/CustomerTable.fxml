@@ -54,13 +54,14 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="26.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="42.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="16.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <GridPane GridPane.columnIndex="2" GridPane.rowIndex="8">
+                  <GridPane GridPane.columnIndex="2" GridPane.rowIndex="9">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -74,22 +75,27 @@
                      </children>
                   </GridPane>
                   <Label text="Customer ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label text="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <TextField fx:id="ModifyCustID" onAction="#CustomerID" opacity="0.65" promptText="Auto Populates" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
                   </TextField>
-                  <Label text="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <TextField fx:id="ModifyCustPostalCode" onAction="#onModifyApptTitle" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <Label text="Postal Code" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="ModifyCustPostalCode" onAction="#onModifyApptTitle" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                   <Label text="Address" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="State/Province" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="State/Province" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <TextField fx:id="ModifyCustAddress" onAction="#onModifyApptTitle" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <ComboBox fx:id="ModifyCountryCombobox" onAction="#OnCountryAction" prefWidth="150.0" promptText="Country" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                   <Label text="Country" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="ModifyStateProvCombBox" prefWidth="150.0" promptText="State/Province" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="ModifyStateProvCombBox" prefWidth="150.0" promptText="State/Province" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                   <Label text="Customer Name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="ModifyCustName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Please select Country to populate State/Province" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Italic" size="10.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </children>

@@ -205,7 +205,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     * Updated Customers to database and checks that they are all filled out
+     * Updates Customer record in the database and checks that they are all filled out
      */
     public void onUpdateCustToDB(ActionEvent actionEvent) {
         boolean CustomerValidated = validateFieldsCust();

@@ -34,6 +34,7 @@ public class Country {
     }
     public static ObservableList<String> getCountryNames(){
         Connection connection = JDBC.openConnection();
+        AllCountries.clear();
         try {
             String statement = ("SELECT countries.Country FROM countries");
             PreparedStatement ps = connection.prepareStatement(statement);

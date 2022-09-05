@@ -1,17 +1,22 @@
 package Controllers;
 
+import Helper.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddCustomer implements Initializable {
+    @FXML
+    private Label CustomerName;
+    @FXML
+    private ComboBox CountryComboBox;
+    @FXML
+    private ComboBox StateProvComboBox;
     @FXML
     private TextField AddCustomerLastName;
     @FXML
@@ -35,6 +40,7 @@ public class AddCustomer implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        CountryComboBox.setItems(model.Country.getCountryNames());
 
     }
 
@@ -72,5 +78,17 @@ public class AddCustomer implements Initializable {
     }
 
     public void onAddCustomerExit(ActionEvent actionEvent) {
+    }
+    /**
+     * Populates State/Providence combo box with  corresponding data based on which country is selected
+     */
+    public void OnCountryComboBox(ActionEvent actionEvent) {
+        String SelectedCountry = (String) CountryComboBox.getSelectionModel().getSelectedItem();
+        int CountryID = JDBC.converCountryNameToCountryID(SelectedCountry);
+        StateProvComboBox.setItems(model.FirstLevel.PopulateDivisonFromID(CountryID));
+
+    }
+
+    public void OnStateProvComboBox(ActionEvent actionEvent) {
     }
 }
