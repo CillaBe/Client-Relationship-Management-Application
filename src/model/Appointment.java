@@ -1,10 +1,13 @@
 package model;
 
+import Helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class Appointment {
     int Appointment_ID;
@@ -26,6 +29,7 @@ public class Appointment {
     int User_ID;
     int Contact_ID;
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    private static  ObservableList<String> AllTypes = FXCollections.observableArrayList();
 
     /**
      * First constructor method to create instance of class using all fields in DB
@@ -49,6 +53,7 @@ public class Appointment {
         this.User_ID = User_ID;
         this.Contact_ID = Contact_ID;
     }
+    public Appointment(String Type){ this.Type = Type;}
     public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, String Start,
                        String End) {
         this.Appointment_ID = Appointment_ID;
@@ -87,6 +92,9 @@ public class Appointment {
 
     public Timestamp getEndTimeStamp(){
         return EndTimeStamp;
+    }
+    public String toString(){
+        return(  Type);
     }
     /**
      * Create Setters and Getters
@@ -160,6 +168,32 @@ public class Appointment {
     }
     public static ObservableList<Appointment> getAllAppointments(){
         return  allAppointments;
+    }
+
+    public static ObservableList<String> getApptTypes(){
+        Connection connection = JDBC.openConnection();
+        AllTypes.clear();
+        try {
+            String statement = ("SELECT appointments.Type FROM appointments");
+            PreparedStatement ps = connection.prepareStatement(statement);
+            ResultSet rs = ps.executeQuery(statement);
+
+            while (rs.next()) {
+                String ApptType = rs.getString("Type");
+
+
+                AllTypes.add(String.valueOf(new Appointment(ApptType)));
+
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Error returning all appt types");
+
+
+        }
+        LinkedHashSet<String> hashSet = new LinkedHashSet<>(AllTypes);
+        ObservableList<String> converted  = FXCollections.observableArrayList(hashSet);
+        return converted;
     }
 
 }

@@ -180,7 +180,7 @@ public class CustomerTable implements Initializable {
             e.printStackTrace();
         }
     }
- /** Exits the Customer table and goes back to the Appointment Table*/
+ /** @param actionEvent Exits the Customer table and goes back to the Appointment Table*/
     public void onExitCustomer(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
         Scene MainScene = new Scene(parent,3800,1200);
@@ -205,7 +205,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     * Updates Customer record in the database and checks that they are all filled out
+     * @param actionEvent Updates Customer record in the database and checks that they are all filled out
      */
     public void onUpdateCustToDB(ActionEvent actionEvent) {
         boolean CustomerValidated = validateFieldsCust();
@@ -237,7 +237,7 @@ public class CustomerTable implements Initializable {
         System.out.println(" Customer Division ID is  " + DivisionID + " ");
 
 
-        /** Update Customer that matches the Customer ID if fields are validated*/
+        /**  Update Customer that matches the Customer ID if fields are validated*/
         if (CustomerValidated == true) {
             try {
                 String statement = "UPDATE customers  SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ?, Last_Update =  CURRENT_TIMESTAMP WHERE Customer_ID = ?";
@@ -271,7 +271,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     * Pulls selected Customer data over to be modified in the appropriate fields
+     * @param actionEvent Pulls selected Customer data over to be modified in the appropriate fields
      */
     public void OnModifySelectedCustomer(ActionEvent actionEvent) {
         Customer SelectedCustomer;
@@ -288,7 +288,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     * Populates State/Providence combo box with  corresponding data based on which country is selected
+     * @param actionEvent Populates State/Providence combo box with  corresponding data based on which country is selected
      */
     public void OnCountryAction(ActionEvent actionEvent) {
         String SelectedCountry = (String) ModifyCountryCombobox.getSelectionModel().getSelectedItem();

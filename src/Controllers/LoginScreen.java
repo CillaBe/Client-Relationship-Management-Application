@@ -70,7 +70,9 @@ public class LoginScreen implements Initializable {
 
 
         ZoneId zoneId = ZoneId.systemDefault();
-        Location.setText(String.valueOf(zoneId));
+        String id = zoneId.getId();
+        Location.setText(id);
+        System.out.println("Zone Id in login " + id + " ");
         currentLocale = Locale.getDefault();
         language = currentLocale.getDisplayLanguage();
         if (language == "French") {

@@ -99,7 +99,7 @@ public class AppointmentTable implements Initializable {
     @FXML
     private JDBC DbHandler;
 
-
+/** Initializes screen, both lambda expressions are on this screen*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -313,7 +313,7 @@ public class AppointmentTable implements Initializable {
 
             LocalDate today = LocalDate.now();
             LocalDate MonthLater = today.plusMonths(1);
-
+ /** First lambda expression used*/
             FilteredList<Appointment> FilteredByMonth = new FilteredList<>(AllTableAppointments);
             FilteredByMonth.setPredicate(dateToCheck -> {
                 LocalDate dateBeingChecked = LocalDate.parse(dateToCheck.getStart(), formatter);
@@ -371,7 +371,7 @@ public class AppointmentTable implements Initializable {
 
             LocalDate today = LocalDate.now();
             LocalDate WeekLater = today.plusWeeks(1);
-
+/** Second lambda expression used*/
             FilteredList<Appointment> FilteredByWeek = new FilteredList<>(AllTableAppointments);
             FilteredByWeek.setPredicate(dateToCheck -> {
                 LocalDate dateBeingChecked = LocalDate.parse(dateToCheck.getStart(), formatter);
@@ -385,7 +385,7 @@ public class AppointmentTable implements Initializable {
         }
     }
 
-
+/** @param actionEvent  moves user to Customer Database*/
     public void onCustomerDatabase(ActionEvent actionEvent) throws IOException{
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/CustomerTable.fxml"));
         Scene MainScene = new Scene(parent,2000,2000);
@@ -397,7 +397,7 @@ public class AppointmentTable implements Initializable {
         System.out.println("Logged out of Appointments tab");
     }
 
-   /** This method launches the Modify Appointment */
+   /** @param actionEvent This method launches the Modify Appointment */
     public void onModifyAppointment(ActionEvent actionEvent) throws IOException{
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/ModifyAppt.fxml"));
         Scene MainScene = new Scene(parent,13000,1200);
@@ -427,7 +427,7 @@ public class AppointmentTable implements Initializable {
         MainStage.show();
         System.out.println("Moved to Add appointments");
     }
-/** This method deletes selected appointment*/
+/** @param actionEvent This method deletes selected appointmen t*/
     public void onDeleteAppointment(ActionEvent actionEvent) {
         Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
         warning.setContentText("Are you sure you want to delete this appointment from the data base?");
@@ -461,9 +461,18 @@ public class AppointmentTable implements Initializable {
 
     }
 
-
-    public void onReports(ActionEvent actionEvent) {
+/**@param actionEvent this action moves user to Reports Screen and lanches that screen*/
+    public void onReports(ActionEvent actionEvent) throws IOException {
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/Reports.fxml"));
+        Scene MainScene = new Scene(parent,1200,1200);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Reports");
+        MainStage.show();
+        System.out.println("Logged out of Appointment Table tab");
     }
+
 
     public void onLogout(ActionEvent actionEvent)  throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/LoginScreen.fxml"));
