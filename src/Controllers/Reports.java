@@ -87,30 +87,14 @@ public class Reports implements Initializable {
 
     /** Function to sum total appointments by month and type*/
 
-    public String SumTypeAndMonth (String type, int month) throws SQLException {
+    public int SumTypeAndMonth (String type, int month) throws SQLException {
+        int total;
         Connection connection = JDBC.openConnection();
-        String total = null;
+        ResultSet rs = connection.createStatement().executeQuery("SELECT count(*) as total  FROM appointments Where month(start) = \"" + month + "\" and type = \"" + type  +"\" ");
+        rs.next();
+        total = rs.getInt("total");
+        return  total;
 
-        try {
-            String statement = "SELECT count(*) as total FROM appointments Where extract(month from start) = ? and type = ?";
-
-            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
-            ps.setInt(1, month);
-            ps.setString(2, type);
-            System.out.println(" Statement I'm sending to SQL to get sum of month and type appts" + ps + " ");
-            ResultSet rs = ps.executeQuery(statement);
-            rs.next();
-            total = rs.getString("total");
-            System.out.println(total);
-
-        }
-        catch (SQLException e){
-            System.out.println("Error summing appts and types");
-
-
-        }
-        System.out.println(" Total from SumTypeMonth function is " + total + " ");
-        return total;
 
     }
 
@@ -167,7 +151,7 @@ public class Reports implements Initializable {
         String type = (String) AppointmentTypeComboBox.getSelectionModel().getSelectedItem();
         String month = (String) AppointmentMonthComboBox.getSelectionModel().getSelectedItem();
         int monNum = 0;
-        String total;
+        int total;
         if(month.isEmpty() || type.isEmpty()){Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText("Error, please select both appointment type and appointment month");
         alert.showAndWait();
