@@ -54,6 +54,27 @@ public class Reports implements Initializable {
 
 
     }
+    /** Function to convert month to number*/
+    public int MonthtoNumber(String month){
+        int monthNum = 0;
+        if ( month == "January"){monthNum = 1;};
+        if ( month == "February"){monthNum = 2;};
+        if ( month == "March"){monthNum = 3;} ;
+        if ( month == "April"){monthNum = 4;} ;
+        if ( month == "May"){monthNum = 5;} ;
+
+        if ( month == "June"){monthNum = 6;} ;
+        if ( month == "July"){monthNum = 7;} ;
+        if ( month == "August"){monthNum = 8;} ;
+        if ( month == "September"){monthNum = 9;} ;
+        if ( month == "October"){monthNum = 10;} ;
+        if ( month == "November"){monthNum = 11;} ;
+        if ( month == "December"){monthNum = 12;} ;
+
+        return  monthNum;
+
+
+    }
 
     /** Function to get months in a list*/
     public static ObservableList<String> getAllMonths(){
@@ -66,28 +87,31 @@ public class Reports implements Initializable {
 
     /** Function to sum total appointments by month and type*/
 
-    public int SumTypeAndMonth (String type, int month) throws SQLException {
+    public String SumTypeAndMonth (String type, int month) throws SQLException {
         Connection connection = JDBC.openConnection();
-        int total = 0;
+        String total = null;
 
         try {
-            String statement = "SELECT count(*) as total  FROM appointments Where extract(month from start) = ? and type = ?";
+            String statement = "SELECT count(*) as total FROM appointments Where extract(month from start) = ? and type = ?";
 
             PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
             ps.setInt(1, month);
             ps.setString(2, type);
             System.out.println(" Statement I'm sending to SQL to get sum of month and type appts" + ps + " ");
             ResultSet rs = ps.executeQuery(statement);
-            while (rs.next()) {
-                 total = rs.getInt("total");
-            }
+            rs.next();
+            total = rs.getString("total");
+            System.out.println(total);
+
         }
         catch (SQLException e){
-            System.out.println("Error summing appts and typs");
+            System.out.println("Error summing appts and types");
 
 
         }
+        System.out.println(" Total from SumTypeMonth function is " + total + " ");
         return total;
+
     }
 
 
@@ -139,6 +163,24 @@ public class Reports implements Initializable {
     public void onTotalTextBox(ActionEvent actionEvent) {
     }
 
-    public void onTotalButton(ActionEvent actionEvent) {
+    public void onTotalButton(ActionEvent actionEvent) throws SQLException {
+        String type = (String) AppointmentTypeComboBox.getSelectionModel().getSelectedItem();
+        String month = (String) AppointmentMonthComboBox.getSelectionModel().getSelectedItem();
+        int monNum = 0;
+        String total;
+        if(month.isEmpty() || type.isEmpty()){Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Error, please select both appointment type and appointment month");
+        alert.showAndWait();
+
+
+        }
+        else {
+            monNum = MonthtoNumber(month);
+            total = SumTypeAndMonth(type,monNum);
+
+            TotalTextBox.setText(String.valueOf(total));
+
+        }
+
     }
 }
