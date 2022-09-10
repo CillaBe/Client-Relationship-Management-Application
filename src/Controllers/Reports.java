@@ -1,6 +1,8 @@
 package Controllers;
 
 import Helper.JDBC;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,12 +44,26 @@ public class Reports implements Initializable {
     private TableView ScheduleByDateTableView;
     @FXML
     private DatePicker ReportsDateSelection;
+    @FXML
+    private static ObservableList<String> AllMonths = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AppointmentTypeComboBox.setItems(Appointment.getApptTypes());
+        AppointmentMonthComboBox.setItems(getAllMonths());
+
 
     }
+
+    /** Function to get months in a list*/
+    public static ObservableList<String> getAllMonths(){
+        AllMonths.clear();
+        String[] Months = {"January" , "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"};
+        AllMonths.addAll(Months);
+        return AllMonths;
+    }
+
+
     /** Function to sum total appointments by month and type*/
 
     public int SumTypeAndMonth (String type, int month) throws SQLException {
