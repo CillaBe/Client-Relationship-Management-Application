@@ -86,6 +86,17 @@ public class Appointment {
         this.EndTimeStamp = EndTimeStamp;
 
     }
+
+    public Appointment(int Appointment_ID, int Customer_ID, String Title, String Description, String Type, String Start, String End) {
+        this.Appointment_ID = Appointment_ID;
+        this.Title = Title;
+        this.Description = Description;
+        this.Type = Type;
+        this.Start = Start;
+        this.End = End;
+        this.Customer_ID = Customer_ID;
+    }
+
     public Timestamp getStartTimeStamp(){
         return StartTimeStamp;
     }

@@ -4,8 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -107,28 +105,23 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <MenuButton mnemonicParsing="false" onAction="#onReportsContactTab" onMouseClicked="#onReportsContactClicked" prefHeight="26.0" prefWidth="129.0" text="Contact" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                  </MenuButton>
+                  <ComboBox fx:id="ContactComboBox" onAction="#onContactComboBox" prefWidth="150.0" promptText="Contact" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#onPopulateScheduleByContact" text="Populate Schedule" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <TableView fx:id="ScheduleByContactTableView" prefHeight="90.0" prefWidth="501.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <TableView fx:id="ScheduleByContactTableView" prefHeight="73.0" prefWidth="697.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
               <columns>
-                <TableColumn prefWidth="104.589599609375" text="Appointment_ID" />
-                <TableColumn prefWidth="83.910400390625" text="Title" />
-                  <TableColumn prefWidth="73.69940185546875" text="Type" />
-                  <TableColumn prefWidth="85.80059814453125" text="Description" />
-                  <TableColumn prefWidth="81.479736328125" text="Start Date" />
-                  <TableColumn prefWidth="72.9537353515625" text="End Date" />
-                  <TableColumn prefWidth="81.338134765625" text="Start Time" />
-                  <TableColumn prefWidth="90.78021240234375" text="End Time" />
-                  <TableColumn prefWidth="108.728271484375" text="Customer_ID" />
+                <TableColumn fx:id="AppointmentID" prefWidth="104.589599609375" text="Appointment_ID" />
+                <TableColumn fx:id="Title" prefWidth="112.0" text="Title" />
+                  <TableColumn fx:id="Type" prefWidth="82.0" text="Type" />
+                  <TableColumn fx:id="Description" prefWidth="102.0" text="Description" />
+                  <TableColumn fx:id="AppointmentStart" prefWidth="132.0" text="Start Date and Time" />
+                  <TableColumn fx:id="AppointmentEnd" prefWidth="125.0" text="End Date and Time" />
+                  <TableColumn fx:id="CustomerID" prefWidth="142.0" text="Customer_ID" />
               </columns>
             </TableView>
             <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
