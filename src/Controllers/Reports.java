@@ -5,14 +5,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.Appointment;
 import model.Contact;
+import model.Customer;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +32,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
+    @FXML
+    private TableColumn CustApptID;
+    @FXML
+    private TableColumn CustEnd;
+    @FXML
+    private TableColumn CustTitle;
+    @FXML
+    private TableColumn CustCustID;
+    @FXML
+    private TableColumn CustType;
+    @FXML
+    private TableColumn CustStart;
+    @FXML
+    private TableColumn CustDescription;
+    @FXML
+    private Button exitreports;
+    @FXML
+    private TableView ScheduleByCustomerTableView;
+    @FXML
+    private ComboBox CustomerComboBox;
+    @FXML
+    private Button PopulateCustScheduleButton;
     @FXML
     private TableColumn AppointmentID;
     @FXML
@@ -71,6 +100,8 @@ public class Reports implements Initializable {
     private Connection connection;
     @FXML
     private ObservableList<Appointment> AllContactAppointments = FXCollections.observableArrayList();
+    @FXML
+    private ObservableList<Appointment> AllCustomerAppointments = FXCollections.observableArrayList();
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @FXML
@@ -82,6 +113,7 @@ public class Reports implements Initializable {
         AppointmentTypeComboBox.setItems(Appointment.getApptTypes());
         AppointmentMonthComboBox.setItems(getAllMonths());
         ContactComboBox.setItems(Contact.getContactNames());
+        CustomerComboBox.setItems(Customer.getCustomerNames());
 
         AppointmentID.setCellValueFactory(new PropertyValueFactory<>("Appointment_ID"));
         Title.setCellValueFactory(new PropertyValueFactory<>("Title"));
@@ -90,6 +122,14 @@ public class Reports implements Initializable {
         AppointmentStart.setCellValueFactory(new PropertyValueFactory<>("Start"));
         AppointmentEnd.setCellValueFactory(new PropertyValueFactory<>("End"));
         CustomerID.setCellValueFactory(new PropertyValueFactory<>("Customer_ID"));
+
+        CustApptID.setCellValueFactory(new PropertyValueFactory<>("Appointment_ID"));
+        CustTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        CustDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        CustType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        CustStart.setCellValueFactory(new PropertyValueFactory<>("Start"));
+        CustEnd.setCellValueFactory(new PropertyValueFactory<>("End"));
+        CustCustID.setCellValueFactory(new PropertyValueFactory<>("Customer_ID"));
 
 
 
@@ -139,6 +179,51 @@ System.out.print(" Trying to populate appointments by ContactID");
 
 
 }
+    /** Function to populate Appointments based on CustomerID*/
+    public void PopulateAppointmentonCustomerID(int CustomerId) {
+        System.out.print(" Trying to populate appointments by Customer ID ");
+        try {
+            String statement = "SELECT  Appointment_ID, Title, Type, Description, Start, End, Customer_ID FROM appointments WHERE Contact_ID = \"" + CustomerId + "\"";
+            connection = JDBC.openConnection();
+            ResultSet rs = connection.createStatement().executeQuery(statement);
+            System.out.print(" Query for all appts Successful! ");
+            AllCustomerAppointments.clear();
+            while (rs.next()) {
+                int Appointment_ID = rs.getInt("Appointment_ID");
+                int Customer_ID = rs.getInt("Customer_ID");
+                String Title = rs.getString("Title");
+                String Description = rs.getString("Description");
+                String Type = rs.getString("Type");
+                String StartString = rs.getString("Start").substring(0,19);
+                String EndString = rs.getString("End").substring(0,19);
+                System.out.println(" Current Zone Id: " + CurrentZoneID+ " UTC Zone ID " + UTCID+ " ");
+
+
+                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*/
+                LocalDateTime StartLocal = LocalDateTime.parse(StartString,formatter);
+                LocalDateTime EndLocal = LocalDateTime.parse(EndString,formatter);
+
+                ZonedDateTime ZonedStart = StartLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
+                ZonedDateTime ZonedEnd = EndLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
+                //*Convert back to string to store in Appointment object and table*/
+
+
+                String FormattedTableStart = ZonedStart.format(formatter);
+                String FormattedTableEnd = ZonedEnd.format(formatter);
+
+
+                AllCustomerAppointments.add(new Appointment(Appointment_ID,Customer_ID,Title,Description,Type,FormattedTableStart,FormattedTableEnd));
+                ScheduleByCustomerTableView.setItems(AllCustomerAppointments);
+                System.out.print(" Set all appts in table by Customer ID ");
+
+            }
+        }
+        catch(SQLException e) {
+            System.out.println(" Error updating table by customer ID");
+        }
+
+
+    }
     /**
      * Function to convert month to number
      */
@@ -253,7 +338,15 @@ System.out.print(" Trying to populate appointments by ContactID");
     public void onReportsDateClicked(MouseEvent mouseEvent) {
     }
 
-    public void onExitReports(ActionEvent actionEvent) {
+    public void onExitReports(ActionEvent actionEvent) throws IOException {
+        Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
+        Scene MainScene = new Scene(parent,3800,1200);
+        Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        MainStage.setScene(MainScene);
+        parent.setStyle("-fx-font-family: Times New Roman;");
+        MainStage.setTitle("Appointment Table");
+        MainStage.show();
+        System.out.println("Logged out of Reports tab");
     }
 
     public void onApptTypeComboBox(ActionEvent actionEvent) {
@@ -319,12 +412,21 @@ System.out.print(" Trying to populate appointments by ContactID");
 
     public void onApptTypeComboBox() {
     }
-
+ /** Populates schedule by contact table view when pressed*/
     public void onPopulateScheduleByContact(ActionEvent actionEvent) {
         String ContactName = String.valueOf(ContactComboBox.getSelectionModel().getSelectedItem());
         int contactId = JDBC.ConvertContactNameToContactID(ContactName);
         PopulateAppointmentonContactID(contactId);
 
+    }
+
+    public void onCustomerComboBox(ActionEvent actionEvent) {
+    }
+
+    public void onPopulateCustScheduleButton(ActionEvent actionEvent) {
+        String Customer = String.valueOf(CustomerComboBox.getSelectionModel().getSelectedItem());
+        int customerId = JDBC.convertCustomerNameToCustID(Customer);
+        PopulateAppointmentonCustomerID(customerId);
     }
 }
 
