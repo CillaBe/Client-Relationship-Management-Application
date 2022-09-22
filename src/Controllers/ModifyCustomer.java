@@ -39,39 +39,63 @@ public class ModifyCustomer  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyCustomerLastName(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void oModifyCustomerID(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onModifyCustomerAddress(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void oModifyCustomerFirstName(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
 
     public void onModifyStateDragDetected(MouseEvent mouseEvent) {
     }
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
 
     public void onModifyCustomerStateMouseClick(MouseEvent mouseEvent) {
     }
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
 
     public void onModifyCountryDragDetected(MouseEvent mouseEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onModifyCustCountryMouseClick(MouseEvent mouseEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void oModifyCustomerPostalCode(ActionEvent actionEvent) {
     }
 
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
+
     public void oModifyCustomerPhoneNumber(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
+
 
     public void onSaveModifyCustomer(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
+
 
     public void onModifyCustomerExit(ActionEvent actionEvent) {
     }

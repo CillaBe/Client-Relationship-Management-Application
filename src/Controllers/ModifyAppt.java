@@ -145,34 +145,43 @@ public class ModifyAppt implements Initializable {
 
     }
 
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyApptID(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyApptDescription(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyUserID(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyApptTitle(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyCustID(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyApptType(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onModifyApptContact(MouseEvent mouseEvent) {
     }
 
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyApptLocation(ActionEvent actionEvent) {
     }
 
 
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onModifyApptStartDate(ActionEvent actionEvent) {
     }
@@ -180,7 +189,7 @@ public class ModifyAppt implements Initializable {
 
 
 
-    /** This method checks if all fields are filled out and there are no overlapping appointments, if these conditions are met the table
+    /** @param actionEvent This method checks if all fields are filled out and there are no overlapping appointments, if these conditions are met the table
      * saves to the database.
      *
      * */
@@ -312,7 +321,7 @@ public class ModifyAppt implements Initializable {
 
         }
 
-    /** This method exits the Modify Appointment Screen.
+    /** @param actionEvent This method exits the Modify Appointment Screen.
      *
      * */
 
@@ -380,7 +389,7 @@ public class ModifyAppt implements Initializable {
 
     }
 
-    /** This method moves the data from the Appointment Table view to the appropriate spots to edit
+    /** @param actionEvent this method moves the data from the Appointment Table view to the appropriate spots to edit
      *
      * */
     public void OnClickToEdit(ActionEvent actionEvent) {

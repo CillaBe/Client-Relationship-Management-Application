@@ -337,6 +337,8 @@ System.out.print(" Trying to populate appointments by ContactID");
 
     public void onReportsDateClicked(MouseEvent mouseEvent) {
     }
+    /**
+     * @param actionEvent exits the Reports screen and sends user back to main appointment table screen*/
 
     public void onExitReports(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
@@ -348,21 +350,34 @@ System.out.print(" Trying to populate appointments by ContactID");
         MainStage.show();
         System.out.println("Logged out of Reports tab");
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onApptTypeComboBox(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
+
 
     public void onApptMonthCombo(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onTotalTypeButton(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onTotalMonth(ActionEvent actionEvent) {
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onTotalTextBox(ActionEvent actionEvent) {
     }
+    /**
+     * @param actionEvent totals appointments by type and month and displays them in TotalTextBox */
 
     public void onTotalButton(ActionEvent actionEvent) throws SQLException {
         String type = (String) AppointmentTypeComboBox.getSelectionModel().getSelectedItem();
@@ -384,44 +399,52 @@ System.out.print(" Trying to populate appointments by ContactID");
         }
 
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onContactComboBox(ActionEvent actionEvent) {
     }
 
 
+/** generated in scenebuilder and not used*/
     public void onExitReports() {
     }
 
 
+    /** generated in scenebuilder and not used*/
     public void onReportsDateClicked() {
     }
-
+    /** generated in scenebuilder and not used*/
     public void onReportsDateContextMenuRequested() {
     }
-
+    /** generated in scenebuilder and not used*/
     public void onReportsDateSelection() {
     }
-
+    /** generated in scenebuilder and not used*/
     public void onContactComboBox() {
 
     }
-
+    /** generated in scenebuilder and not used*/
 
     public void onTotalTextBox() {
     }
-
+    /** generated in scenebuilder and not used*/
     public void onApptTypeComboBox() {
     }
- /** Populates schedule by contact table view when pressed*/
+ /** @param actionEvent Populates schedule by contact table view when pressed*/
     public void onPopulateScheduleByContact(ActionEvent actionEvent) {
         String ContactName = String.valueOf(ContactComboBox.getSelectionModel().getSelectedItem());
         int contactId = JDBC.ConvertContactNameToContactID(ContactName);
         PopulateAppointmentonContactID(contactId);
 
     }
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
 
     public void onCustomerComboBox(ActionEvent actionEvent) {
     }
+    /**
+     * @param actionEvent populates customer schedule table view*/
 
     public void onPopulateCustScheduleButton(ActionEvent actionEvent) {
         String Customer = String.valueOf(CustomerComboBox.getSelectionModel().getSelectedItem());

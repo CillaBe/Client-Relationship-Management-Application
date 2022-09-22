@@ -112,7 +112,7 @@ public class CustomerTable implements Initializable {
 
     }
 
-  /** Sends user to Add Customer Screen*/
+  /** @param actionEvent Sends user to Add Customer Screen*/
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AddCustomer.fxml"));
         Scene MainScene = new Scene(parent,1200,1200);
@@ -123,10 +123,11 @@ public class CustomerTable implements Initializable {
         MainStage.show();
         System.out.println("Logged out of Customer Table tab");
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModiftyCustomer(ActionEvent actionEvent) {
     }
- /** Deletes Customer if there are no corresponding appointments for that customer in the database*/
+ /** @param actionEvent Deletes Customer if there are no corresponding appointments for that customer in the database*/
     public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
         Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
         warning.setContentText("Are you sure you want to delete this customer from the data base?");
@@ -191,13 +192,16 @@ public class CustomerTable implements Initializable {
         MainStage.show();
         System.out.println("Logged out of Customer Table tab");
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param tableViewSortEvent not used in this application */
     public void onCustomerTable(SortEvent<TableView> tableViewSortEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onModifyApptDescription(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void CustomerID(ActionEvent actionEvent) {
     }
     /** Generated in Scene Builder and not used*/

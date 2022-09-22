@@ -58,36 +58,45 @@ public class AddCustomer implements Initializable {
         CountryComboBox.setItems(model.Country.getCountryNames());
 
     }
- /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddCustomerLastName(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddCustomerFirstName(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddCustomerID(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddCustomerAddress(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddStateDragDetected(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddCustomerStateMouseClick(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddCustCountryMouseClick(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddCountryDragDetected(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddCustomerPostalCode(ActionEvent actionEvent) {
     }
 
     /**
-     * Adds Customer to datatbase if all fields are filled out
+     * @param actionEvent Adds Customer to datatbase if all fields are filled out
      */
     public void onSaveAddCustomer(ActionEvent actionEvent) {
 
@@ -142,10 +151,11 @@ public class AddCustomer implements Initializable {
             error.showAndWait();
         }
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEventnot used in this application */
     public void onAddCustomerPhoneNumber(ActionEvent actionEvent) {
     }
- /** Exits Add Customer Screen and sends user back to Customer Database Screen*/
+ /** @param actionEvent Exits Add Customer Screen and sends user back to Customer Database Screen*/
     public void onAddCustomerExit(ActionEvent actionEvent) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("/Views/CustomerTable.fxml"));
@@ -164,7 +174,7 @@ public class AddCustomer implements Initializable {
     }
 
     /**
-     * Populates State/Providence combo box with  corresponding data based on which country is selected
+     * @param actionEvent Populates State/Providence combo box with  corresponding data based on which country is selected
      */
     public void OnCountryComboBox(ActionEvent actionEvent) {
         String SelectedCountry = (String) CountryComboBox.getSelectionModel().getSelectedItem();
@@ -172,10 +182,11 @@ public class AddCustomer implements Initializable {
         StateProvComboBox.setItems(model.FirstLevel.PopulateDivisonFromID(CountryID));
 
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void OnStateProvComboBox(ActionEvent actionEvent) {
     }
-/** Validaes all customer fields are filled out*/
+/** Validates all customer fields are filled out*/
     public boolean ValidateCustomers() {
         String Name = AddCustomerFirstName.getText();
         if (Name.isEmpty()) {

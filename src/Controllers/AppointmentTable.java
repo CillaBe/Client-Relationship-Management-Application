@@ -173,7 +173,7 @@ public class AppointmentTable implements Initializable {
                 }
                 LocalDateTime today = LocalDateTime.now();
                 LocalDateTime FifteenMinutes = today.plusMinutes(15);
-
+ /** First Lambda expression used to check if there are any appointments in the next 15 minutes by going through a filtered list of the appointments*/
                 FilteredList<Appointment> FilteredByTime = new FilteredList<>(AppointmentStartTimesOL);
                 FilteredByTime.setPredicate(TimeToCheck -> {
                     LocalDateTime TimeBeingChecked = LocalDateTime.parse(TimeToCheck.getStart().substring(0,16), formatterFor15MinChecking);
@@ -327,7 +327,7 @@ public class AppointmentTable implements Initializable {
         }
     }
     /**This method populates the weekly view for the all Appointments Calender
-     * @param  actionEvent populates weekly view*/
+     * @param  actionEvent populates weekly view lambda expression used* to filter through appointments and sort them by week*/
     public void onWeekView(ActionEvent actionEvent) {
         System.out.print(" Trying to populate weekly appointments");
         try {
@@ -461,7 +461,7 @@ public class AppointmentTable implements Initializable {
 
     }
 
-/**@param actionEvent this action moves user to Reports Screen and lanches that screen*/
+/**@param actionEvent this action moves user to Reports Screen and launches that screen*/
     public void onReports(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/Reports.fxml"));
         Scene MainScene = new Scene(parent,1200,1200);
@@ -473,7 +473,7 @@ public class AppointmentTable implements Initializable {
         System.out.println("Logged out of Appointment Table tab");
     }
 
-
+    /**@param actionEvent this action moves user to the login screen and launches that screen*/
     public void onLogout(ActionEvent actionEvent)  throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/LoginScreen.fxml"));
         Scene MainScene = new Scene(parent,900,400);
@@ -484,7 +484,7 @@ public class AppointmentTable implements Initializable {
         MainStage.show();
         System.out.println("Logged out of Appointments tab");
     }
-
+    /**@param actionEvent this action populates the table view with all appointments */
     public void onAllAppointmentsView(ActionEvent actionEvent)  throws SQLException {
         PopulateAllAppointments();;
 

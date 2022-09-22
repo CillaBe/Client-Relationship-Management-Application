@@ -301,62 +301,81 @@ public class AddAppt implements Initializable {
     }
 
 
- /** Generated in Scene Builder and not used*/
+   /** This method was not used in this application,
+    * @param actionEvent not used in this application */
     public void onAddApptDescription(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptID(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptUserID(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptCustID(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
+
     public void onAddApptContact(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptType(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptLocation(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptContactClicked(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptStartTimeHour(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptStartTimeHourClicked(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptStartTimeMin(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddStartTimeMinClicked(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
 
     public void onAddApptEndTimeHour(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptEndTimeMinClicked(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptStartDate(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptStartDateClicked(MouseEvent mouseEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptEndDate(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptEndDateClicked(MouseEvent mouseEvent) {
     }
- /** Validates fields then saves appointment to databae if all fields are filled out and there are no overlapping appointments*/
+ /** @param actionEvent  validates fields then saves appointment to database if all fields are filled out and there are no overlapping appointments*/
     public void onSaveAddAppt(ActionEvent actionEvent) {
 
 
@@ -528,7 +547,8 @@ public class AddAppt implements Initializable {
     }
 
 
-
+    /**
+     * @param actionEvent exits add appointment screen and sends user back to main appointment table */
 
     public void onAddAppointmentExit(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
@@ -540,10 +560,12 @@ public class AddAppt implements Initializable {
         MainStage.show();
         System.out.println("Logged out of add Appointments tab");
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onAddApptTitle(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void onAddApptEndTimeMin(MouseEvent mouseEvent) {
     }
     public void ConvertLocalTimeAndDatetoTimeStamp( LocalTime localTimeinsert, LocalDate localDateinsert){
@@ -573,23 +595,27 @@ public class AddAppt implements Initializable {
 
 
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void CustomerNameDropDownAction(ActionEvent actionEvent) {
     }
-
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void MouseClickedForSelectCustName(MouseEvent mouseEvent) {
 
     }
-
+/** this method updates the customer ID textbox with customer names*/
     public void UpdateCustomerIDTextBox() {
         String CustomerName = (String) CustomerComboBox.getSelectionModel().getSelectedItem();
         CustomerIDTextBox.setText(String.valueOf(JDBC.convertCustomerNameToCustID(CustomerName)));
     }
+    /** this method updates the user ID textbox with customer names*/
     public void UpdateUserIDTextBox() {
         String UserName = (String) UserNameComboTest.getSelectionModel().getSelectedItem();
         UserIDTextBox.setText(String.valueOf(JDBC.convertUserNameToUserID(UserName)));
     }
-
+    /** This method was not used in this application,
+     * @param mouseEvent not used in this application */
     public void MouseReleasedCustName(MouseEvent mouseEvent) {
     }
 

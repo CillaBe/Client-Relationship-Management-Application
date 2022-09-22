@@ -158,7 +158,8 @@ public class LoginScreen implements Initializable {
          @param actionEvent not used in this application, auto generated through SceneBuilder
          */
     }
-
+    /** This method was not used in this application,
+     * @param actionEvent not used in this application */
     public void onClickLocationBox(ActionEvent actionEvent) {
     }
 
