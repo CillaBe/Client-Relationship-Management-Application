@@ -31,17 +31,27 @@ import static java.time.LocalTime.now;
 import static javafx.collections.FXCollections.observableList;
 
 public class AddAppt implements Initializable {
-    public TableView<Customer> CustomerTable;
-    public TableColumn AddAppUserNameCol;
-    public TableColumn AddApptUserIDCol;
-    public TableColumn AddCustIDCol;
-    public TableColumn AddCustNameCol;
-    public TableView<User> UserTable;
-    public TextField CustomerIDTextBox;
-    public TextField UserIDTextBox;
+    @FXML
+    private TableView<Customer> CustomerTable;
+    @FXML
+    private TableColumn AddAppUserNameCol;
+    @FXML
+    private TableColumn AddApptUserIDCol;
+    @FXML
+    private TableColumn AddCustIDCol;
+    @FXML
+    private TableColumn AddCustNameCol;
+    @FXML
+    private TableView<User> UserTable;
+    @FXML
+    private TextField CustomerIDTextBox;
+    @FXML
+    private TextField UserIDTextBox;
+    @FXML
+    private ComboBox CustomerComboBox;
+    @FXML
 
-    public ComboBox CustomerComboBox;
-    public ComboBox UserNameComboTest;
+    private ComboBox UserNameComboTest;
     @FXML
     private ComboBox UserIDs;
     @FXML
