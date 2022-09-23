@@ -17,21 +17,42 @@ public class Country {
     public Country(){
 
     };
+
+    /**
+     *
+     * @param CountryID
+     * @param CountryName
+     */
     public Country(int CountryID,String CountryName){
         this.CountryID = CountryID;
         this.CountryName = CountryName;
 
 
     }
+
+    /**
+     *
+     * @param CountryName
+     */
     public Country(String CountryName){
 
         this.CountryName = CountryName;
 
 
     }
+
+    /**
+     *
+     * @return
+     */
     public String toString(){
         return(  CountryName);
     }
+
+    /**
+     *
+     * @return
+     */
     public static ObservableList<String> getCountryNames(){
         Connection connection = JDBC.openConnection();
         AllCountries.clear();

@@ -34,7 +34,11 @@ public class ModifyCustomer  implements Initializable {
     @FXML
     private Button ModifyCustomerExit;
 
-
+    /**
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

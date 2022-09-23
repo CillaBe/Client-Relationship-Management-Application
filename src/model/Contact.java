@@ -3,6 +3,7 @@ package model;
 import Helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,38 +11,73 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Contact {
+    @FXML
    private static  int ContactID;
+    @FXML
    private static String ContactName;
+    @FXML
    private static String ContactEmail;
+    @FXML
    private static  ObservableList<String> AllContacts = FXCollections.observableArrayList();
+
    public Contact(){
 
-   };
+   }
+
+    /**
+     *
+     * @param ContactID
+     * @param ContactName
+     * @param ContactEmail
+     */
+
    public Contact(int ContactID,String ContactName,String ContactEmail){
         this.ContactID = ContactID;
         this.ContactName =ContactName;
         this.ContactEmail = ContactEmail;
 
     }
+
+    /**
+     *
+     * @param ContactName
+     */
     public Contact(String ContactName){
 
         this.ContactName =ContactName;
 
 
     }
+
+    /**
+     *
+     * @return
+     */
     public int returnContactID(){
        return ContactID;
     }
+
+    /**
+     *
+     * @return
+     */
     public String returnContactName(){
        return ContactName;
     }
 
+    /**
+     *
+     * @return
+     */
+
     public String toString(){
        return(  ContactName);
     }
-    /** This method returns all contact names from the database
+
+    /**
      *
-     * */
+     * @return
+     */
     public static ObservableList<String> getContactNames(){
         Connection connection = JDBC.openConnection();
         AllContacts.clear();

@@ -108,6 +108,12 @@ public class Reports implements Initializable {
     private ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
     private ZoneId UTCID = ZoneId.of("UTC");
+
+    /**
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AppointmentTypeComboBox.setItems(Appointment.getApptTypes());

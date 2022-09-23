@@ -17,25 +17,43 @@ public class FirstLevel {
     public FirstLevel(){
 
     }
+
+    /**
+     *
+     * @param CountryID
+     * @param Division
+     */
     public FirstLevel(int CountryID,String Division){
         this.CountryID = CountryID;
         this.Division= Division;
 
 
     }
+
+    /**
+     *
+     * @param Division
+     */
     public FirstLevel(String Division){
 
         this.Division = Division;
 
 
     }
+
+    /**
+     *
+     * @return
+     */
     public String toString(){
         return(  Division);
     }
 
-    /** This method returns a list of Divisions that correspond to the country ID
+    /**
      *
-     * */
+     * @param CountryID
+     * @return Division
+     */
     public static ObservableList<String> PopulateDivisonFromID( int CountryID){
         String Division = null;
         AllDivisions.clear();
@@ -67,7 +85,11 @@ public class FirstLevel {
         return AllDivisions;
 
     }
-    /** This method returns the DivisionID that correspond to the Division input
+
+    /**
+     *
+     * @param Division
+     * @return DivisionID
      */
     public static int ConvertDivisionToDivisionID ( String Division) {
         int DivisionID = 0;

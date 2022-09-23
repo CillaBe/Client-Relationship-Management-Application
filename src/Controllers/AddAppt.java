@@ -142,7 +142,7 @@ public class AddAppt implements Initializable {
     }
 
     /**
-     * This method populates the EndTimes Combo Box
+     * Popoulates End Times
      */
     public void InsertEndTimes() {
         LocalTime LocalTimeHolder = LocalTime.MIN.plusHours(8);

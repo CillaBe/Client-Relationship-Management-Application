@@ -20,6 +20,17 @@ public class Customer {
     String Country;
     private static  ObservableList<String> AllCustomers = FXCollections.observableArrayList();
 
+    /**
+     *
+     * @param CustomerID
+     * @param CustomerName
+     * @param Address
+     * @param Division
+     * @param Country
+     * @param PostalCode
+     * @param Phone
+     * @param DivisionID
+     */
 
     public Customer(int CustomerID, String CustomerName, String Address,String Division, String Country, String PostalCode, String Phone, int DivisionID) {
         this.CustomerID = CustomerID;
@@ -33,10 +44,16 @@ public class Customer {
 
 
     }
+
+
     public Customer(){
 
     }
 
+    /**
+     *
+     * @param CustomerName
+     */
 
     public Customer( String CustomerName) {
 
@@ -49,6 +66,11 @@ public class Customer {
         /**return (CustomerName)*/
         return (CustomerName);
     }
+
+    /**
+     *
+     * @return CustomerNames
+     */
 
 
     public static ObservableList<String> getCustomerNames(){
@@ -76,26 +98,67 @@ public class Customer {
     }
 
 
-/** Create Getters*/
+    /**
+     *
+     * @return CustomerID
+     */
     public int getCustomerID() {
         return CustomerID;
     }
 
+    /**
+     *
+     * @return Division ID
+     */
     public int getDivisionID() { return  DivisionID;}
+
+    /**
+     *
+     * @return CustomerName
+     */
 
     public String getCustomerName() {return CustomerName;}
 
+    /**
+     *
+     * @return Address
+     */
+
     public  String getAddress() {return Address;}
+
+    /**
+     *
+     * @return PostalCode
+     */
 
     public  String getPostalCode () {return PostalCode;}
 
+    /**
+     *
+     * @return Phone
+     */
+
     public  String getPhone (){return Phone;}
+
+    /**
+     *
+     * @return Division
+     */
 
     public String getDivision(){return Division;}
 
+    /**
+     *
+     * @return Country
+     */
+
     public String getCountry(){return Country;}
 
-    /** Converts Division ID to Division Name*/
+    /**
+     *
+     * @param DivisionID
+     * @return Division
+     */
 
     public static String ConvertDivision(int DivisionID){
         String Division = null;
@@ -125,7 +188,11 @@ public class Customer {
     }
 
 
-    /** Converts Division ID to Country*/
+    /**
+     *
+     * @param DivisionID
+     * @return Country
+     */
     public static String convertToCountry ( int DivisionID ){
         String Country = null;
         try {
@@ -154,7 +221,12 @@ public class Customer {
 
 
     }
-    /** Converts Division to Division ID*/
+
+    /**
+     *
+     * @param Division
+     * @return Division ID
+     */
 
     public static int ConvertDivisionToID (String Division){
          int DivisionID = 0;

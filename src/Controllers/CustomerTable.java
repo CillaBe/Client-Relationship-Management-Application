@@ -23,20 +23,34 @@ import java.time.*;
 import java.util.ResourceBundle;
 
 public class CustomerTable implements Initializable {
-    public TableColumn CustomerName;
-    public TextField ModifyCustPhoneNumber;
-    public TextField ModifyCustID;
-    public TextField ModifyCustAddress;
-    public ComboBox ModifyStateProvCombBox;
-    public TextField ModifyCustPostalCode;
-    public ComboBox ModifyCountryCombobox;
-    public Button ExitCustomer;
-    public Button UpdateCustToDB;
-    public Button DeleteCustomer;
-    public Button UpdateSelectedCustomer;
-    public Button AddNewCustomer;
-    public TableColumn DivisionID;
-    public TextField ModifyCustName;
+    @FXML
+    private TableColumn CustomerName;
+    @FXML
+    private TextField ModifyCustPhoneNumber;
+    @FXML
+    private TextField ModifyCustID;
+    @FXML
+    private TextField ModifyCustAddress;
+    @FXML
+    private ComboBox ModifyStateProvCombBox;
+    @FXML
+    private TextField ModifyCustPostalCode;
+    @FXML
+    private ComboBox ModifyCountryCombobox;
+    @FXML
+    private Button ExitCustomer;
+    @FXML
+    private Button UpdateCustToDB;
+    @FXML
+    private Button DeleteCustomer;
+    @FXML
+    private Button UpdateSelectedCustomer;
+    @FXML
+    private Button AddNewCustomer;
+    @FXML
+    private TableColumn DivisionID;
+    @FXML
+   private TextField ModifyCustName;
     @FXML
     private TableView CustomerTable;
     @FXML
@@ -57,9 +71,16 @@ public class CustomerTable implements Initializable {
     private TableColumn PostalCode;
     @FXML
     private TableColumn PhoneNumber;
+    @FXML
     private Connection connection;
+    @FXML
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
+    /**
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ModifyCountryCombobox.setItems(model.Country.getCountryNames());
@@ -79,7 +100,11 @@ public class CustomerTable implements Initializable {
         }
 
     }
-/** Populates Customer Table*/
+
+    /**
+     * Populates Customers
+     * @throws SQLException
+     */
     public void PopulateCustomers() throws SQLException {
         System.out.print(" Trying to populate  customers ");
         try {

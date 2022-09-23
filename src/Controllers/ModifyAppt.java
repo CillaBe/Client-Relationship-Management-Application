@@ -29,27 +29,47 @@ import java.time.format.FormatStyle;
 import java.util.ResourceBundle;
 
 public class ModifyAppt implements Initializable {
-    public ComboBox ModifyApptCustComboBox;
-    public ComboBox ModifyApptContactBox;
-    public ComboBox ModifyapptUserComboBox;
-    public ComboBox <String>ModifyApptStartTime;
+    @FXML
+    private ComboBox ModifyApptCustComboBox;
+    @FXML
+    private ComboBox ModifyApptContactBox;
+    @FXML
+    private ComboBox ModifyapptUserComboBox;
+    @FXML
+    private ComboBox <String>ModifyApptStartTime;
+    @FXML
 
-    public ComboBox <String>ModifyApptEndTime;
-    public DatePicker ModifyApptDate;
-    public TextField UserIDTextBox;
-    public TextField CustomerIDTextBox;
-    public TableView AppointmentTable;
-    public TableColumn AppointmentID;
-    public TableColumn CustomerID;
-    public TableColumn User_ID;
-    public TableColumn Title;
-    public TableColumn Description;
-    public TableColumn EndDateAndTime;
-    public TableColumn Location;
-    public TableColumn Contact;
-    public TableColumn StartDateAndTime;
-    public TableColumn Type;
-    public TableColumn Contactt;
+    private ComboBox <String>ModifyApptEndTime;
+    @FXML
+    private DatePicker ModifyApptDate;
+    @FXML
+    private TextField UserIDTextBox;
+    @FXML
+    private TextField CustomerIDTextBox;
+    @FXML
+    private TableView AppointmentTable;
+    @FXML
+    private TableColumn AppointmentID;
+    @FXML
+    private TableColumn CustomerID;
+    @FXML
+    private TableColumn User_ID;
+    @FXML
+    private TableColumn Title;
+    @FXML
+    private TableColumn Description;
+    @FXML
+    private TableColumn EndDateAndTime;
+    @FXML
+    private TableColumn Location;
+    @FXML
+    private TableColumn Contact;
+    @FXML
+    private TableColumn StartDateAndTime;
+    @FXML
+    private TableColumn Type;
+    @FXML
+    private TableColumn Contactt;
     @FXML
     private TextField ModifyApptDescription;
     @FXML
@@ -94,7 +114,14 @@ public class ModifyAppt implements Initializable {
     private ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
     private ZoneId UTCID = ZoneId.of("UTC");
+    @FXML
     private Connection connection;
+
+    /**
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         InsertStartTimes();

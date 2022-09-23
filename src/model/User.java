@@ -18,12 +18,27 @@ public class User {
     public User(){
 
     }
+
+    /**
+     *
+     * @param UserName
+     */
     public User (String UserName){
         this.UserName = UserName;
     }
+
+    /**
+     *
+     * @return UserName
+     */
     public String toString(){
         return(UserName);
     }
+
+    /**
+     *
+     * @return UserNames
+     */
     public static ObservableList<String> getUserNames(){
         Connection connection = JDBC.openConnection();
         AllUserNames.clear();
