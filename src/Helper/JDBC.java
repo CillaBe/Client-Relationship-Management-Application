@@ -33,7 +33,12 @@ public class JDBC {
         }
         /** Converts ContactName to it's corresponding contactID from the database*/
     }
-    /** Converts ContactName to it's corresponding contactID from the database*/
+
+    /**
+     *
+     * @param contactName take contact name and converts to contact ID
+     * @return ContactName
+     */
     public static int ConvertContactNameToContactID ( String contactName) {
 
         int ContactID = 0;
@@ -61,7 +66,12 @@ public class JDBC {
         }
         return ContactID;
     }
-    /** Converts CustomerName to it's corresponding CustomerID from the database*/
+
+    /**
+     *
+     * @param customerName
+     * @return CustomerID
+     */
     public static int convertCustomerNameToCustID( String customerName){
         int CustomerID = 0;
         try {
@@ -89,7 +99,12 @@ public class JDBC {
         }
         return CustomerID;
     }
-    /** Converts UserName to it's corresponding UserID from the database*/
+
+    /**
+     *
+     * @param userName
+     * @return userID
+     */
     public static int convertUserNameToUserID( String userName){
         int UserID = 0;
         try {
@@ -116,7 +131,12 @@ public class JDBC {
         }
         return UserID;
     }
-    /** Converts UserID to it's corresponding Username from the database*/
+
+    /**
+     *
+     * @param UserID
+     * @return Username
+     */
     public static String convertUserIDToUserName( int UserID){
         String Username = null;
         try {
@@ -143,7 +163,12 @@ public class JDBC {
         }
         return Username;
     }
-    /** Converts Country Name to it's corresponding Country ID from the database*/
+
+    /**
+     *
+     * @param CountryName
+     * @return Country ID
+     */
     public static int converCountryNameToCountryID( String CountryName){
         int CountryID = 0;
         try {
