@@ -75,6 +75,7 @@ public class LoginScreen implements Initializable {
         System.out.println("Zone Id in login " + id + " ");
         currentLocale = Locale.getDefault();
         language = currentLocale.getDisplayLanguage();
+        System.out.println(" Language is " + language + " ");
         if (language == "French") {
             UserIDText.setText("Identifiant d'utilisateur");
             PasswordText.setText("Mot de passe");

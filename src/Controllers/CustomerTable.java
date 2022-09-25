@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.Customer;
@@ -388,6 +389,14 @@ public class CustomerTable implements Initializable {
             return true;
 
         }
+    }
+
+    /**
+     *
+     * @param mouseEvent not used in application
+     */
+
+    public void test(MouseEvent mouseEvent) {
     }
 }
 

@@ -76,7 +76,7 @@
                   </GridPane>
                   <Label text="Customer ID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Phone Number" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <TextField fx:id="ModifyCustID" onAction="#CustomerID" opacity="0.65" promptText="Auto Populates" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <TextField fx:id="ModifyCustID" editable="false" onAction="#CustomerID" onDragDetected="#test" opacity="0.65" promptText="Auto Populates" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Italic" size="13.0" />
                      </font>
