@@ -422,6 +422,8 @@ public class ModifyAppt implements Initializable {
     public void OnClickToEdit(ActionEvent actionEvent) {
         Appointment SelectedAppointment;
         SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
+        String start = SelectedAppointment.getStart();
+        System.out.println(" start " + start + " ");
         CustomerIDTextBox.setText(String.valueOf(SelectedAppointment.getCustomer_ID()));
         UserIDTextBox.setText(String.valueOf(SelectedAppointment.getUser_ID()));
         ModifyApptDescription.setText(SelectedAppointment.getDescription());

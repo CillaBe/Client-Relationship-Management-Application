@@ -30,8 +30,9 @@ import static java.time.format.DateTimeFormatter.*;
 
 public class AppointmentTable implements Initializable {
     @FXML
-    public RadioButton AllAppointments;
-    public ToggleGroup apptTgroup;
+    private RadioButton AllAppointments;
+    @FXML
+    private ToggleGroup apptTgroup;
     @FXML
     private TableColumn User_ID;
     @FXML
@@ -89,6 +90,7 @@ public class AppointmentTable implements Initializable {
     private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @FXML
     private DateTimeFormatter formatterFor15MinChecking = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
     @FXML
     private  ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
@@ -429,15 +431,20 @@ public class AppointmentTable implements Initializable {
     }
 /** @param actionEvent This method deletes selected appointmen t*/
     public void onDeleteAppointment(ActionEvent actionEvent) {
-        Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
-        warning.setContentText("Are you sure you want to delete this appointment from the data base?");
-        warning.showAndWait();
+
 
         Appointment SelectedAppointment;
 
         int ApptID;
         SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
         ApptID = SelectedAppointment.getAppointment_ID();
+
+        String apptType;
+        apptType = SelectedAppointment.getType();
+
+        Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
+        warning.setContentText(" Preparing to delete  the following appointment: Appointment ID: " + ApptID + " Appt Type: "  + apptType + " . Are you sure you want to delete this appointment from the data base?");
+        warning.showAndWait();
 
         try{
             String statement = " DELETE FROM appointments WHERE Appointment_ID = ?";
@@ -447,6 +454,9 @@ public class AppointmentTable implements Initializable {
 
             System.out.println(" Statement I'm sending to SQL to delete appointment " + ps + " ");
             ps.executeUpdate();
+            Alert  confirmation = new Alert(Alert.AlertType.INFORMATION);
+            confirmation.setContentText(" You have succefully deleted the following appointment: Appointment ID: " + ApptID + " Appt Type: "  + apptType + " ");
+            confirmation.showAndWait();
 
         }
         catch( SQLException exception){
@@ -458,6 +468,7 @@ public class AppointmentTable implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
 
     }
 
