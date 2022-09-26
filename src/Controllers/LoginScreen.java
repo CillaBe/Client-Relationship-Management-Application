@@ -74,9 +74,9 @@ public class LoginScreen implements Initializable {
         Location.setText(id);
         System.out.println("Zone Id in login " + id + " ");
         currentLocale = Locale.getDefault();
-        language = currentLocale.getDisplayLanguage();
+        language = currentLocale.getLanguage();
         System.out.println(" Language is " + language + " ");
-        if (language == "French") {
+        if (language == "fr") {
             UserIDText.setText("Identifiant d'utilisateur");
             PasswordText.setText("Mot de passe");
             LocationDetectedText.setText("Emplacement détecté");
