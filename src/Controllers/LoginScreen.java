@@ -122,7 +122,7 @@ public class LoginScreen implements Initializable {
         boolean validate = DBConnect.checkUser(UserName, Password);
         if (!validate) {
             Alert newAlert = new Alert(Alert.AlertType.ERROR);
-            if (language == "French") {
+            if (language == "fr") {
                 newAlert.setContentText("Erreur, le nom d'utilisateur et le mot de passe ne sont pas corrects, veuillez réessayer");
             }
             newAlert.setContentText("Error, Username and password are not correct, please try again");
@@ -139,7 +139,7 @@ public class LoginScreen implements Initializable {
             outputfile.close();
             System.out.print("File Written");
             Alert newAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            if (language == "French") {
+            if (language == "fr") {
                 newAlert.setContentText("Connexion réussie!");
             }
 
