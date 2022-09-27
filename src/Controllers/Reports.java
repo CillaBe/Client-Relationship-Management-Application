@@ -21,10 +21,7 @@ import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -97,13 +94,13 @@ public class Reports implements Initializable {
     @FXML
     private static ObservableList<String> AllMonths = FXCollections.observableArrayList();
     @FXML
-    private Connection connection;
+    private Connection connection = JDBC.openConnection();
     @FXML
     private ObservableList<Appointment> AllContactAppointments = FXCollections.observableArrayList();
     @FXML
     private ObservableList<Appointment> AllCustomerAppointments = FXCollections.observableArrayList();
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M-d-yyyy h:mm a");
     @FXML
     private ZoneId CurrentZoneID = ZoneId.systemDefault();
     @FXML
@@ -155,22 +152,16 @@ System.out.print(" Trying to populate appointments by ContactID");
             String Title = rs.getString("Title");
             String Description = rs.getString("Description");
             String Type = rs.getString("Type");
-            String StartString = rs.getString("Start").substring(0,19);
-            String EndString = rs.getString("End").substring(0,19);
-            System.out.println(" Current Zone Id: " + CurrentZoneID+ " UTC Zone ID " + UTCID+ " ");
 
+            Timestamp timeStart = rs.getTimestamp("Start");
+            Timestamp timeEnd = rs.getTimestamp("End");
 
-            //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*/
-            LocalDateTime StartLocal = LocalDateTime.parse(StartString,formatter);
-            LocalDateTime EndLocal = LocalDateTime.parse(EndString,formatter);
+            LocalDateTime start = timeStart.toLocalDateTime();
+            LocalDateTime end = timeEnd.toLocalDateTime();
 
-            ZonedDateTime ZonedStart = StartLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-            ZonedDateTime ZonedEnd = EndLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-            //*Convert back to string to store in Appointment object and table*/
+            String FormattedTableStart = start.format(formatter);
+            String FormattedTableEnd = end.format(formatter);
 
-
-            String FormattedTableStart = ZonedStart.format(formatter);
-            String FormattedTableEnd = ZonedEnd.format(formatter);
 
 
             AllContactAppointments.add(new Appointment(Appointment_ID,Customer_ID,Title,Description,Type,FormattedTableStart,FormattedTableEnd));
@@ -200,22 +191,16 @@ System.out.print(" Trying to populate appointments by ContactID");
                 String Title = rs.getString("Title");
                 String Description = rs.getString("Description");
                 String Type = rs.getString("Type");
-                String StartString = rs.getString("Start").substring(0,19);
-                String EndString = rs.getString("End").substring(0,19);
-                System.out.println(" Current Zone Id: " + CurrentZoneID+ " UTC Zone ID " + UTCID+ " ");
 
 
-                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*/
-                LocalDateTime StartLocal = LocalDateTime.parse(StartString,formatter);
-                LocalDateTime EndLocal = LocalDateTime.parse(EndString,formatter);
+                Timestamp timeStart = rs.getTimestamp("Start");
+                Timestamp timeEnd = rs.getTimestamp("End");
 
-                ZonedDateTime ZonedStart = StartLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-                ZonedDateTime ZonedEnd = EndLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-                //*Convert back to string to store in Appointment object and table*/
+                LocalDateTime start = timeStart.toLocalDateTime();
+                LocalDateTime end = timeEnd.toLocalDateTime();
 
-
-                String FormattedTableStart = ZonedStart.format(formatter);
-                String FormattedTableEnd = ZonedEnd.format(formatter);
+                String FormattedTableStart = start.format(formatter);
+                String FormattedTableEnd = end.format(formatter);
 
 
                 AllCustomerAppointments.add(new Appointment(Appointment_ID,Customer_ID,Title,Description,Type,FormattedTableStart,FormattedTableEnd));

@@ -107,7 +107,7 @@ public class ModifyAppt implements Initializable {
     @FXML
     private ObservableList AppointmentStartTimesOL = FXCollections.observableArrayList();
     @FXML
-    private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M-d-yyyy h:mm a");
     @FXML
     private DateTimeFormatter formatterFor15MinChecking = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
     @FXML

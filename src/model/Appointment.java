@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
@@ -34,6 +35,11 @@ public class Appointment {
     @FXML
    private LocalDateTime  EndLocal;
     @FXML
+    private ZonedDateTime StartZoned;
+    @FXML
+    private ZonedDateTime  EndZoned;
+    @FXML
+
     private Timestamp Create_Date;
     @FXML
     private String Created_By;
@@ -94,6 +100,20 @@ public class Appointment {
      * @param Type
      */
     public Appointment(String Type){ this.Type = Type;}
+
+    /**
+     *
+     * @param Appointment_ID
+     * @param Customer_ID
+     * @param User_ID
+     * @param Title
+     * @param Description
+     * @param Location
+     * @param Contact_ID
+     * @param Type
+     * @param Start
+     * @param End
+     */
     public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, String Start,
                        String End) {
         this.Appointment_ID = Appointment_ID;
@@ -134,6 +154,19 @@ public class Appointment {
         this.User_ID = User_ID;
         this.Contact_ID = Contact_ID;
     }
+    public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, ZonedDateTime StartZoned,
+                       ZonedDateTime EndZoned) {
+        this.Appointment_ID = Appointment_ID;
+        this.Title = Title;
+        this.Description = Description;
+        this.Location = Location;
+        this.Type = Type;
+        this.StartZoned = StartZoned;
+        this.EndZoned= EndZoned;
+        this.Customer_ID = Customer_ID;
+        this.User_ID = User_ID;
+        this.Contact_ID = Contact_ID;
+    }
 
     /**
      *
@@ -168,6 +201,30 @@ public class Appointment {
         this.End = End;
         this.Customer_ID = Customer_ID;
     }
+
+    /**
+     *
+     * @return Start Zoned
+     */
+    public ZonedDateTime getStartZoned() {return  StartZoned;};
+
+    /**
+     *
+     * @return set Start Zoned
+     */
+    public ZonedDateTime setStartZoned() {return StartZoned;}
+
+    /**
+     *
+     * @return End Zoned
+     */
+    public ZonedDateTime getEndZoned() {return  EndZoned;}
+
+    /**
+     *
+     * @return set End Zoned
+     */
+    public ZonedDateTime setEndZoned() {return EndZoned;}
 
     /**
      *
@@ -308,16 +365,23 @@ public class Appointment {
 
     /**
      *
+     * @return end
+     */
+
+    public void setEnd(){ End = End; }
+
+    /**
+     *
      * @return EndLocal
      */
     public LocalDateTime getEndLocal(){return EndLocal;}
 
     /**
      *
-     * @param EndTime
+     * @param End
      */
-    public  void  setEnd(String EndTime){
-        End = EndTime;
+    public  void  setEnd(String End){
+        End = End;
     }
 
     /**
