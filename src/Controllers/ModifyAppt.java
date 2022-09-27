@@ -23,9 +23,12 @@ import model.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ModifyAppt implements Initializable {
@@ -412,11 +415,32 @@ public class ModifyAppt implements Initializable {
     /** @param actionEvent this method moves the data from the Appointment Table view to the appropriate spots to edit
      *
      * */
-    public void OnClickToEdit(ActionEvent actionEvent) {
+    public void OnClickToEdit(ActionEvent actionEvent) throws ParseException {
         Appointment SelectedAppointment;
         SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
-        String start = SelectedAppointment.getStart().substring(10,17);
-        System.out.println(" start " + start + " ");
+
+        String Firststart = SelectedAppointment.getStart();
+        Date date = new SimpleDateFormat("M-d-yyyy h:mm a").parse(Firststart);
+        String start = new SimpleDateFormat("h:mm a").format(date);
+
+
+        String FirstEnd = SelectedAppointment.getEnd();
+        Date enddate = new SimpleDateFormat("M-d-yyyy h:mm a").parse(FirstEnd);
+        String end = new SimpleDateFormat("h:mm a").format(enddate);
+
+        String Apptdate = new SimpleDateFormat("M-d-yyyy").format(enddate);
+         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M-d-yyyy");
+
+         LocalDate testDate = LocalDate.parse(Apptdate,formatter2);
+
+        System.out.println(" date " + testDate + " ");
+        ModifyApptStartTime.setValue(start);
+        ModifyApptEndTime.setValue(end);
+        ModifyApptDate.setValue(testDate);
+
+
+
+
         CustomerIDTextBox.setText(String.valueOf(SelectedAppointment.getCustomer_ID()));
         UserIDTextBox.setText(String.valueOf(SelectedAppointment.getUser_ID()));
         ModifyApptDescription.setText(SelectedAppointment.getDescription());
