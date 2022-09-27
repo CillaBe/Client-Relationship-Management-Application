@@ -369,7 +369,7 @@ public class AppointmentTable implements Initializable {
 
                 String FormattedTableStart = start.format(formatter);
                 String FormattedTableEnd = end.format(formatter);
-                ;
+
 
 
                 AllTableAppointments.add(new Appointment(Appointment_ID, Customer_ID, User_ID, Title, Description, Location, Contact_ID, Type, FormattedTableStart, FormattedTableEnd));

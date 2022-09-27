@@ -161,7 +161,7 @@ public class AddAppt implements Initializable {
 
         if (Description.isEmpty()) {
             Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setContentText("Error, please add a description. PS I LOVE YOU JOE");
+            error.setContentText("Error, please add a description.");
             error.showAndWait();
         }
         SingleSelectionModel Customerid = CustomerComboBox.getSelectionModel();
@@ -464,17 +464,9 @@ public class AddAppt implements Initializable {
 
         LocalDateTime EndDateAndTime = LocalDateTime.of(localdate,EndForintsertLoc);
         System.out.println( " Localdatetime start and end for appt trying to update " + StartDateAndTime + "  " + EndDateAndTime + " ");
-        /** Convert start and end date and time to UTC*/
 
-        ZonedDateTime startDB = StartDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println(" Zoned Date Time start " + startDB + " ");
-        ZonedDateTime endDB = EndDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println( " Zoned date time end " + endDB + " ");
-
-        /** Convert start and end time to time stamp for DB*/
-
-        Timestamp TimeStampStart = Timestamp.valueOf(startDB.toLocalDateTime());
-        Timestamp TimeStampEnd = Timestamp.valueOf(endDB.toLocalDateTime());
+        Timestamp TimeStampStart = Timestamp.valueOf(StartDateAndTime);
+        Timestamp TimeStampEnd = Timestamp.valueOf(EndDateAndTime);
         System.out.println(" Times stamp start and ends for new appt add " + TimeStampStart + " " + TimeStampEnd);
 
 

@@ -229,6 +229,8 @@ public class ModifyAppt implements Initializable {
         /** Grab data from all fields and print it to check it's grabbing correctly*/
 
 
+
+
         int CustomerID = Integer.parseInt(CustomerIDTextBox.getText());
 
         System.out.println(" Customer ID : " + CustomerID + " ");
@@ -277,17 +279,14 @@ public class ModifyAppt implements Initializable {
 
         LocalDateTime EndDateAndTime = LocalDateTime.of(localdate,EndForintsertLoc);
         System.out.println( " Localdatetime start and end for appt trying to update " + StartDateAndTime + "  " + EndDateAndTime + " ");
-        /** Convert start and end date and time to UTC*/
 
-        ZonedDateTime startDB = StartDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println(" Zoned Date Time start " + startDB + " ");
-        ZonedDateTime endDB = EndDateAndTime.atZone(CurrentZoneID).withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println( " Zoned date time end " + endDB + " ");
+
+
 
         /** Convert start and end time to time stamp for DB*/
 
-        Timestamp TimeStampStart = Timestamp.valueOf(startDB.toLocalDateTime());
-        Timestamp TimeStampEnd = Timestamp.valueOf(endDB.toLocalDateTime());
+        Timestamp TimeStampStart = Timestamp.valueOf(StartDateAndTime);
+        Timestamp TimeStampEnd = Timestamp.valueOf(EndDateAndTime);
         System.out.println(" Times stamp start and ends for new appt add " + TimeStampStart + " " + TimeStampEnd);
 
         ApptOverlapping = isOverLapping( TimeStampStart,TimeStampEnd,CustomerID,ApptID);
@@ -385,22 +384,16 @@ public class ModifyAppt implements Initializable {
                 String Location = rs.getString("Location");
                 int Contact_ID = rs.getInt("Contact_ID");
                 String Type = rs.getString("Type");
-                String StartString = rs.getString("Start").substring(0,19);
-                String EndString = rs.getString("End").substring(0,19);
-                System.out.println(" Current Zone Id: " + CurrentZoneID+ " UTC Zone ID " + UTCID+ " ");
 
 
-                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*/
-                LocalDateTime StartLocal = LocalDateTime.parse(StartString,formatter);
-                LocalDateTime EndLocal = LocalDateTime.parse(EndString,formatter);
+                Timestamp timeStart = rs.getTimestamp("Start");
+                Timestamp timeEnd = rs.getTimestamp("End");
 
-                ZonedDateTime ZonedStart = StartLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-                ZonedDateTime ZonedEnd = EndLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-                //*Convert back to string to store in Appointment object and table*/
+                LocalDateTime start = timeStart.toLocalDateTime();
+                LocalDateTime end = timeEnd.toLocalDateTime();
 
-
-                String FormattedTableStart = ZonedStart.format(formatter);
-                String FormattedTableEnd = ZonedEnd.format(formatter);
+                String FormattedTableStart = start.format(formatter);
+                String FormattedTableEnd = end.format(formatter);
 
 
                 AllTableAppointments.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,FormattedTableStart,FormattedTableEnd));
@@ -422,7 +415,7 @@ public class ModifyAppt implements Initializable {
     public void OnClickToEdit(ActionEvent actionEvent) {
         Appointment SelectedAppointment;
         SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();
-        String start = SelectedAppointment.getStart();
+        String start = SelectedAppointment.getStart().substring(10,17);
         System.out.println(" start " + start + " ");
         CustomerIDTextBox.setText(String.valueOf(SelectedAppointment.getCustomer_ID()));
         UserIDTextBox.setText(String.valueOf(SelectedAppointment.getUser_ID()));
@@ -432,6 +425,10 @@ public class ModifyAppt implements Initializable {
         ModifyApptType.setText(SelectedAppointment.getType());
         ModifyApptID.setText(String.valueOf(SelectedAppointment.getAppointment_ID()));
 
+
+
+
+
     }
     public Boolean validateFields() {
 
@@ -439,7 +436,7 @@ public class ModifyAppt implements Initializable {
 
         if (Description.isEmpty()) {
             Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setContentText("Error, please add a description. PS I LOVE YOU JOE");
+            error.setContentText("Error, please add a description.");
             error.showAndWait();
         }
         String Customerid = CustomerIDTextBox.getText();
