@@ -3,6 +3,8 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Helper.JDBC;
+import javafx.fxml.FXML;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +12,11 @@ import java.sql.SQLException;
 
 
 public class Country {
+    @FXML
     private static  int CountryID;
+    @FXML
     private static String CountryName;
+    @FXML
     private static ObservableList<String> AllCountries = FXCollections.observableArrayList();
 
     public Country(){
@@ -20,8 +25,8 @@ public class Country {
 
     /**
      *
-     * @param CountryID
-     * @param CountryName
+     * @param CountryID Country ID
+     * @param CountryName Country Name
      */
     public Country(int CountryID,String CountryName){
         this.CountryID = CountryID;
@@ -43,7 +48,7 @@ public class Country {
 
     /**
      *
-     * @return
+     * @return Country Name
      */
     public String toString(){
         return(  CountryName);
@@ -51,7 +56,7 @@ public class Country {
 
     /**
      *
-     * @return
+     * @return Country Names
      */
     public static ObservableList<String> getCountryNames(){
         Connection connection = JDBC.openConnection();

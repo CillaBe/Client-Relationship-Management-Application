@@ -10,7 +10,11 @@ import javafx.stage.Stage;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
-
+    /**
+     *
+     * @param primaryStage initialzes application
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/LoginScreen.fxml"));
@@ -19,7 +23,11 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 900, 400));
         primaryStage.show();
     }
-    /**This is the main method. This is the first method that gets called when the application is run and it adds in sample data */
+
+    /**
+     *
+     * @param args This is the main method. This is the first method that gets called when the application is run and it adds in sample data
+     */
     public static void main(String[] args) {
 
         JDBC.openConnection();

@@ -13,6 +13,10 @@ public class JDBC {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection = null;  // Connection Interface
 
+    /**
+     *
+     * @return returns conntection
+     */
     public static Connection openConnection()  {
         try {
             Class.forName(driver); // Locate Driver
@@ -24,6 +28,10 @@ public class JDBC {
         return connection;
     }
 
+    /**
+     * Closes connection
+     */
+
     public static void closeConnection() {
         try {
             connection.close();
@@ -31,7 +39,7 @@ public class JDBC {
         } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
-        /** Converts ContactName to it's corresponding contactID from the database*/
+
     }
 
     /**

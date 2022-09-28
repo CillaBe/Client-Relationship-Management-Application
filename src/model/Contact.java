@@ -26,9 +26,9 @@ public class Contact {
 
     /**
      *
-     * @param ContactID
-     * @param ContactName
-     * @param ContactEmail
+     * @param ContactID Contact ID
+     * @param ContactName Contact Name
+     * @param ContactEmail Contact Email
      */
 
    public Contact(int ContactID,String ContactName,String ContactEmail){
@@ -51,7 +51,7 @@ public class Contact {
 
     /**
      *
-     * @return
+     * @return Contact ID
      */
     public int returnContactID(){
        return ContactID;
@@ -59,7 +59,7 @@ public class Contact {
 
     /**
      *
-     * @return
+     * @return Contact Name
      */
     public String returnContactName(){
        return ContactName;
@@ -67,7 +67,7 @@ public class Contact {
 
     /**
      *
-     * @return
+     * @return Contact Name
      */
 
     public String toString(){
@@ -76,7 +76,7 @@ public class Contact {
 
     /**
      *
-     * @return
+     * @return Contact Names
      */
     public static ObservableList<String> getContactNames(){
         Connection connection = JDBC.openConnection();

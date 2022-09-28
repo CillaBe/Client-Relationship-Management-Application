@@ -3,6 +3,7 @@ package model;
 import Helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,26 +11,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Customer {
+    @FXML
     private int CustomerID;
+    @FXML
     private String CustomerName;
-    String Address;
-    String PostalCode;
-    String Phone;
-    int DivisionID;
-    String Division;
-    String Country;
+    @FXML
+    private String Address;
+    @FXML
+    private String PostalCode;
+    @FXML
+    private String Phone;
+    @FXML
+    private int DivisionID;
+    @FXML
+    private String Division;
+    @FXML
+    private String Country;
+    @FXML
     private static  ObservableList<String> AllCustomers = FXCollections.observableArrayList();
 
     /**
      *
-     * @param CustomerID
-     * @param CustomerName
-     * @param Address
-     * @param Division
-     * @param Country
-     * @param PostalCode
-     * @param Phone
-     * @param DivisionID
+     * @param CustomerID Customer ID
+     * @param CustomerName Customer Name
+     * @param Address Address
+     * @param Division Divsion
+     * @param Country Country
+     * @param PostalCode Postal Code
+     * @param Phone Phone
+     * @param DivisionID Divsion ID
      */
 
     public Customer(int CustomerID, String CustomerName, String Address,String Division, String Country, String PostalCode, String Phone, int DivisionID) {
@@ -61,9 +71,13 @@ public class Customer {
 
     }
 
+    /**
+     *
+     * @return Customer Name
+     */
     @Override
     public String toString() {
-        /**return (CustomerName)*/
+
         return (CustomerName);
     }
 

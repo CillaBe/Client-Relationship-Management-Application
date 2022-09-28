@@ -101,7 +101,11 @@ public class AppointmentTable implements Initializable {
     @FXML
     private JDBC DbHandler;
 
-/** Initializes screen, both lambda expressions are on this screen*/
+    /**
+     *
+     * @param url Initializes screen, both lambda expressions are on this screen*
+     * @param resourceBundle resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -133,10 +137,15 @@ public class AppointmentTable implements Initializable {
         catch (SQLException throwables){
             throwables.printStackTrace();
         }
-        /** This method checks if there are any appts with in 15 mins of logging in and alerts if there are or not.
-         *
-         * */
+
+
+
     }
+
+    /**
+     *
+     * @throws SQLException /** This method checks if there are any appts with in 15 mins of logging in and alerts if there are or not, contains first lambda expression.
+     *          */
 
         public void CheckForAppointments() throws SQLException {
             System.out.println(" Trying to check for appointments 15 minutes from now");
@@ -158,13 +167,6 @@ public class AppointmentTable implements Initializable {
                     int Contact_ID = rs.getInt("Contact_ID");
                     String Type = rs.getString("Type");
 
-                   /** LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
-                    LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
-
-                    ZonedDateTime localStart = ZonedDateTime.ofInstant(start.toInstant(ZoneOffset.UTC),CurrentZoneID);
-                    ZonedDateTime localEnd = ZonedDateTime.ofInstant(end.toInstant(ZoneOffset.UTC),CurrentZoneID);
-*/
-                    /*Convert DB Start and end to Local Zoned Date and Time */
                     Timestamp EndTimeFromDB= rs.getTimestamp("End");
                     ZonedDateTime ZonedEnd = EndTimeFromDB.toLocalDateTime().atZone(UTCID);
                     ZonedDateTime LocalEnd =ZonedEnd.withZoneSameInstant(CurrentZoneID);
@@ -214,9 +216,11 @@ public class AppointmentTable implements Initializable {
 
         }
 
- /** This method populates all appointments to the schedule tableview.
-  *
-  * */
+
+    /**
+     *
+     * @throws SQLException This method populates all appointments to the schedule tableview.
+     */
 
 
     public void PopulateAllAppointments() throws SQLException {
@@ -250,24 +254,8 @@ public class AppointmentTable implements Initializable {
                 String FormattedTableEnd = end.format(formatter);
 
 
-                /**
-                String StartString = rs.getString("Start").substring(0,19);
-                String EndString = rs.getString("End").substring(0,19);
-                System.out.println(" Current Zone Id: " + CurrentZoneID+ " UTC Zone ID " + UTCID+ " ");
 
 
-                //*Convert Start and End Times to Local Date Time then ZonedDateAndTime*/
-             /**   LocalDateTime StartLocal = LocalDateTime.parse(StartString,formatter);
-                LocalDateTime EndLocal = LocalDateTime.parse(EndString,formatter);
-/**
-                ZonedDateTime ZonedStart = StartLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-                ZonedDateTime ZonedEnd = EndLocal.atZone(UTCID).withZoneSameInstant(CurrentZoneID);
-                //*Convert back to string to store in Appointment object and table*/
-
-/**
-                String FormattedTableStart = ZonedStart.format(formatter);
-                String FormattedTableEnd = ZonedEnd.format(formatter);
-*/
                 AllTableAppointments.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,FormattedTableStart,FormattedTableEnd));
                 AppointmentTable.setItems(AllTableAppointments);
                 System.out.print(" Set all appts in table");
@@ -287,7 +275,7 @@ public class AppointmentTable implements Initializable {
     public void onAppointmentTable(SortEvent<TableView> tableViewSortEvent) {
     }
  /**This method populates the month view for the all Appointments Calender
-  * @param  actionEvent populated month view*/
+  * @param  actionEvent populated month view, contains second lambda expression which is used to filter through list of appointments*/
 
     public void onMonthView(ActionEvent actionEvent) {
         System.out.print(" Trying to populate monthly appointments");
@@ -339,7 +327,7 @@ public class AppointmentTable implements Initializable {
         }
     }
     /**This method populates the weekly view for the all Appointments Calender
-     * @param  actionEvent populates weekly view lambda expression used* to filter through appointments and sort them by week*/
+     * @param  actionEvent populates weekly view . A third lambda expression is used to filter through appointments and sort them by week*/
     public void onWeekView(ActionEvent actionEvent) {
         System.out.print(" Trying to populate weekly appointments");
         try {
@@ -391,7 +379,11 @@ public class AppointmentTable implements Initializable {
         }
     }
 
-/** @param actionEvent  moves user to Customer Database*/
+    /**
+     *
+     * @param actionEvent launches Customer Database
+     * @throws IOException Exception
+     */
     public void onCustomerDatabase(ActionEvent actionEvent) throws IOException{
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/CustomerTable.fxml"));
         Scene MainScene = new Scene(parent,2000,2000);
@@ -403,7 +395,11 @@ public class AppointmentTable implements Initializable {
         System.out.println("Logged out of Appointments tab");
     }
 
-   /** @param actionEvent This method launches the Modify Appointment */
+    /**
+     *
+     * @param actionEvent launches Modify Appointment Screen
+     * @throws IOException Exception
+     */
     public void onModifyAppointment(ActionEvent actionEvent) throws IOException{
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/ModifyAppt.fxml"));
         Scene MainScene = new Scene(parent,13000,1200);
@@ -416,12 +412,10 @@ public class AppointmentTable implements Initializable {
     }
 
 
-
-
-
-
-    /**This method launches the Add Appointment Screen
-     @param actionEvent navigates to Add Appointment screen
+    /**
+     *
+     * @param actionEvent sends user to Add Appointment Screen
+     * @throws IOException Exception
      */
     public void onAddAppointment(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AddAppt.fxml"));
@@ -476,7 +470,11 @@ public class AppointmentTable implements Initializable {
 
     }
 
-/**@param actionEvent this action moves user to Reports Screen and launches that screen*/
+    /**
+     *
+     * @param actionEvent sends user to Reports Screen
+     * @throws IOException Exception
+     */
     public void onReports(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/Reports.fxml"));
         Scene MainScene = new Scene(parent,1200,1200);
@@ -488,7 +486,11 @@ public class AppointmentTable implements Initializable {
         System.out.println("Logged out of Appointment Table tab");
     }
 
-    /**@param actionEvent this action moves user to the login screen and launches that screen*/
+    /**
+     *
+     * @param actionEvent logs user out of application
+     * @throws IOException Exception
+     */
     public void onLogout(ActionEvent actionEvent)  throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/LoginScreen.fxml"));
         Scene MainScene = new Scene(parent,900,400);
@@ -499,7 +501,12 @@ public class AppointmentTable implements Initializable {
         MainStage.show();
         System.out.println("Logged out of Appointments tab");
     }
-    /**@param actionEvent this action populates the table view with all appointments */
+
+    /**
+     *
+     * @param actionEvent Populates all appointments
+     * @throws SQLException exception
+     */
     public void onAllAppointmentsView(ActionEvent actionEvent)  throws SQLException {
         PopulateAllAppointments();;
 

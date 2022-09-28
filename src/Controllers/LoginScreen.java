@@ -49,21 +49,25 @@ public class LoginScreen implements Initializable {
     @FXML
     private TextField UserIdBox;
     @FXML
-
-
-    LocalDateTime CurrentTime;
-    Timestamp timeinDB;
-    Locale currentLocale;
-    String language;
-    String filename = "login_activity.txt.", login;
-    ;
-    PrintWriter outputfile;
-    FileWriter newfile;
-
+    private LocalDateTime CurrentTime;
+    @FXML
+    private Timestamp timeinDB;
+    @FXML
+    private Locale currentLocale;
+    @FXML
+    private String language;
+    @FXML
+    private String filename = "login_activity.txt.", login;
+    @FXML
+    private PrintWriter outputfile;
+    @FXML
+    private FileWriter newfile;
 
 
     /**
-     * This method initializes the class.
+     *
+     * @param url intialzes screen
+     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -84,8 +88,8 @@ public class LoginScreen implements Initializable {
 
         }
 
-/**This method creates a log for storing user login attempts
- *
+/**
+ * This method creates a log for storing user login attempts
  */
     }
 

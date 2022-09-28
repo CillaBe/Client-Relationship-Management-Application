@@ -122,7 +122,7 @@ public class ModifyAppt implements Initializable {
 
     /**
      *
-     * @param url
+     * @param url inializes screen
      * @param resourceBundle
      */
     @Override
@@ -365,8 +365,17 @@ public class ModifyAppt implements Initializable {
         System.out.println("Logged out of Modfy Appointments tab");
     }
 
+    /**
+     *
+     * @param tableViewSortEvent not used in this application
+     */
     public void onAppointmentTable(SortEvent<TableView> tableViewSortEvent) {
     }
+
+    /**
+     *
+     * @throws SQLException populates all appointments
+     */
     public void PopulateAllAppointments() throws SQLException {
         System.out.print(" Trying to populate appointments");
         try {
@@ -454,6 +463,11 @@ public class ModifyAppt implements Initializable {
 
 
     }
+
+    /**
+     *
+     * @return returns true if all fields are filled out, otherwise returns false
+     */
     public Boolean validateFields() {
 
         String Description = ModifyApptDescription.getText();
@@ -500,6 +514,7 @@ public class ModifyAppt implements Initializable {
 
 
         }
+
         String type = ModifyApptType.getText();
         if (type.isEmpty()) {
             {
@@ -545,9 +560,14 @@ public class ModifyAppt implements Initializable {
         }
     }
 
-/** This method checks for overlapping appointments.
- *
- * */
+    /**
+     *
+     * @param TimeStartFromApp Start time from input
+     * @param TimeEndFromApp End time from input
+     * @param customerID Customer ID to check for overlapping appointments
+     * @param appointmentID Appointment ID to check for overlapping appointments
+     * @return returns true if appointments overlapp
+     */
 
     private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID, int appointmentID) {
         boolean overlaps = false;

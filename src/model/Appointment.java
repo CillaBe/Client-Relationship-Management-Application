@@ -60,20 +60,20 @@ public class Appointment {
 
     /**
      *
-     * @param Appointment_ID
-     * @param Title
-     * @param Description
-     * @param Location
-     * @param Type
-     * @param Start
-     * @param End
-     * @param Create_Date
-     * @param Created_By
-     * @param Last_Update
-     * @param Last_Updated_By
-     * @param Customer_ID
-     * @param User_ID
-     * @param Contact_ID
+     * @param Appointment_ID AppointmentID
+     * @param Title Title
+     * @param Description Description
+     * @param Location Location
+     * @param Type Type
+     * @param Start Start
+     * @param End End
+     * @param Create_Date Create Date
+     * @param Created_By Created By
+     * @param Last_Update Last Update
+     * @param Last_Updated_By Last Updated by
+     * @param Customer_ID Customer ID
+     * @param User_ID User ID
+     * @param Contact_ID Contact ID
      */
 
     public Appointment(int Appointment_ID, String Title, String Description, String Location, String Type, String Start,
@@ -97,22 +97,22 @@ public class Appointment {
 
     /**
      *
-     * @param Type
+     * @param Type Type
      */
     public Appointment(String Type){ this.Type = Type;}
 
     /**
      *
-     * @param Appointment_ID
-     * @param Customer_ID
-     * @param User_ID
-     * @param Title
-     * @param Description
-     * @param Location
-     * @param Contact_ID
-     * @param Type
-     * @param Start
-     * @param End
+     * @param Appointment_ID Appointment Id
+     * @param Customer_ID Customer ID
+     * @param User_ID User ID
+     * @param Title Title
+     * @param Description Description
+     * @param Location Location
+     * @param Contact_ID Contact ID
+     * @param Type Type
+     * @param Start Start
+     * @param End End
      */
     public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, String Start,
                        String End) {
@@ -130,16 +130,16 @@ public class Appointment {
 
     /**
      *
-     * @param Appointment_ID
-     * @param Customer_ID
-     * @param User_ID
-     * @param Title
-     * @param Description
-     * @param Location
-     * @param Contact_ID
-     * @param Type
-     * @param Start
-     * @param End
+     * @param Appointment_ID Appointment ID
+     * @param Customer_ID Customer ID
+     * @param User_ID User ID
+     * @param Title Title
+     * @param Description Description
+     * @param Location Location
+     * @param Contact_ID Contact ID
+     * @param Type Type
+     * @param Start Start
+     * @param End End
      */
     public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, LocalDateTime Start,
                        LocalDateTime End) {
@@ -170,9 +170,9 @@ public class Appointment {
 
     /**
      *
-     * @param ContactID
-     * @param StartTimeStamp
-     * @param EndTimeStamp
+     * @param ContactID Contact ID
+     * @param StartTimeStamp Start Timestamp
+     * @param EndTimeStamp End Timestamp
      */
     public Appointment(int ContactID, Timestamp StartTimeStamp, Timestamp EndTimeStamp){
         this.Customer_ID = ContactID;
@@ -183,13 +183,13 @@ public class Appointment {
 
     /**
      *
-     * @param Appointment_ID
-     * @param Customer_ID
-     * @param Title
-     * @param Description
-     * @param Type
-     * @param Start
-     * @param End
+     * @param Appointment_ID Appointment ID
+     * @param Customer_ID Customer ID
+     * @param Title Title
+     * @param Description Description
+     * @param Type Type
+     * @param Start Start
+     * @param End End
      */
 
     public Appointment(int Appointment_ID, int Customer_ID, String Title, String Description, String Type, String Start, String End) {
@@ -242,6 +242,11 @@ public class Appointment {
     public Timestamp getEndTimeStamp(){
         return EndTimeStamp;
     }
+
+    /**
+     *
+     * @return Type
+     */
     public String toString(){
         return(  Type);
     }

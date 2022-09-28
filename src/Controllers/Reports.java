@@ -108,7 +108,7 @@ public class Reports implements Initializable {
 
     /**
      *
-     * @param url
+     * @param url initializes the screen
      * @param resourceBundle
      */
     @Override
@@ -137,7 +137,11 @@ public class Reports implements Initializable {
 
 
     }
-    /** Function to populate Appointments based on ContactID*/
+
+    /**
+     *
+     * @param ContactId Function to populate Appointments based on ContactID
+     */
    public void PopulateAppointmentonContactID(int ContactId) {
 System.out.print(" Trying to populate appointments by ContactID");
         try {
@@ -176,7 +180,11 @@ System.out.print(" Trying to populate appointments by ContactID");
 
 
 }
-    /** Function to populate Appointments based on CustomerID*/
+
+    /**
+     *
+     * @param CustomerId populate Appointments based on CustomerID
+     */
     public void PopulateAppointmentonCustomerID(int CustomerId) {
         System.out.print(" Trying to populate appointments by Customer ID ");
         try {
@@ -215,8 +223,11 @@ System.out.print(" Trying to populate appointments by ContactID");
 
 
     }
+
     /**
-     * Function to convert month to number
+     *
+     * @param month month to convert to month
+     * @return returns corresponding number of montth
      */
     public int MonthtoNumber(String month) {
         int monthNum = 0;
@@ -274,11 +285,14 @@ System.out.print(" Trying to populate appointments by ContactID");
 
 
     }
-    /** Function to populate appointment table based on ContactID*/
 
 
     /**
-     * Function to sum total appointments by month and type
+     *
+     * @param type type to sum in function
+     * @param month month to sum in the function
+     * @return returns total appointments by type and month
+     * @throws SQLException
      */
 
     public int SumTypeAndMonth(String type, int month) throws SQLException {
@@ -298,33 +312,83 @@ System.out.print(" Trying to populate appointments by ContactID");
         return AllMonths;
     }
 
+    /**
+     *
+     * @param actionEvent not used in this application
+     */
+
 
     public void onReportsContactTab(ActionEvent actionEvent) {
     }
 
+    /**
+     *
+     * @param mouseEvent not used in this application
+     */
+
     public void onReportsContactClicked(MouseEvent mouseEvent) {
     }
+
+    /**
+     *
+     * @param actionEvent not used in this application
+     */
 
     public void onTotalApptsByMonthReport(ActionEvent actionEvent) {
     }
 
+    /**
+     *
+     * @param mouseEvent not used in this application
+     */
+
     public void ReportsApptTypeClicked(MouseEvent mouseEvent) {
     }
+
+    /**
+     *
+     * @param actionEvent not used in this application
+     */
 
     public void onReportsApptMonth(ActionEvent actionEvent) {
     }
 
+    /**
+     *
+     * @param actionEvent not used in this application
+     */
+
     public void onReportsApptType(ActionEvent actionEvent) {
     }
+
+    /**
+     *
+     * @param mouseEvent not used in this application
+     */
 
     public void onReportsMonthClicked(MouseEvent mouseEvent) {
     }
 
+    /**
+     *
+     * @param actionEvent not used in this application
+     */
+
     public void onReportsDateSelection(ActionEvent actionEvent) {
     }
 
+    /**
+     *
+     * @param contextMenuEvent not used in this application
+     */
+
     public void onReportsDateContextMenuRequested(ContextMenuEvent contextMenuEvent) {
     }
+
+    /**
+     *
+     * @param mouseEvent not used in this application
+     */
 
     public void onReportsDateClicked(MouseEvent mouseEvent) {
     }
@@ -397,7 +461,9 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
 
-/** generated in scenebuilder and not used*/
+    /**
+     * not used
+     */
     public void onExitReports() {
     }
 

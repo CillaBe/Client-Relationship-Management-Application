@@ -49,6 +49,11 @@ public class AddCustomer implements Initializable {
     @FXML
     private int newInt;
 
+    /**
+     *
+     * @param url initilizes screen
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         int min = 5;
@@ -152,7 +157,7 @@ public class AddCustomer implements Initializable {
         }
     }
     /** This method was not used in this application,
-     * @param actionEventnot used in this application */
+     * @param actionEvent not used in this application */
     public void onAddCustomerPhoneNumber(ActionEvent actionEvent) {
     }
  /** @param actionEvent Exits Add Customer Screen and sends user back to Customer Database Screen*/
@@ -186,7 +191,11 @@ public class AddCustomer implements Initializable {
      * @param actionEvent not used in this application */
     public void OnStateProvComboBox(ActionEvent actionEvent) {
     }
-/** Validates all customer fields are filled out*/
+
+    /**
+     *
+     * @return true if customers are validated, false if not
+     */
     public boolean ValidateCustomers() {
         String Name = AddCustomerFirstName.getText();
         if (Name.isEmpty()) {

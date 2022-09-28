@@ -3,6 +3,7 @@ package model;
 import Helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class User {
-    public String UserName;
-    public int UserID;
+    @FXML
+   private String UserName;
+    @FXML
+    private int UserID;
+    @FXML
 
     private static  ObservableList<String> AllUserNames = FXCollections.observableArrayList();
 

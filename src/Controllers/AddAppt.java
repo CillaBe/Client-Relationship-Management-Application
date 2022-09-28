@@ -111,7 +111,11 @@ public class AddAppt implements Initializable {
     private ObservableList <Customer> AllCustomers = FXCollections.observableArrayList();
 
 
-
+    /**
+     *
+     * @param url initializes screen
+     * @param resourceBundle resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /** Insert Start and End Times, set tables for Users and Customers*/
@@ -155,9 +159,16 @@ public class AddAppt implements Initializable {
 
     }
 
+    /**
+     *
+     * @return returns true if all fields are validated
+     */
+
     public Boolean validateFields() {
 
         String Description = addApptDescription.getText();
+
+
 
         if (Description.isEmpty()) {
             Alert error = new Alert(Alert.AlertType.ERROR);
@@ -180,6 +191,7 @@ public class AddAppt implements Initializable {
                 error.setContentText("Error, please select a User Name");
                 error.showAndWait();
             }
+
 
         }
         String location = AddApptLocation.getText();
@@ -448,7 +460,8 @@ public class AddAppt implements Initializable {
 
 
 
- /** Converting times from Local Date To TimeStamp time  to putin DB*/
+ /**
+  * Converting times from Local Date To TimeStamp time  to putin DB*/
 
 
         LocalDate localdate = AddApptStartDate.getValue();
@@ -550,7 +563,10 @@ public class AddAppt implements Initializable {
 
 
     /**
-     * @param actionEvent exits add appointment screen and sends user back to main appointment table */
+     *
+     * @param actionEvent Exits screen
+     * @throws IOException exception
+     */
 
     public void onAddAppointmentExit(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));

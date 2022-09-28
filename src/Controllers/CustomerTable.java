@@ -79,8 +79,8 @@ public class CustomerTable implements Initializable {
 
     /**
      *
-     * @param url
-     * @param resourceBundle
+     * @param url initializes screen
+     * @param resourceBundle resource bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -104,7 +104,7 @@ public class CustomerTable implements Initializable {
 
     /**
      * Populates Customers
-     * @throws SQLException
+     * @throws SQLException Populates Customers
      */
     public void PopulateCustomers() throws SQLException {
         System.out.print(" Trying to populate  customers ");
@@ -138,7 +138,11 @@ public class CustomerTable implements Initializable {
 
     }
 
-  /** @param actionEvent Sends user to Add Customer Screen*/
+    /**
+     *
+     * @param actionEvent Sends user to Add Customer Screen*
+     * @throws IOException exception
+     */
     public void onAddCustomer(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AddCustomer.fxml"));
         Scene MainScene = new Scene(parent,1200,1200);
@@ -153,7 +157,12 @@ public class CustomerTable implements Initializable {
      * @param actionEvent not used in this application */
     public void onModiftyCustomer(ActionEvent actionEvent) {
     }
- /** @param actionEvent Deletes Customer if there are no corresponding appointments for that customer in the database*/
+
+    /**
+     *
+     * @param actionEvent actionEvent Deletes Customer if there are no corresponding appointments for that customer in the database
+     * @throws SQLException exception
+     */
     public void onDeleteCustomer(ActionEvent actionEvent) throws SQLException {
         Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
         warning.setContentText("Are you sure you want to delete this customer from the data base?");
@@ -207,7 +216,12 @@ public class CustomerTable implements Initializable {
             e.printStackTrace();
         }
     }
- /** @param actionEvent Exits the Customer table and goes back to the Appointment Table*/
+
+    /**
+     *
+     * @param actionEvent  Exits the Customer table and goes back to the Appointment Table*
+     * @throws IOException exception
+     */
     public void onExitCustomer(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
         Scene MainScene = new Scene(parent,3800,1200);
@@ -230,7 +244,11 @@ public class CustomerTable implements Initializable {
      * @param actionEvent not used in this application */
     public void CustomerID(ActionEvent actionEvent) {
     }
-    /** Generated in Scene Builder and not used*/
+
+    /**
+     *
+     * @param actionEvent not used in application
+     */
     public void onModifyApptTitle(ActionEvent actionEvent) {
     }
 
@@ -327,7 +345,8 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     * Validates all fields in Customer Tabel Screen are filled out
+     *
+     * @return returns true if fields are filled out
      */
     public Boolean validateFieldsCust() {
 

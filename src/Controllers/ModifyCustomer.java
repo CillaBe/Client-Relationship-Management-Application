@@ -36,7 +36,7 @@ public class ModifyCustomer  implements Initializable {
 
     /**
      *
-     * @param url
+     * @param url initialzes the screen
      * @param resourceBundle
      */
     @Override

@@ -3,14 +3,18 @@ package model;
 import Helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FirstLevel {
+    @FXML
     private static  int CountryID;
+    @FXML
     private static String Division;
+    @FXML
     private static ObservableList<String> AllDivisions = FXCollections.observableArrayList();
 
 
