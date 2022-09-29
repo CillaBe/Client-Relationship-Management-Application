@@ -109,7 +109,7 @@ public class Reports implements Initializable {
     /**
      *
      * @param url initializes the screen
-     * @param resourceBundle
+     * @param resourceBundle resource bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -292,7 +292,7 @@ System.out.print(" Trying to populate appointments by ContactID");
      * @param type type to sum in function
      * @param month month to sum in the function
      * @return returns total appointments by type and month
-     * @throws SQLException
+     * @throws SQLException exception
      */
 
     public int SumTypeAndMonth(String type, int month) throws SQLException {
@@ -392,8 +392,12 @@ System.out.print(" Trying to populate appointments by ContactID");
 
     public void onReportsDateClicked(MouseEvent mouseEvent) {
     }
+
     /**
-     * @param actionEvent exits the Reports screen and sends user back to main appointment table screen*/
+     *
+     * @param actionEvent exits the Reports screen and sends user back to main appointment table screen
+     * @throws IOException Exception
+     */
 
     public void onExitReports(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
@@ -431,8 +435,12 @@ System.out.print(" Trying to populate appointments by ContactID");
 
     public void onTotalTextBox(ActionEvent actionEvent) {
     }
+
     /**
-     * @param actionEvent totals appointments by type and month and displays them in TotalTextBox */
+     *
+     * @param actionEvent totals appointments by type and month and displays them in TotalTextBox
+     * @throws SQLException exception
+     */
 
     public void onTotalButton(ActionEvent actionEvent) throws SQLException {
         String type = (String) AppointmentTypeComboBox.getSelectionModel().getSelectedItem();

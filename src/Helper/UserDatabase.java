@@ -15,7 +15,7 @@ public class UserDatabase {
      * @param userName takes username
      * @param Password takes password
      * @return returns true or false if  does or does not find a corresponding username and password
-     * @throws SQLException
+     * @throws SQLException Exception
      */
     public boolean checkUser(String userName, String Password) throws SQLException {
         Connection connection = JDBC.openConnection();

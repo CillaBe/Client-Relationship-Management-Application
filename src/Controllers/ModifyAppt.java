@@ -123,7 +123,7 @@ public class ModifyAppt implements Initializable {
     /**
      *
      * @param url inializes screen
-     * @param resourceBundle
+     * @param resourceBundle resource Bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -350,9 +350,11 @@ public class ModifyAppt implements Initializable {
 
         }
 
-    /** @param actionEvent This method exits the Modify Appointment Screen.
+    /**
      *
-     * */
+     * @param actionEvent Exits screen
+     * @throws IOException Exception
+     */
 
     public void onModifyAppointmentExit(ActionEvent actionEvent) throws IOException {
         Parent parent= FXMLLoader.load(getClass().getResource("/Views/AppointmentTable.fxml"));
@@ -421,9 +423,11 @@ public class ModifyAppt implements Initializable {
 
     }
 
-    /** @param actionEvent this method moves the data from the Appointment Table view to the appropriate spots to edit
+    /**
      *
-     * */
+     * @param actionEvent This method moves the data from the Appointment Table view to the appropriate spots to edit
+     * @throws ParseException exception
+     */
     public void OnClickToEdit(ActionEvent actionEvent) throws ParseException {
         Appointment SelectedAppointment;
         SelectedAppointment = (Appointment) AppointmentTable.getSelectionModel().getSelectedItem();

@@ -13,7 +13,7 @@ public class Main extends Application {
     /**
      *
      * @param primaryStage initialzes application
-     * @throws Exception
+     * @throws Exception Exception
      */
     @Override
     public void start(Stage primaryStage) throws Exception {

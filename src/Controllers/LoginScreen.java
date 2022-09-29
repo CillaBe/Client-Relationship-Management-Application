@@ -67,7 +67,7 @@ public class LoginScreen implements Initializable {
     /**
      *
      * @param url intialzes screen
-     * @param resourceBundle
+     * @param resourceBundle resource Bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,9 +110,10 @@ public class LoginScreen implements Initializable {
     }
 
     /**
-     * This checks if the username and password are correct
      *
      * @param actionEvent if username and password aren't correct displays error, if correct, logs in to the program.
+     * @throws SQLException Exception
+     * @throws IOException exception
      */
 
 

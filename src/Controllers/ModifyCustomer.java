@@ -37,7 +37,7 @@ public class ModifyCustomer  implements Initializable {
     /**
      *
      * @param url initialzes the screen
-     * @param resourceBundle
+     * @param resourceBundle resource bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

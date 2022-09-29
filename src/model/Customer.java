@@ -62,7 +62,7 @@ public class Customer {
 
     /**
      *
-     * @param CustomerName
+     * @param CustomerName Customer Name
      */
 
     public Customer( String CustomerName) {
@@ -170,7 +170,7 @@ public class Customer {
 
     /**
      *
-     * @param DivisionID
+     * @param DivisionID Division ID
      * @return Division
      */
 

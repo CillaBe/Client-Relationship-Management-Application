@@ -40,7 +40,7 @@ public class Contact {
 
     /**
      *
-     * @param ContactName
+     * @param ContactName Contact Name
      */
     public Contact(String ContactName){
 

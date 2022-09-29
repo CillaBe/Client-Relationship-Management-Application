@@ -262,7 +262,7 @@ public class Appointment {
 
     /**
      *
-     * @param ID
+     * @param ID ID
      * @return sets Appt_ID
      */
 
@@ -281,7 +281,7 @@ public class Appointment {
 
     /**
      *
-     * @param title
+     * @param title Title
      * @return sets title
      */
 
@@ -299,7 +299,7 @@ public class Appointment {
 
     /**
      *
-     * @param Descript
+     * @param Descript Desciption
      */
     public void setDescriptions(String Descript){
         Description = Descript;
@@ -315,7 +315,7 @@ public class Appointment {
 
     /**
      *
-     * @param locate
+     * @param locate Location
      */
     public void setLocation(String locate){
         Location = locate;
@@ -331,7 +331,7 @@ public class Appointment {
 
     /**
      *
-     * @param TypeOfAppt
+     * @param TypeOfAppt Type of Appointment
      */
     public void setType(String TypeOfAppt){
         Type = TypeOfAppt;
@@ -353,7 +353,7 @@ public class Appointment {
 
     /**
      *
-     * @param startTime
+     * @param startTime Start Time
      */
 
     public void setStart(String startTime){
@@ -370,7 +370,7 @@ public class Appointment {
 
     /**
      *
-     * @return end
+     * @return end End Time
      */
 
     public void setEnd(){ End = End; }
@@ -383,7 +383,7 @@ public class Appointment {
 
     /**
      *
-     * @param End
+     * @param End End String
      */
     public  void  setEnd(String End){
         End = End;
@@ -399,7 +399,7 @@ public class Appointment {
 
     /**
      *
-     * @param UID
+     * @param UID User ID
      */
     public void setUser_ID(int UID){
         User_ID = UID;
@@ -415,7 +415,7 @@ public class Appointment {
 
     /**
      *
-     * @param Cust_ID
+     * @param Cust_ID Customer ID
      */
     public void  setCustomer_ID(int Cust_ID){
         Customer_ID = Cust_ID;
@@ -431,7 +431,7 @@ public class Appointment {
 
     /**
      *
-     * @param ContactID
+     * @param ContactID Contact ID
      */
     public void setGetContact_ID(int ContactID){
         Contact_ID = ContactID;

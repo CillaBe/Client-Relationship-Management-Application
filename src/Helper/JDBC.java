@@ -75,10 +75,11 @@ public class JDBC {
         return ContactID;
     }
 
+
     /**
      *
-     * @param customerName
-     * @return CustomerID
+     * @param customerName customer name customer name
+     * @return Customer ID
      */
     public static int convertCustomerNameToCustID( String customerName){
         int CustomerID = 0;
@@ -110,7 +111,7 @@ public class JDBC {
 
     /**
      *
-     * @param userName
+     * @param userName userName
      * @return userID
      */
     public static int convertUserNameToUserID( String userName){
@@ -142,7 +143,7 @@ public class JDBC {
 
     /**
      *
-     * @param UserID
+     * @param UserID UserID
      * @return Username
      */
     public static String convertUserIDToUserName( int UserID){
@@ -174,7 +175,7 @@ public class JDBC {
 
     /**
      *
-     * @param CountryName
+     * @param CountryName Country Name
      * @return Country ID
      */
     public static int converCountryNameToCountryID( String CountryName){
