@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * Login Screen
+ */
 public class LoginScreen implements Initializable {
 
     @FXML
@@ -65,7 +68,7 @@ public class LoginScreen implements Initializable {
 
 
     /**
-     *
+     * Initializes Screen
      * @param url intialzes screen
      * @param resourceBundle resource Bundle
      */
@@ -110,7 +113,7 @@ public class LoginScreen implements Initializable {
     }
 
     /**
-     *
+     * If username and password aren't correct displays error, if correct, logs in to the program.
      * @param actionEvent if username and password aren't correct displays error, if correct, logs in to the program.
      * @throws SQLException Exception
      * @throws IOException exception

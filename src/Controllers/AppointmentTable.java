@@ -28,6 +28,9 @@ import java.util.logging.Logger;
 
 import static java.time.format.DateTimeFormatter.*;
 
+/**
+ * Appointment Table Class
+ */
 public class AppointmentTable implements Initializable {
     @FXML
     private RadioButton AllAppointments;
@@ -102,7 +105,7 @@ public class AppointmentTable implements Initializable {
     private JDBC DbHandler;
 
     /**
-     *
+     * Inializes Scrren
      * @param url Initializes screen, both lambda expressions are on this screen*
      * @param resourceBundle resource bundle
      */
@@ -143,8 +146,8 @@ public class AppointmentTable implements Initializable {
     }
 
     /**
-     *
-     * @throws SQLException /** This method checks if there are any appts with in 15 mins of logging in and alerts if there are or not, contains first lambda expression.
+     *This method checks if there are any appts with in 15 mins of logging in and alerts if there are or not, contains first lambda expression.
+     * @throws SQLException Exception
      *          */
 
         public void CheckForAppointments() throws SQLException {
@@ -218,8 +221,8 @@ public class AppointmentTable implements Initializable {
 
 
     /**
-     *
-     * @throws SQLException This method populates all appointments to the schedule tableview.
+     * This method populates all appointments to the schedule tableview
+     * @throws SQLException Exception
      */
 
 
@@ -270,8 +273,10 @@ public class AppointmentTable implements Initializable {
         }
 
 
-
-
+    /**
+     * Not used in this application
+     * @param tableViewSortEvent not used in this application
+     */
     public void onAppointmentTable(SortEvent<TableView> tableViewSortEvent) {
     }
  /**This method populates the month view for the all Appointments Calender
@@ -380,7 +385,7 @@ public class AppointmentTable implements Initializable {
     }
 
     /**
-     *
+     * Launches Customer Database
      * @param actionEvent launches Customer Database
      * @throws IOException Exception
      */
@@ -396,7 +401,7 @@ public class AppointmentTable implements Initializable {
     }
 
     /**
-     *
+     * Launches Modify Appointment Screen
      * @param actionEvent launches Modify Appointment Screen
      * @throws IOException Exception
      */
@@ -413,7 +418,7 @@ public class AppointmentTable implements Initializable {
 
 
     /**
-     *
+     * Sends user to Add Appointment Screen
      * @param actionEvent sends user to Add Appointment Screen
      * @throws IOException Exception
      */
@@ -427,7 +432,8 @@ public class AppointmentTable implements Initializable {
         MainStage.show();
         System.out.println("Moved to Add appointments");
     }
-/** @param actionEvent This method deletes selected appointmen t*/
+/** This method deletes selected appointment
+ * @param actionEvent This method deletes selected appointment*/
     public void onDeleteAppointment(ActionEvent actionEvent) {
 
 
@@ -471,7 +477,7 @@ public class AppointmentTable implements Initializable {
     }
 
     /**
-     *
+     * Sends user to Reports Screen
      * @param actionEvent sends user to Reports Screen
      * @throws IOException Exception
      */
@@ -487,7 +493,7 @@ public class AppointmentTable implements Initializable {
     }
 
     /**
-     *
+     * Logs user out of application
      * @param actionEvent logs user out of application
      * @throws IOException Exception
      */
@@ -503,7 +509,7 @@ public class AppointmentTable implements Initializable {
     }
 
     /**
-     *
+     * Populates all appointments
      * @param actionEvent Populates all appointments
      * @throws SQLException exception
      */

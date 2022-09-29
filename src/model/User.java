@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * User Class
+ */
 public class User {
     @FXML
    private String UserName;
@@ -19,20 +22,23 @@ public class User {
 
     private static  ObservableList<String> AllUserNames = FXCollections.observableArrayList();
 
+    /**
+     * User Constructor
+     */
     public User(){
 
     }
 
     /**
-     *
-     * @param UserName
+     * Sets User Name
+     * @param UserName User Name
      */
     public User (String UserName){
         this.UserName = UserName;
     }
 
     /**
-     *
+     * Gets User Name
      * @return UserName
      */
     public String toString(){
@@ -40,7 +46,7 @@ public class User {
     }
 
     /**
-     *
+     * Gets list of user names
      * @return UserNames
      */
     public static ObservableList<String> getUserNames(){

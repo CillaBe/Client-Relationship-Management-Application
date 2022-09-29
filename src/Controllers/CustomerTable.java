@@ -23,6 +23,9 @@ import java.sql.*;
 import java.time.*;
 import java.util.ResourceBundle;
 
+/**
+ * Customer Table Class
+ */
 public class CustomerTable implements Initializable {
     @FXML
     private TableColumn CustomerName;
@@ -78,7 +81,7 @@ public class CustomerTable implements Initializable {
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
     /**
-     *
+     * Initializes screen
      * @param url initializes screen
      * @param resourceBundle resource bundle
      */
@@ -139,7 +142,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     *
+     * Sends user to Add Customer Screen*
      * @param actionEvent Sends user to Add Customer Screen*
      * @throws IOException exception
      */
@@ -159,7 +162,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     *
+     * Deletes Customer if there are no corresponding appointments for that customer in the database
      * @param actionEvent actionEvent Deletes Customer if there are no corresponding appointments for that customer in the database
      * @throws SQLException exception
      */
@@ -218,7 +221,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     *
+     * Exits the Customer table and goes back to the Appointment Table
      * @param actionEvent  Exits the Customer table and goes back to the Appointment Table*
      * @throws IOException exception
      */
@@ -246,13 +249,13 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     *
+     *  not used in application
      * @param actionEvent not used in application
      */
     public void onModifyApptTitle(ActionEvent actionEvent) {
     }
 
-    /**
+    /** Updates Customer record in the database and checks that they are all filled out
      * @param actionEvent Updates Customer record in the database and checks that they are all filled out
      */
     public void onUpdateCustToDB(ActionEvent actionEvent) {
@@ -318,7 +321,7 @@ public class CustomerTable implements Initializable {
         }
     }
 
-    /**
+    /** Pulls selected Customer data over to be modified in the appropriate fields
      * @param actionEvent Pulls selected Customer data over to be modified in the appropriate fields
      */
     public void OnModifySelectedCustomer(ActionEvent actionEvent) {
@@ -335,7 +338,7 @@ public class CustomerTable implements Initializable {
 
     }
 
-    /**
+    /** Populates State/Providence combo box with  corresponding data based on which country is selected
      * @param actionEvent Populates State/Providence combo box with  corresponding data based on which country is selected
      */
     public void OnCountryAction(ActionEvent actionEvent) {
@@ -345,7 +348,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     *
+     * returns true if fields are filled out
      * @return returns true if fields are filled out
      */
     public Boolean validateFieldsCust() {
@@ -411,7 +414,7 @@ public class CustomerTable implements Initializable {
     }
 
     /**
-     *
+     * not used in application
      * @param mouseEvent not used in application
      */
 

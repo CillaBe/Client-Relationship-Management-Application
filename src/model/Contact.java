@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Contact Class
+ */
 public class Contact {
     @FXML
    private static  int ContactID;
@@ -25,7 +28,7 @@ public class Contact {
    }
 
     /**
-     *
+     * Contact Constructor
      * @param ContactID Contact ID
      * @param ContactName Contact Name
      * @param ContactEmail Contact Email
@@ -39,8 +42,8 @@ public class Contact {
     }
 
     /**
-     *
-     * @param ContactName Contact Name
+     * Contact Constructor
+     * @param ContactName Contact Name Contact Name
      */
     public Contact(String ContactName){
 
@@ -50,7 +53,7 @@ public class Contact {
     }
 
     /**
-     *
+     * Gets Contact Id
      * @return Contact ID
      */
     public int returnContactID(){
@@ -58,7 +61,7 @@ public class Contact {
     }
 
     /**
-     *
+     * Gets Contact Name
      * @return Contact Name
      */
     public String returnContactName(){
@@ -66,7 +69,7 @@ public class Contact {
     }
 
     /**
-     *
+     * Gets Contact Name as String
      * @return Contact Name
      */
 
@@ -75,7 +78,7 @@ public class Contact {
     }
 
     /**
-     *
+     * Gets list of contact names
      * @return Contact Names
      */
     public static ObservableList<String> getContactNames(){

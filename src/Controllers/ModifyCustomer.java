@@ -11,6 +11,10 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Modify Customer
+ */
+
 public class ModifyCustomer  implements Initializable {
     @FXML
     private TextField ModifyCustomerID;
@@ -35,7 +39,7 @@ public class ModifyCustomer  implements Initializable {
     private Button ModifyCustomerExit;
 
     /**
-     *
+     * Initializes the Screen
      * @param url initialzes the screen
      * @param resourceBundle resource bundle
      */

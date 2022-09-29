@@ -28,6 +28,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**
+ * Reports
+ */
 public class Reports implements Initializable {
     @FXML
     private TableColumn CustApptID;
@@ -107,7 +110,7 @@ public class Reports implements Initializable {
     private ZoneId UTCID = ZoneId.of("UTC");
 
     /**
-     *
+     * Initializes the Screen
      * @param url initializes the screen
      * @param resourceBundle resource bundle
      */
@@ -139,7 +142,7 @@ public class Reports implements Initializable {
     }
 
     /**
-     *
+     * Function to populate Appointments based on ContactID
      * @param ContactId Function to populate Appointments based on ContactID
      */
    public void PopulateAppointmentonContactID(int ContactId) {
@@ -182,8 +185,8 @@ System.out.print(" Trying to populate appointments by ContactID");
 }
 
     /**
-     *
-     * @param CustomerId populate Appointments based on CustomerID
+     * Populate Appointments based on CustomerID
+     * @param CustomerId Populate Appointments based on CustomerID
      */
     public void PopulateAppointmentonCustomerID(int CustomerId) {
         System.out.print(" Trying to populate appointments by Customer ID ");
@@ -225,9 +228,9 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Converts string month to number
      * @param month month to convert to month
-     * @return returns corresponding number of montth
+     * @return returns corresponding number of month
      */
     public int MonthtoNumber(String month) {
         int monthNum = 0;
@@ -288,7 +291,7 @@ System.out.print(" Trying to populate appointments by ContactID");
 
 
     /**
-     *
+     * Sums Appointments by Type and Month
      * @param type type to sum in function
      * @param month month to sum in the function
      * @return returns total appointments by type and month
@@ -305,6 +308,11 @@ System.out.print(" Trying to populate appointments by ContactID");
 
 
     }
+
+    /**
+     *  Gets all months
+     * @return all months
+     */
     public static ObservableList<String> getAllMonths(){
         AllMonths.clear();
         String[] Months = {"January" , "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"};
@@ -313,7 +321,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this Application
      * @param actionEvent not used in this application
      */
 
@@ -322,7 +330,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param mouseEvent not used in this application
      */
 
@@ -330,7 +338,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param actionEvent not used in this application
      */
 
@@ -338,7 +346,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param mouseEvent not used in this application
      */
 
@@ -346,7 +354,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param actionEvent not used in this application
      */
 
@@ -354,7 +362,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param actionEvent not used in this application
      */
 
@@ -362,7 +370,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param mouseEvent not used in this application
      */
 
@@ -370,7 +378,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param actionEvent not used in this application
      */
 
@@ -378,7 +386,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Not used in this application
      * @param contextMenuEvent not used in this application
      */
 
@@ -394,7 +402,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Exits the Reports screen and sends user back to main appointment table screen
      * @param actionEvent exits the Reports screen and sends user back to main appointment table screen
      * @throws IOException Exception
      */
@@ -437,7 +445,7 @@ System.out.print(" Trying to populate appointments by ContactID");
     }
 
     /**
-     *
+     * Totals appointments by type and month and displays them in TotalTextBox
      * @param actionEvent totals appointments by type and month and displays them in TotalTextBox
      * @throws SQLException exception
      */
@@ -496,7 +504,8 @@ System.out.print(" Trying to populate appointments by ContactID");
     /** generated in scenebuilder and not used*/
     public void onApptTypeComboBox() {
     }
- /** @param actionEvent Populates schedule by contact table view when pressed*/
+ /** Populates schedule by contact table view when pressed
+  * @param actionEvent Populates schedule by contact table view when pressed*/
     public void onPopulateScheduleByContact(ActionEvent actionEvent) {
         String ContactName = String.valueOf(ContactComboBox.getSelectionModel().getSelectedItem());
         int contactId = JDBC.ConvertContactNameToContactID(ContactName);
@@ -508,7 +517,7 @@ System.out.print(" Trying to populate appointments by ContactID");
 
     public void onCustomerComboBox(ActionEvent actionEvent) {
     }
-    /**
+    /** Populates customer schedule table view
      * @param actionEvent populates customer schedule table view*/
 
     public void onPopulateCustScheduleButton(ActionEvent actionEvent) {

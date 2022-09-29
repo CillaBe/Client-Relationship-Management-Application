@@ -11,6 +11,9 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+/**
+ * Appointment Class
+ */
 public class Appointment {
     @FXML
     private int Appointment_ID;
@@ -59,7 +62,7 @@ public class Appointment {
     private static  ObservableList<String> AllTypes = FXCollections.observableArrayList();
 
     /**
-     *
+     * Appointment Constructor
      * @param Appointment_ID AppointmentID
      * @param Title Title
      * @param Description Description
@@ -96,13 +99,13 @@ public class Appointment {
     }
 
     /**
-     *
+     * Appointment Constructor
      * @param Type Type
      */
     public Appointment(String Type){ this.Type = Type;}
 
     /**
-     *
+     * Appointment Constructor
      * @param Appointment_ID Appointment Id
      * @param Customer_ID Customer ID
      * @param User_ID User ID
@@ -129,7 +132,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Appointment Constructor
      * @param Appointment_ID Appointment ID
      * @param Customer_ID Customer ID
      * @param User_ID User ID
@@ -154,6 +157,20 @@ public class Appointment {
         this.User_ID = User_ID;
         this.Contact_ID = Contact_ID;
     }
+
+    /** Appointment Constructor
+     *
+     * @param Appointment_ID Appointment ID
+     * @param Customer_ID Customer ID
+     * @param User_ID User ID
+     * @param Title Title
+     * @param Description Description
+     * @param Location Location
+     * @param Contact_ID Contact ID
+     * @param Type Type
+     * @param StartZoned Start Zoned
+     * @param EndZoned End Zoned
+     */
     public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, ZonedDateTime StartZoned,
                        ZonedDateTime EndZoned) {
         this.Appointment_ID = Appointment_ID;
@@ -169,7 +186,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Appointment Constructor
      * @param ContactID Contact ID
      * @param StartTimeStamp Start Timestamp
      * @param EndTimeStamp End Timestamp
@@ -182,7 +199,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Appointment Constructor
      * @param Appointment_ID Appointment ID
      * @param Customer_ID Customer ID
      * @param Title Title
@@ -203,31 +220,31 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Start Zoned
      * @return Start Zoned
      */
     public ZonedDateTime getStartZoned() {return  StartZoned;};
 
     /**
-     *
+     * Gets Start Zoned
      * @return set Start Zoned
      */
     public ZonedDateTime setStartZoned() {return StartZoned;}
 
     /**
-     *
+     * Get End Zoned
      * @return End Zoned
      */
     public ZonedDateTime getEndZoned() {return  EndZoned;}
 
     /**
-     *
+     * Gets End Zoned
      * @return set End Zoned
      */
     public ZonedDateTime setEndZoned() {return EndZoned;}
 
     /**
-     *
+     * Gets Start Time Stamp
      * @return StartTimeStamp
      */
 
@@ -236,7 +253,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets End Time Stamp
      * @return End Time stamp
      */
     public Timestamp getEndTimeStamp(){
@@ -244,7 +261,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Type by String
      * @return Type
      */
     public String toString(){
@@ -252,7 +269,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Appointment ID
      * @return Appointment_ID
      */
 
@@ -261,7 +278,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Sets Appointment ID
      * @param ID ID
      * @return sets Appt_ID
      */
@@ -271,7 +288,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Title
      * @return Title
      */
 
@@ -280,7 +297,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Sets Title
      * @param title Title
      * @return sets title
      */
@@ -290,15 +307,15 @@ public class Appointment {
     }
 
     /**
-     *
-     * @return Descriptions
+     *  Gets Description
+     * @return Description
      */
     public String getDescription(){
         return Description;
     }
 
     /**
-     *
+     * Sets Description
      * @param Descript Desciption
      */
     public void setDescriptions(String Descript){
@@ -306,7 +323,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Location
      * @return Location
      */
     public String getLocation(){
@@ -314,7 +331,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Sets Location
      * @param locate Location
      */
     public void setLocation(String locate){
@@ -322,7 +339,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Type
      * @return type
      */
     public String getType(){
@@ -330,7 +347,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Sets Type
      * @param TypeOfAppt Type of Appointment
      */
     public void setType(String TypeOfAppt){
@@ -338,7 +355,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Start
      * @return Start
      */
     public String getStart(){
@@ -346,13 +363,13 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Start Local
      * @return StartLocal
      */
     public LocalDateTime getStartLocal(){ return StartLocal;}
 
     /**
-     *
+     * Sets Start
      * @param startTime Start Time
      */
 
@@ -361,28 +378,27 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets End
      * @return End
      */
     public String getEnd(){
         return End;
     }
 
-    /**
-     *
-     * @return end End Time
-     */
 
+    /**
+     * Sets End
+     */
     public void setEnd(){ End = End; }
 
     /**
-     *
+     * Gets End Local
      * @return EndLocal
      */
     public LocalDateTime getEndLocal(){return EndLocal;}
 
     /**
-     *
+     * Sets End
      * @param End End String
      */
     public  void  setEnd(String End){
@@ -390,7 +406,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets User ID
      * @return User_ID
      */
     public int getUser_ID(){
@@ -398,7 +414,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Sets User ID
      * @param UID User ID
      */
     public void setUser_ID(int UID){
@@ -406,7 +422,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets Customer ID
      * @return Customer_ID
      */
     public int getCustomer_ID(){
@@ -414,7 +430,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Set Customer ID
      * @param Cust_ID Customer ID
      */
     public void  setCustomer_ID(int Cust_ID){
@@ -422,7 +438,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets ContactID
      * @return Contact_ID
      */
     public int getContact_ID(){
@@ -430,7 +446,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Sets Contact ID
      * @param ContactID Contact ID
      */
     public void setGetContact_ID(int ContactID){
@@ -438,7 +454,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets all Appointments
      * @return allAppointments
      */
     public static ObservableList<Appointment> getAllAppointments(){
@@ -446,7 +462,7 @@ public class Appointment {
     }
 
     /**
-     *
+     * Gets All Appointment Types
      * @return allAppt Types
      */
     public static ObservableList<String> getApptTypes(){

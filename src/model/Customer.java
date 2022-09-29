@@ -10,6 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Customer Class
+ */
 public class Customer {
     @FXML
     private int CustomerID;
@@ -31,7 +34,7 @@ public class Customer {
     private static  ObservableList<String> AllCustomers = FXCollections.observableArrayList();
 
     /**
-     *
+     * Customer Constructor
      * @param CustomerID Customer ID
      * @param CustomerName Customer Name
      * @param Address Address
@@ -55,13 +58,15 @@ public class Customer {
 
     }
 
-
+    /**
+     * Customer Constructor
+     */
     public Customer(){
 
     }
 
     /**
-     *
+     * Sets Customer Name
      * @param CustomerName Customer Name
      */
 
@@ -72,7 +77,7 @@ public class Customer {
     }
 
     /**
-     *
+     * Gets Customer Name as string
      * @return Customer Name
      */
     @Override
@@ -82,7 +87,7 @@ public class Customer {
     }
 
     /**
-     *
+     * Gets List of Customer Names
      * @return CustomerNames
      */
 
@@ -113,7 +118,7 @@ public class Customer {
 
 
     /**
-     *
+     * Gets Customer ID
      * @return CustomerID
      */
     public int getCustomerID() {
@@ -121,55 +126,55 @@ public class Customer {
     }
 
     /**
-     *
+     * Gets Division ID
      * @return Division ID
      */
     public int getDivisionID() { return  DivisionID;}
 
     /**
-     *
+     * Gets Customer Name
      * @return CustomerName
      */
 
     public String getCustomerName() {return CustomerName;}
 
     /**
-     *
+     * Gets Address
      * @return Address
      */
 
     public  String getAddress() {return Address;}
 
     /**
-     *
+     * Gets Postal Code
      * @return PostalCode
      */
 
     public  String getPostalCode () {return PostalCode;}
 
     /**
-     *
+     * Gets phone number
      * @return Phone
      */
 
     public  String getPhone (){return Phone;}
 
     /**
-     *
+     * Gets Division
      * @return Division
      */
 
     public String getDivision(){return Division;}
 
     /**
-     *
+     * Gets Country
      * @return Country
      */
 
     public String getCountry(){return Country;}
 
     /**
-     *
+     * Conerts Divsion Id to Division
      * @param DivisionID Division ID
      * @return Division
      */
@@ -203,9 +208,9 @@ public class Customer {
 
 
     /**
-     *
-     * @param DivisionID
-     * @return Country
+     * Conversion Division Id to Country
+     * @param DivisionID Division ID
+     * @return Country Country
      */
     public static String convertToCountry ( int DivisionID ){
         String Country = null;
@@ -237,8 +242,8 @@ public class Customer {
     }
 
     /**
-     *
-     * @param Division
+     * Converts Divsion to Division Id
+     * @param Division Division
      * @return Division ID
      */
 

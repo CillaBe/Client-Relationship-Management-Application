@@ -2,6 +2,9 @@ package Helper;
 
 import java.sql.*;
 
+/**
+ * Java Database Connection
+ */
 public class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -43,9 +46,9 @@ public class JDBC {
     }
 
     /**
-     *
+     * converts Contact Name to Contact ID
      * @param contactName take contact name and converts to contact ID
-     * @return ContactName
+     * @return Contact ID
      */
     public static int ConvertContactNameToContactID ( String contactName) {
 
@@ -77,7 +80,7 @@ public class JDBC {
 
 
     /**
-     *
+     * Converts customer name to customer ID
      * @param customerName customer name customer name
      * @return Customer ID
      */
@@ -110,7 +113,7 @@ public class JDBC {
     }
 
     /**
-     *
+     * Converts User Name to User ID
      * @param userName userName
      * @return userID
      */
@@ -142,7 +145,7 @@ public class JDBC {
     }
 
     /**
-     *
+     * Converts User ID to User Name
      * @param UserID UserID
      * @return Username
      */
@@ -174,7 +177,7 @@ public class JDBC {
     }
 
     /**
-     *
+     * Converts Country Name to Country ID
      * @param CountryName Country Name
      * @return Country ID
      */

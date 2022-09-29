@@ -1,3 +1,6 @@
+/**
+ * Controllers package
+ */
 package Controllers;
 
 import Helper.JDBC;
@@ -30,6 +33,9 @@ import java.util.ResourceBundle;
 import static java.time.LocalTime.now;
 import static javafx.collections.FXCollections.observableList;
 
+/**
+ * Add Appointment Class
+ */
 public class AddAppt implements Initializable {
     @FXML
     private TableView<Customer> CustomerTable;
@@ -112,7 +118,7 @@ public class AddAppt implements Initializable {
 
 
     /**
-     *
+     * Initializes the screen
      * @param url initializes screen
      * @param resourceBundle resourceBundle
      */
@@ -160,7 +166,7 @@ public class AddAppt implements Initializable {
     }
 
     /**
-     *
+     * returns true if all fields are validated
      * @return returns true if all fields are validated
      */
 
@@ -259,7 +265,14 @@ public class AddAppt implements Initializable {
 
 
     }
-  /** Checks for overlapping appointments based on customerID*/
+
+    /**
+     * Checks for overlapping appointments based on customerID
+     * @param TimeStartFromApp  Start Time
+     * @param TimeEndFromApp End Time
+     * @param customerID Customer ID
+     * @return boolean
+     */
     private boolean isOverLapping(Timestamp TimeStartFromApp, Timestamp TimeEndFromApp, int customerID) {
         boolean overlaps = false;
         ObservableList<Appointment> AllAppointments = FXCollections.observableArrayList();
@@ -397,12 +410,13 @@ public class AddAppt implements Initializable {
      * @param mouseEvent not used in this application */
     public void onAddApptEndDateClicked(MouseEvent mouseEvent) {
     }
- /** @param actionEvent  validates fields then saves appointment to database if all fields are filled out and there are no overlapping appointments*/
+ /** validates fields then saves appointment to database if all fields are filled out and there are no overlapping appointments
+  * @param actionEvent  validates fields then saves appointment to database if all fields are filled out and there are no overlapping appointments*/
     public void onSaveAddAppt(ActionEvent actionEvent) {
 
 
 
-        /** Check all feilds are filled out */
+        /** Check all fields are filled out */
 
         Boolean Overlapping;
         UpdateCustomerIDTextBox();
@@ -563,7 +577,7 @@ public class AddAppt implements Initializable {
 
 
     /**
-     *
+     * Exits Add Appointment Screen
      * @param actionEvent Exits screen
      * @throws IOException exception
      */
@@ -586,6 +600,12 @@ public class AddAppt implements Initializable {
      * @param mouseEvent not used in this application */
     public void onAddApptEndTimeMin(MouseEvent mouseEvent) {
     }
+
+    /**
+     * Converts Local Time to Timestamp
+     * @param localTimeinsert Local Time
+     * @param localDateinsert Local Date
+     */
     public void ConvertLocalTimeAndDatetoTimeStamp( LocalTime localTimeinsert, LocalDate localDateinsert){
 
         System.out.println(" Localdate date from function " + localDateinsert + " ");

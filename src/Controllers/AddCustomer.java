@@ -19,6 +19,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Add Customer Class
+ */
 public class AddCustomer implements Initializable {
     @FXML
     private Label CustomerName;
@@ -50,7 +53,7 @@ public class AddCustomer implements Initializable {
     private int newInt;
 
     /**
-     *
+     * Initializes Screen
      * @param url initilizes screen
      * @param resourceBundle resourceBundle
      */
@@ -100,7 +103,7 @@ public class AddCustomer implements Initializable {
     public void onAddCustomerPostalCode(ActionEvent actionEvent) {
     }
 
-    /**
+    /** Adds Customer to datatbase if all fields are filled out
      * @param actionEvent Adds Customer to datatbase if all fields are filled out
      */
     public void onSaveAddCustomer(ActionEvent actionEvent) {
@@ -160,7 +163,8 @@ public class AddCustomer implements Initializable {
      * @param actionEvent not used in this application */
     public void onAddCustomerPhoneNumber(ActionEvent actionEvent) {
     }
- /** @param actionEvent Exits Add Customer Screen and sends user back to Customer Database Screen*/
+ /** Add Customer Screen and sends user back to Customer Database Screen
+  * @param actionEvent Exits Add Customer Screen and sends user back to Customer Database Screen*/
     public void onAddCustomerExit(ActionEvent actionEvent) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("/Views/CustomerTable.fxml"));
@@ -178,7 +182,7 @@ public class AddCustomer implements Initializable {
         }
     }
 
-    /**
+    /**Populates State/Providence combo box with  corresponding data based on which country is selected
      * @param actionEvent Populates State/Providence combo box with  corresponding data based on which country is selected
      */
     public void OnCountryComboBox(ActionEvent actionEvent) {
@@ -193,7 +197,7 @@ public class AddCustomer implements Initializable {
     }
 
     /**
-     *
+     *true if customers are validated, false if not
      * @return true if customers are validated, false if not
      */
     public boolean ValidateCustomers() {

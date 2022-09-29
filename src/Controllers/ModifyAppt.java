@@ -31,6 +31,9 @@ import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+/**
+ * Modify  Appointment
+ */
 public class ModifyAppt implements Initializable {
     @FXML
     private ComboBox ModifyApptCustComboBox;
@@ -121,7 +124,7 @@ public class ModifyAppt implements Initializable {
     private Connection connection;
 
     /**
-     *
+     * Initializes Screen
      * @param url inializes screen
      * @param resourceBundle resource Bundle
      */
@@ -219,7 +222,8 @@ public class ModifyAppt implements Initializable {
 
 
 
-    /** @param actionEvent This method checks if all fields are filled out and there are no overlapping appointments, if these conditions are met the table
+    /** This method checks if all fields are filled out and there are no overlapping appointments, if these conditions are met the table
+     *  @param actionEvent This method checks if all fields are filled out and there are no overlapping appointments, if these conditions are met the table
      * saves to the database.
      *
      * */
@@ -351,7 +355,7 @@ public class ModifyAppt implements Initializable {
         }
 
     /**
-     *
+     * Exits screen
      * @param actionEvent Exits screen
      * @throws IOException Exception
      */
@@ -368,14 +372,14 @@ public class ModifyAppt implements Initializable {
     }
 
     /**
-     *
+     * Not used in this application
      * @param tableViewSortEvent not used in this application
      */
     public void onAppointmentTable(SortEvent<TableView> tableViewSortEvent) {
     }
 
     /**
-     *
+     * Populates all appointments
      * @throws SQLException populates all appointments
      */
     public void PopulateAllAppointments() throws SQLException {
@@ -424,7 +428,7 @@ public class ModifyAppt implements Initializable {
     }
 
     /**
-     *
+     * This method moves the data from the Appointment Table view to the appropriate spots to edit
      * @param actionEvent This method moves the data from the Appointment Table view to the appropriate spots to edit
      * @throws ParseException exception
      */
@@ -469,7 +473,7 @@ public class ModifyAppt implements Initializable {
     }
 
     /**
-     *
+     * Returns true if all fields are filled out, otherwise returns false
      * @return returns true if all fields are filled out, otherwise returns false
      */
     public Boolean validateFields() {
@@ -565,7 +569,7 @@ public class ModifyAppt implements Initializable {
     }
 
     /**
-     *
+     * Checks if appointments are overlapping
      * @param TimeStartFromApp Start time from input
      * @param TimeEndFromApp End time from input
      * @param customerID Customer ID to check for overlapping appointments

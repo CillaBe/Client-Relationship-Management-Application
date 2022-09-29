@@ -1,3 +1,6 @@
+/**
+ * Model Package
+ */
 package model;
 
 import javafx.collections.FXCollections;
@@ -10,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * Country Class
+ */
 public class Country {
     @FXML
     private static  int CountryID;
@@ -24,7 +29,7 @@ public class Country {
     };
 
     /**
-     *
+     * Country Constuctor
      * @param CountryID Country ID
      * @param CountryName Country Name
      */
@@ -36,7 +41,7 @@ public class Country {
     }
 
     /**
-     *
+     * Sets Country Name
      * @param CountryName Country Name
      */
     public Country(String CountryName){
@@ -47,7 +52,7 @@ public class Country {
     }
 
     /**
-     *
+     * Gets Country Name as string
      * @return Country Name
      */
     public String toString(){
@@ -55,7 +60,7 @@ public class Country {
     }
 
     /**
-     *
+     * Gets list of Country Names
      * @return Country Names
      */
     public static ObservableList<String> getCountryNames(){

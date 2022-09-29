@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
+/**
+ * Main Class
+ */
 public class Main extends Application {
     /**
      *
@@ -25,7 +28,7 @@ public class Main extends Application {
     }
 
     /**
-     *
+     * Main method. This is the first method that gets called when the application is run and it adds in sample data
      * @param args This is the main method. This is the first method that gets called when the application is run and it adds in sample data
      */
     public static void main(String[] args) {
