@@ -78,6 +78,34 @@ public class JDBC {
         return ContactID;
     }
 
+    public static String  ConvertContactIDtoName ( int ContactId) {
+
+        String name = null;
+        try {
+            String statement = ("SELECT Contact_Name FROM contacts WHERE Contact_ID = ?");
+
+            PreparedStatement ps = JDBC.openConnection().prepareStatement(statement);
+            ps.setInt(1, ContactId);
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                name = rs.getString("Contact_Name");
+                System.out.println(" Contact name  from ContactID is " + name);
+
+
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println("Error returning Contact Name from Contact IC");
+
+
+        }
+        return name;
+    }
+
 
     /**
      * Converts customer name to customer ID

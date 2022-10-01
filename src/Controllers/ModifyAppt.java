@@ -466,6 +466,10 @@ public class ModifyAppt implements Initializable {
         ModifyApptType.setText(SelectedAppointment.getType());
         ModifyApptID.setText(String.valueOf(SelectedAppointment.getAppointment_ID()));
 
+        int contactID = SelectedAppointment.getContact_ID();
+        String ContactName = JDBC.ConvertContactIDtoName(contactID);
+        ModifyApptContactBox.setValue(ContactName);
+
 
 
 
