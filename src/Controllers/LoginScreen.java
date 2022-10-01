@@ -133,7 +133,9 @@ public class LoginScreen implements Initializable {
             if (language == "fr") {
                 newAlert.setContentText("Erreur, le nom d'utilisateur et le mot de passe ne sont pas corrects, veuillez réessayer");
             }
-            newAlert.setContentText("Error, Username and password are not correct, please try again");
+            if ( language == "en") {
+                newAlert.setContentText("Error, Username and password are not correct, please try again");
+            }
             newAlert.showAndWait();
             login = (UserName + " " + now + " " + "Unsuccessful Login Attempt");
             outputfile.println(login);
@@ -142,6 +144,7 @@ public class LoginScreen implements Initializable {
 
 
         } else {
+
             login = (UserName + " " + now + " " + "Successful Login Attempt");
             outputfile.println(login);
             outputfile.close();
@@ -150,8 +153,10 @@ public class LoginScreen implements Initializable {
             if (language == "fr") {
                 newAlert.setContentText("Connexion réussie!");
             }
+            if ( language == "en") {
 
-            newAlert.setContentText("Login Succesful!");
+                newAlert.setContentText("Login Succesful!");
+            }
             newAlert.showAndWait();
             Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/Views/AppointmentTable.fxml")));
 
