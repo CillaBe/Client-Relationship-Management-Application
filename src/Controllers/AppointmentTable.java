@@ -146,7 +146,7 @@ public class AppointmentTable implements Initializable {
     }
 
     /**
-     *This method checks if there are any appts with in 15 mins of logging in and alerts if there are or not, contains first lambda expression.
+     *This method checks if there are any appts with in 15 mins of logging in and alerts if there are or not.
      * @throws SQLException Exception
      *          */
 
@@ -283,7 +283,7 @@ public class AppointmentTable implements Initializable {
      */
     public void onAppointmentTable(SortEvent<TableView> tableViewSortEvent) {
     }
- /**This method populates the month view for the all Appointments Calender
+ /**This method populates the month view for the all Appointments Calender contains first lambda expression which is used to filter through list of appointments
   * @param  actionEvent populated month view, contains second lambda expression which is used to filter through list of appointments*/
 
     public void onMonthView(ActionEvent actionEvent) {
@@ -335,8 +335,8 @@ public class AppointmentTable implements Initializable {
             System.out.println(" Error updating table month view");
         }
     }
-    /**This method populates the weekly view for the all Appointments Calender
-     * @param  actionEvent populates weekly view . A third lambda expression is used to filter through appointments and sort them by week*/
+    /**This method populates the weekly view for the all Appointments Calender, contains second lambda expression. It  is used to filter through appointments and sort them by week
+     * @param  actionEvent populates weekly view . */
     public void onWeekView(ActionEvent actionEvent) {
         System.out.print(" Trying to populate weekly appointments");
         try {
