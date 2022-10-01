@@ -88,7 +88,7 @@ public class AppointmentTable implements Initializable {
     @FXML
     private ObservableList<Appointment> AllTableAppointments = FXCollections.observableArrayList();
     @FXML
-    private ObservableList AppointmentStartTimesOL = FXCollections.observableArrayList();
+    private ObservableList<Appointment> AppointmentStartTimesOL = FXCollections.observableArrayList();
     @FXML
     private  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M-d-yyyy h:mm a");
     @FXML
@@ -152,6 +152,10 @@ public class AppointmentTable implements Initializable {
 
         public void CheckForAppointments() throws SQLException {
             System.out.println(" Trying to check for appointments 15 minutes from now");
+            Boolean apptIn15 = false;
+            int ApptId = 0;
+            LocalDateTime ApptTimeFromDB;
+            String FormattedTime = null;
             try {
                 String statement = "SELECT  appointments.Appointment_ID,appointments.Customer_ID,appointments.User_ID," +
                         "appointments.Title,appointments.Description,appointments.Location," +
@@ -160,7 +164,7 @@ public class AppointmentTable implements Initializable {
                 connection = JDBC.openConnection();
                 ResultSet rs = connection.createStatement().executeQuery(statement);
                 System.out.print(" Query for appt times successful!");
-                while(rs.next())  {
+                while(rs.next()) {
                     int Appointment_ID = rs.getInt("Appointment_ID");
                     int Customer_ID = rs.getInt("Customer_ID");
                     int User_ID = rs.getInt("User_ID");
@@ -170,51 +174,51 @@ public class AppointmentTable implements Initializable {
                     int Contact_ID = rs.getInt("Contact_ID");
                     String Type = rs.getString("Type");
 
-                    Timestamp EndTimeFromDB= rs.getTimestamp("End");
-                    ZonedDateTime ZonedEnd = EndTimeFromDB.toLocalDateTime().atZone(UTCID);
-                    ZonedDateTime LocalEnd =ZonedEnd.withZoneSameInstant(CurrentZoneID);
+                    Timestamp timeStart = rs.getTimestamp("Start");
+                    Timestamp timeEnd = rs.getTimestamp("End");
 
-                    Timestamp StartTimefromDB = rs.getTimestamp("Start");
-                    ZonedDateTime ZonedStart = StartTimefromDB.toLocalDateTime().atZone(UTCID);
-                    ZonedDateTime LocalStart =ZonedStart.withZoneSameInstant(CurrentZoneID);
+                    LocalDateTime start = timeStart.toLocalDateTime();
+                    LocalDateTime end = timeEnd.toLocalDateTime();
+
+                    String FormattedTableStart = start.format(formatter);
+                    String FormattedTableEnd = end.format(formatter);
 
                     System.out.println(" Try to add appts to list");
-                    AppointmentStartTimesOL.add(new Appointment(Appointment_ID,Customer_ID,User_ID,Title,Description,Location,Contact_ID,Type,LocalStart.toString(),LocalEnd.toString()));
-                    System.out.println("Added all start times to list" + "Start and end Time are " + LocalStart + " " + LocalEnd);
+                    AppointmentStartTimesOL.add(new Appointment(Appointment_ID, Customer_ID, User_ID, Title, Description, Location, Contact_ID, Type, start, end));
+                    System.out.println("Added all start times to list" + "Start and end Time are " + start + " " + end);
+                    LocalDateTime now = LocalDateTime.now();
+                    LocalDateTime FifteenFromNow = LocalDateTime.now().plusMinutes(15);
+
+                    for (Appointment test : AppointmentStartTimesOL) {
+                        if (test.getStartLocal().isAfter(now) && test.getStartLocal().isBefore(FifteenFromNow)) {
+                            ApptId = test.getAppointment_ID();
+                            ApptTimeFromDB = test.getStartLocal();
+                            FormattedTime = ApptTimeFromDB.format(formatter);
+                            apptIn15 = true;
+                        }
+                    }
 
 
                 }
-                LocalDateTime today = LocalDateTime.now();
-                LocalDateTime FifteenMinutes = today.plusMinutes(15);
- /** First Lambda expression used to check if there are any appointments in the next 15 minutes by going through a filtered list of the appointments*/
-                FilteredList<Appointment> FilteredByTime = new FilteredList<>(AppointmentStartTimesOL);
-                FilteredByTime.setPredicate(TimeToCheck -> {
-                    LocalDateTime TimeBeingChecked = LocalDateTime.parse(TimeToCheck.getStart().substring(0,16), formatterFor15MinChecking);
-                    return TimeBeingChecked.isAfter(today.minusMinutes(1)) && TimeBeingChecked.isBefore(FifteenMinutes);
-                        });
-                    if (FilteredByTime.isEmpty()) {
-                        System.out.println(" No appts within 15 mins");
-                        Alert NoApptAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                        NoApptAlert.setContentText("You have no appointments in the next 15 minutes");
-                        NoApptAlert.showAndWait();
-                    }
-                        else {
-                            int ApptID = FilteredByTime.get(0).getAppointment_ID();
-                            String Description = FilteredByTime.get(0).getDescription();
-                            String StartTime = FilteredByTime.get(0).getStart().substring(0,16);
-
-                            Alert ApptAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                            ApptAlert.setHeaderText("You have the following appointments in the next 15 minutes.");
-                            ApptAlert.setContentText("");
-                            System.out.println(" appts in next 15 mins " + "Appointment ID: " + ApptID + " Description: "
-                                    + Description + " Start Time " + FilteredByTime);
-                            ApptAlert.showAndWait();
-                        }
 
 
             }
             catch (SQLException e){
                 System.out.println(" Error selecting appts times");
+            }
+
+            if (apptIn15 == true ){
+
+                Alert ApptAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                ApptAlert.setContentText("You have the following appointment in the next 15 minutes:  Appointment ID: "
+                        + ApptId + " Date and time: "  + FormattedTime + " ");
+                ApptAlert.showAndWait();
+            }
+            if (apptIn15 == false ){
+                System.out.println(" No appts within 15 mins");
+                Alert NoApptAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                NoApptAlert.setContentText("You have no appointments in the next 15 minutes");
+                NoApptAlert.showAndWait();
             }
 
         }

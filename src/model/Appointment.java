@@ -141,21 +141,23 @@ public class Appointment {
      * @param Location Location
      * @param Contact_ID Contact ID
      * @param Type Type
-     * @param Start Start
-     * @param End End
+     * @param StartLocal Start
+     * @param EndLocal End
      */
-    public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, LocalDateTime Start,
-                       LocalDateTime End) {
+    public Appointment(int Appointment_ID, int Customer_ID,int User_ID,String Title, String Description, String Location,int Contact_ID, String Type, LocalDateTime StartLocal,
+                       LocalDateTime EndLocal) {
         this.Appointment_ID = Appointment_ID;
         this.Title = Title;
         this.Description = Description;
         this.Location = Location;
         this.Type = Type;
-        this.StartLocal = Start;
-        this.EndLocal = End;
+        this.StartLocal = StartLocal;
+        this.EndLocal = EndLocal;
         this.Customer_ID = Customer_ID;
         this.User_ID = User_ID;
         this.Contact_ID = Contact_ID;
+
+
     }
 
     /** Appointment Constructor
@@ -369,6 +371,12 @@ public class Appointment {
     public LocalDateTime getStartLocal(){ return StartLocal;}
 
     /**
+     * Sets Local Start
+     * @param StartLocal Sets Start Local
+     */
+    public void setStartLocal ( LocalDateTime StartLocal) {StartLocal = StartLocal;}
+
+    /**
      * Sets Start
      * @param startTime Start Time
      */
@@ -398,9 +406,15 @@ public class Appointment {
     public LocalDateTime getEndLocal(){return EndLocal;}
 
     /**
+     * sets End Local
+     * @param EndLocal
+     */
+    public void setEndLocal(LocalDateTime EndLocal){ EndLocal = EndLocal;}
+    /**
      * Sets End
      * @param End End String
      */
+
     public  void  setEnd(String End){
         End = End;
     }
