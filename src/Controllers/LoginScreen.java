@@ -88,6 +88,7 @@ public class LoginScreen implements Initializable {
             PasswordText.setText("Mot de passe");
             LocationDetectedText.setText("Emplacement détecté");
             ExitButtonText.setText("Sortir");
+            EnterText.setText("Entrer");
 
         }
 

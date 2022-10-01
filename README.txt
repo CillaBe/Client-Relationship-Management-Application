@@ -4,6 +4,7 @@ This application will allow the user to add, modify and delete customers as well
 Author: Priscilla Hennig
 Contact Info: Phennig@wgu.edu
 MySQL Connector driver version number used: mysql-connector-java-8.0.26
+Inteliji Version 2021.1
 Student Application Version: JigSawPuzzle 2003.1234 Version 4
 Date: September 22 2022
 
